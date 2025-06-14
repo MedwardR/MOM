@@ -1,17 +1,43 @@
+using Serilog;
+
 namespace MOM
 {
     internal static class Program
     {
-        /// <summary>
-        ///  The main entry point for the application.
-        /// </summary>
+		public static string Name { get => "MOM"; }
+		public static int Version { get => 1; }
+
+		public static bool IsDevelopmentEnvironment
+		{
+			get
+			{
+				string debugFile = GetSavedFile("debug");
+				return File.Exists(debugFile);
+			}
+		}
+
         [STAThread]
-        static void Main()
+        private static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new Form1());
+			InitializeLogger();
+			Application.Run(new frmLogin());
+			Log.CloseAndFlush();
         }
-    }
+
+		private static void InitializeLogger()
+		{
+			var logFile = GetSavedFile("logs/log.txt");
+			var loggerConfiguration = new LoggerConfiguration();
+			loggerConfiguration.MinimumLevel.Debug();
+			loggerConfiguration.WriteTo.File(logFile, rollingInterval: RollingInterval.Day);
+			Log.Logger = loggerConfiguration.CreateLogger();
+		}
+
+		public static string GetSavedFile(string filename)
+		{
+			string programFiles = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+			return Path.Combine(programFiles, Name, filename);
+		}
+	}
 }

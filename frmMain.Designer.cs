@@ -1,6 +1,6 @@
 ﻿namespace MOM
 {
-    partial class Form1
+    partial class frmMain
     {
         /// <summary>
         ///  Required designer variable.
@@ -162,12 +162,12 @@
 			// tableLayoutPanel2
 			// 
 			tableLayoutPanel2.ColumnCount = 6;
-			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666718F));
 			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666679F));
-			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666679F));
-			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666679F));
-			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666679F));
-			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666679F));
+			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666641F));
+			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666641F));
+			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666641F));
+			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666641F));
+			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666641F));
 			tableLayoutPanel2.Controls.Add(textBox7, 4, 5);
 			tableLayoutPanel2.Controls.Add(label7, 4, 4);
 			tableLayoutPanel2.Controls.Add(textBox3, 0, 3);
@@ -198,7 +198,7 @@
 			tableLayoutPanel2.RowStyles.Add(new RowStyle());
 			tableLayoutPanel2.RowStyles.Add(new RowStyle());
 			tableLayoutPanel2.RowStyles.Add(new RowStyle());
-			tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 30F));
+			tableLayoutPanel2.RowStyles.Add(new RowStyle());
 			tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
 			tableLayoutPanel2.Size = new Size(482, 481);
 			tableLayoutPanel2.TabIndex = 4;
@@ -268,7 +268,6 @@
 			textBox2.Name = "textBox2";
 			textBox2.Size = new Size(476, 27);
 			textBox2.TabIndex = 10;
-			textBox2.TextChanged += textBox2_TextChanged;
 			// 
 			// label4
 			// 
@@ -394,9 +393,9 @@
 			// 
 			flowLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 			tableLayoutPanel2.SetColumnSpan(flowLayoutPanel1, 6);
-			flowLayoutPanel1.Location = new Point(3, 245);
+			flowLayoutPanel1.Location = new Point(3, 235);
 			flowLayoutPanel1.Name = "flowLayoutPanel1";
-			flowLayoutPanel1.Size = new Size(476, 233);
+			flowLayoutPanel1.Size = new Size(476, 243);
 			flowLayoutPanel1.TabIndex = 82;
 			// 
 			// Form1
