@@ -4,6 +4,9 @@ namespace MOM
 {
 	public partial class frmLogin : Form
 	{
+		private AppDbContext? _db;
+		private ListBox? _log;
+
 		public frmLogin()
 		{
 			InitializeComponent();
@@ -13,19 +16,12 @@ namespace MOM
 		private async void InitializeAppAsync()
 		{
 			tableLayoutPanel1.Visible = false;
-			using var log = new ListBox
+			_log = new ListBox
 			{
 				Dock = DockStyle.Fill,
 				IntegralHeight = false,
 			};
-			Controls.Add(log);
-
-			void Log(string message, bool error = false)
-			{
-				log.Items.Add(message);
-				if (error) Serilog.Log.Error(message);
-				else Serilog.Log.Information(message);
-			};
+			Controls.Add(_log);
 
 			Log("Checking for updates...");
 			try
@@ -38,13 +34,32 @@ namespace MOM
 				Log("An error occurred while checking for updates: " + ex.Message, true);
 			}
 
+			var connectionStringBuilder = new Npgsql.NpgsqlConnectionStringBuilder
+			{
+				Database = "mom",
+			};
+			if (Program.IsDevelopmentEnvironment)
+			{
+				connectionStringBuilder.Port = 5432;
+				connectionStringBuilder.Host = "localhost";
+				connectionStringBuilder.Username = "postgres";
+				connectionStringBuilder.Password = "postgres";
+			}
+			else
+			{
+				// use real server
+			}
+			var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+			string connectionString = connectionStringBuilder.ToString();
+			optionsBuilder.UseNpgsql(connectionString);
+			_db = new AppDbContext(optionsBuilder.Options);
+
 			Log("Connecting to database...");
-			var db = AppDbContext.CreateAutomatically();
 			try
 			{
-				await db.Database.OpenConnectionAsync();
+				await _db.Database.OpenConnectionAsync();
 				Log("Successfully connected to database");
-				await db.Database.CloseConnectionAsync();
+				await _db.Database.CloseConnectionAsync();
 			}
 			catch (Exception ex)
 			{
@@ -52,9 +67,17 @@ namespace MOM
 				return;
 			}
 
+			Controls.Remove(_log);
+			_log.Dispose();
+			_log = null;
+			tableLayoutPanel1.Visible = true;
+		}
 
-
-			Controls.Remove(log);
+		private void Log(string message, bool error = false)
+		{
+			_log?.Items.Add(message);
+			if (error) Serilog.Log.Error(message);
+			else Serilog.Log.Information(message);
 		}
 	}
 }

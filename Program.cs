@@ -16,12 +16,30 @@ namespace MOM
 			}
 		}
 
-        [STAThread]
+		public static string GetSavedFile(string filename)
+		{
+			string programFiles = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+			return Path.Combine(programFiles, Name, filename);
+		}
+
+		[STAThread]
         private static void Main()
         {
+			Application.ThreadException += (s, e) =>
+			{
+				HandleException(e.Exception, "An unhandled UI exception occurred");
+			};
+			AppDomain.CurrentDomain.UnhandledException += (s, e) =>
+			{
+				HandleException(e.ExceptionObject as Exception, "An unhandled non-UI exception occurred");
+			};
+
             ApplicationConfiguration.Initialize();
 			InitializeLogger();
+
+			Log.Information("### APPLICATION START ###");
 			Application.Run(new frmLogin());
+
 			Log.CloseAndFlush();
         }
 
@@ -34,10 +52,11 @@ namespace MOM
 			Log.Logger = loggerConfiguration.CreateLogger();
 		}
 
-		public static string GetSavedFile(string filename)
+		private static void HandleException(Exception? ex, string context)
 		{
-			string programFiles = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
-			return Path.Combine(programFiles, Name, filename);
+			Log.Error(ex, context);
+			using var frm = new frmError(ex);
+			frm.ShowDialog();
 		}
 	}
 }
