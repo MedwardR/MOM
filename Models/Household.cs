@@ -4,7 +4,7 @@ namespace MOM.Models
 {
 	public class Household
 	{
-		public int HouseholdId { get; set; }
+		public int Id { get; set; }
 
 		[Required]
 		public required string Name { get; set; }

@@ -3,17 +3,11 @@ using MOM.Models;
 
 namespace MOM
 {
-	public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
+	public class AppDbContext : DbContext
 	{
 		public DbSet<Household> Households { get; set; }
 
-		public static AppDbContext CreateAutomatically()
-		{
-			var postgresOptions = CreateOptionsForPostgreSQL();
-			return new AppDbContext(postgresOptions);
-		}
-
-		private static DbContextOptions<AppDbContext> CreateOptionsForPostgreSQL()
+		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
 			var connectionStringBuilder = new Npgsql.NpgsqlConnectionStringBuilder
 			{
@@ -29,11 +23,15 @@ namespace MOM
 			else
 			{
 				// use real server
+				throw new NotImplementedException();
 			}
-			var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
 			string connectionString = connectionStringBuilder.ToString();
 			optionsBuilder.UseNpgsql(connectionString);
-			return optionsBuilder.Options;
+		}
+
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			modelBuilder.Entity<Household>();
 		}
 	}
 }
