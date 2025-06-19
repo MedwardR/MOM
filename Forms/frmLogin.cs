@@ -23,18 +23,6 @@ namespace MOM
 			};
 			Controls.Add(_log);
 
-			await UpdateProgramAsync();
-
-			await InitializeAndUpdateDatabaseAsync();
-
-			Controls.Remove(_log);
-			_log.Dispose();
-			_log = null;
-			tableLayoutPanel1.Visible = true;
-		}
-
-		private async Task UpdateProgramAsync()
-		{
 			Log("Checking for updates...");
 			try
 			{
@@ -45,10 +33,7 @@ namespace MOM
 			{
 				Log(ex, "An error occurred while checking for updates");
 			}
-		}
 
-		private async Task InitializeAndUpdateDatabaseAsync()
-		{
 			Log("Configuring database connection...");
 			try
 			{
@@ -80,6 +65,11 @@ namespace MOM
 				Log(ex, "Failed to update database");
 				return;
 			}
+
+			Controls.Remove(_log);
+			_log.Dispose();
+			_log = null;
+			tableLayoutPanel1.Visible = true;
 		}
 
 		private void Log(string message)
@@ -91,6 +81,43 @@ namespace MOM
 		{
 			_log?.Items.Add(message);
 			Serilog.Log.Error(ex, message);
+		}
+
+		private void tbUsername_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+			{
+				tbPassword.Focus();
+			}
+		}
+
+		private void tbPassword_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Enter)
+			{
+				LoginAsync();
+			}
+		}
+
+		private void btnLogin_Click(object sender, EventArgs e)
+		{
+			LoginAsync();
+		}
+
+		private async void LoginAsync()
+		{
+			if (_db is not null)
+			{
+				var user = await _db.Users.FirstOrDefaultAsync(u => u.Username == tbUsername.Text);
+				if (user is not null)
+				{
+					(byte[] salt, byte[] hash) = SecurityHelper.Decode(user.PasswordHash);
+				}
+				else
+				{
+					lbUsernameNotFound.Visible = true;
+				}
+			}
 		}
 	}
 }

@@ -37,7 +37,6 @@ namespace MOM
             ApplicationConfiguration.Initialize();
 			InitializeLogger();
 
-			Log.Error(new Exception(), "failure");
 			Log.Information("Application start");
 			Application.Run(new frmLogin());
 

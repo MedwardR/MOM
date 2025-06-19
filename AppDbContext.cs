@@ -6,6 +6,7 @@ namespace MOM
 	public class AppDbContext : DbContext
 	{
 		public DbSet<Household> Households { get; set; }
+		public DbSet<User> Users { get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
@@ -31,7 +32,10 @@ namespace MOM
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			modelBuilder.Entity<Household>();
+			modelBuilder.Entity<User>(entity =>
+			{
+				entity.HasIndex(u => u.Username).IsUnique();
+			});
 		}
 	}
 }

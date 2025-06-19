@@ -29,13 +29,13 @@
 		private void InitializeComponent()
 		{
 			tableLayoutPanel1 = new TableLayoutPanel();
-			textBox1 = new TextBox();
+			tbUsername = new TextBox();
 			label2 = new Label();
 			label3 = new Label();
-			textBox2 = new TextBox();
-			label1 = new Label();
-			label4 = new Label();
-			button1 = new Button();
+			tbPassword = new TextBox();
+			lbUsernameNotFound = new Label();
+			lbPasswordInvalid = new Label();
+			btnLogin = new Button();
 			tableLayoutPanel1.SuspendLayout();
 			SuspendLayout();
 			// 
@@ -48,13 +48,13 @@
 			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
 			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
 			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 10F));
-			tableLayoutPanel1.Controls.Add(textBox1, 1, 1);
+			tableLayoutPanel1.Controls.Add(tbUsername, 1, 1);
 			tableLayoutPanel1.Controls.Add(label2, 1, 0);
 			tableLayoutPanel1.Controls.Add(label3, 3, 0);
-			tableLayoutPanel1.Controls.Add(textBox2, 3, 1);
-			tableLayoutPanel1.Controls.Add(label1, 2, 0);
-			tableLayoutPanel1.Controls.Add(label4, 4, 0);
-			tableLayoutPanel1.Controls.Add(button1, 1, 2);
+			tableLayoutPanel1.Controls.Add(tbPassword, 3, 1);
+			tableLayoutPanel1.Controls.Add(lbUsernameNotFound, 2, 0);
+			tableLayoutPanel1.Controls.Add(lbPasswordInvalid, 4, 0);
+			tableLayoutPanel1.Controls.Add(btnLogin, 1, 2);
 			tableLayoutPanel1.Dock = DockStyle.Fill;
 			tableLayoutPanel1.Location = new Point(0, 0);
 			tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -66,14 +66,15 @@
 			tableLayoutPanel1.Size = new Size(470, 103);
 			tableLayoutPanel1.TabIndex = 1;
 			// 
-			// textBox1
+			// tbUsername
 			// 
-			textBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			tableLayoutPanel1.SetColumnSpan(textBox1, 2);
-			textBox1.Location = new Point(13, 29);
-			textBox1.Name = "textBox1";
-			textBox1.Size = new Size(221, 27);
-			textBox1.TabIndex = 0;
+			tbUsername.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tableLayoutPanel1.SetColumnSpan(tbUsername, 2);
+			tbUsername.Location = new Point(13, 29);
+			tbUsername.Name = "tbUsername";
+			tbUsername.Size = new Size(221, 27);
+			tbUsername.TabIndex = 0;
+			tbUsername.KeyDown += tbUsername_KeyDown;
 			// 
 			// label2
 			// 
@@ -97,52 +98,54 @@
 			label3.TabIndex = 3;
 			label3.Text = "Password";
 			// 
-			// textBox2
+			// tbPassword
 			// 
-			textBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			tableLayoutPanel1.SetColumnSpan(textBox2, 2);
-			textBox2.Location = new Point(240, 29);
-			textBox2.Name = "textBox2";
-			textBox2.PasswordChar = '*';
-			textBox2.Size = new Size(216, 27);
-			textBox2.TabIndex = 1;
+			tbPassword.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tableLayoutPanel1.SetColumnSpan(tbPassword, 2);
+			tbPassword.Location = new Point(240, 29);
+			tbPassword.Name = "tbPassword";
+			tbPassword.PasswordChar = '*';
+			tbPassword.Size = new Size(216, 27);
+			tbPassword.TabIndex = 1;
+			tbPassword.KeyDown += tbPassword_KeyDown;
 			// 
-			// label1
+			// lbUsernameNotFound
 			// 
-			label1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-			label1.AutoSize = true;
-			label1.ForeColor = Color.Red;
-			label1.Location = new Point(94, 3);
-			label1.Margin = new Padding(3);
-			label1.Name = "label1";
-			label1.Size = new Size(94, 20);
-			label1.TabIndex = 4;
-			label1.Text = "<not found>";
-			label1.Visible = false;
+			lbUsernameNotFound.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			lbUsernameNotFound.AutoSize = true;
+			lbUsernameNotFound.ForeColor = Color.Red;
+			lbUsernameNotFound.Location = new Point(94, 3);
+			lbUsernameNotFound.Margin = new Padding(3);
+			lbUsernameNotFound.Name = "lbUsernameNotFound";
+			lbUsernameNotFound.Size = new Size(94, 20);
+			lbUsernameNotFound.TabIndex = 4;
+			lbUsernameNotFound.Text = "<not found>";
+			lbUsernameNotFound.Visible = false;
 			// 
-			// label4
+			// lbPasswordInvalid
 			// 
-			label4.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-			label4.AutoSize = true;
-			label4.ForeColor = Color.Red;
-			label4.Location = new Point(316, 3);
-			label4.Margin = new Padding(3);
-			label4.Name = "label4";
-			label4.Size = new Size(73, 20);
-			label4.TabIndex = 5;
-			label4.Text = "<invalid>";
-			label4.Visible = false;
+			lbPasswordInvalid.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+			lbPasswordInvalid.AutoSize = true;
+			lbPasswordInvalid.ForeColor = Color.Red;
+			lbPasswordInvalid.Location = new Point(316, 3);
+			lbPasswordInvalid.Margin = new Padding(3);
+			lbPasswordInvalid.Name = "lbPasswordInvalid";
+			lbPasswordInvalid.Size = new Size(73, 20);
+			lbPasswordInvalid.TabIndex = 5;
+			lbPasswordInvalid.Text = "<invalid>";
+			lbPasswordInvalid.Visible = false;
 			// 
-			// button1
+			// btnLogin
 			// 
-			button1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			tableLayoutPanel1.SetColumnSpan(button1, 4);
-			button1.Location = new Point(13, 62);
-			button1.Name = "button1";
-			button1.Size = new Size(443, 30);
-			button1.TabIndex = 6;
-			button1.Text = "Login";
-			button1.UseVisualStyleBackColor = true;
+			btnLogin.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tableLayoutPanel1.SetColumnSpan(btnLogin, 4);
+			btnLogin.Location = new Point(13, 62);
+			btnLogin.Name = "btnLogin";
+			btnLogin.Size = new Size(443, 30);
+			btnLogin.TabIndex = 6;
+			btnLogin.Text = "Login";
+			btnLogin.UseVisualStyleBackColor = true;
+			btnLogin.Click += btnLogin_Click;
 			// 
 			// frmLogin
 			// 
@@ -154,6 +157,7 @@
 			Font = new Font("Segoe UI", 11F);
 			Margin = new Padding(3, 4, 3, 4);
 			MaximizeBox = false;
+			MinimumSize = new Size(440, 142);
 			Name = "frmLogin";
 			Text = "Membership Office Manager";
 			tableLayoutPanel1.ResumeLayout(false);
@@ -163,12 +167,12 @@
 
 		#endregion
 		private TableLayoutPanel tableLayoutPanel1;
-		private TextBox textBox2;
-		private TextBox textBox1;
+		private TextBox tbPassword;
+		private TextBox tbUsername;
 		private Label label2;
 		private Label label3;
-		private Label label1;
-		private Label label4;
-		private Button button1;
+		private Label lbUsernameNotFound;
+		private Label lbPasswordInvalid;
+		private Button btnLogin;
 	}
 }

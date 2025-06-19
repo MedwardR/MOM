@@ -13,6 +13,9 @@ namespace MOM.Models
 		public required string PasswordHash { get; set; }
 
 		[Required]
+		public bool IsLoggedIn { get; set; } = false;
+
+		[Required]
 		public bool IsActive { get; set; } = true;
 
 		[Required]
