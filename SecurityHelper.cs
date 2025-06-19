@@ -19,7 +19,7 @@ namespace MOM
 			return await argon2.GetBytesAsync(32);
 		}
 
-		public static async Task<bool> VerifyPassword(string password, byte[] hash, byte[] salt)
+		public static async Task<bool> VerifyPasswordAsync(string password, byte[] hash, byte[] salt)
 		{
 			byte[] attempt = await HashPasswordAsync(password, salt);
 			return CryptographicOperations.FixedTimeEquals(attempt, hash);

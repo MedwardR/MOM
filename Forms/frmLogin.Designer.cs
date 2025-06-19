@@ -160,6 +160,7 @@
 			MinimumSize = new Size(440, 142);
 			Name = "frmLogin";
 			Text = "Membership Office Manager";
+			Shown += frmLogin_Shown;
 			tableLayoutPanel1.ResumeLayout(false);
 			tableLayoutPanel1.PerformLayout();
 			ResumeLayout(false);

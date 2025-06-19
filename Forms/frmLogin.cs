@@ -7,9 +7,16 @@ namespace MOM
 		private AppDbContext? _db;
 		private ListBox? _log;
 
+		public bool IsAuthenticated { get; private set; }
+
 		public frmLogin()
 		{
 			InitializeComponent();
+			IsAuthenticated = false;
+		}
+
+		private void frmLogin_Shown(object sender, EventArgs e)
+		{
 			InitializeAppAsync();
 		}
 
@@ -112,6 +119,15 @@ namespace MOM
 				if (user is not null)
 				{
 					(byte[] salt, byte[] hash) = SecurityHelper.Decode(user.PasswordHash);
+					if (await SecurityHelper.VerifyPasswordAsync(tbPassword.Text, hash, salt))
+					{
+						new frmMain(_db).Show();
+						Close();
+					}
+					else
+					{
+						lbPasswordInvalid.Visible = true;
+					}
 				}
 				else
 				{

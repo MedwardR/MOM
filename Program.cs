@@ -38,7 +38,7 @@ namespace MOM
 			InitializeLogger();
 
 			Log.Information("Application start");
-			Application.Run(new frmLogin());
+			Application.Run(new frmMain());
 
 			Log.Information("Application close" + Environment.NewLine);
 			Log.CloseAndFlush();
@@ -56,8 +56,15 @@ namespace MOM
 		private static void HandleException(Exception? ex, string context)
 		{
 			Log.Error(ex, context);
-			using var frm = new frmError(ex);
-			frm.ShowDialog();
+			try
+			{
+				using var frm = new frmError(ex);
+				frm.ShowDialog();
+			}
+			catch (Exception ex)
+			{
+
+			}
 		}
 	}
 }

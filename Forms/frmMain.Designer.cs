@@ -398,7 +398,7 @@
 			flowLayoutPanel1.Size = new Size(476, 243);
 			flowLayoutPanel1.TabIndex = 82;
 			// 
-			// Form1
+			// frmMain
 			// 
 			AutoScaleDimensions = new SizeF(8F, 20F);
 			AutoScaleMode = AutoScaleMode.Font;
@@ -407,8 +407,9 @@
 			Controls.Add(splitContainer1);
 			Font = new Font("Segoe UI", 11F);
 			Margin = new Padding(4);
-			Name = "Form1";
+			Name = "frmMain";
 			Text = "Membership Office Manager";
+			WindowState = FormWindowState.Minimized;
 			splitContainer1.Panel1.ResumeLayout(false);
 			splitContainer1.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();

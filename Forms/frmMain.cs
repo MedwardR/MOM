@@ -4,10 +4,18 @@ namespace MOM
 	{
 		private readonly AppDbContext _db;
 
-		public frmMain(AppDbContext db)
+		public frmMain()
 		{
-			InitializeComponent();
-			_db = db;
+			Hide();
+			var frm = new frmLogin();
+			frm.ShowDialog();
+
+			if (frm.IsAuthenticated)
+			{
+				InitializeComponent();
+				Show();
+			}
+			else Application.Exit();
 		}
 	}
 }
