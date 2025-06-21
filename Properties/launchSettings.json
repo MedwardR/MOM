@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "MOM": {
+      "commandName": "Project"
+    },
+    "Tools": {
+      "commandName": "Project",
+      "commandLineArgs": "tools"
+    }
+  }
+}

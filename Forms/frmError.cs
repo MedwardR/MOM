@@ -1,5 +1,4 @@
-﻿using Serilog;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Text;
 using System.Web;
 
@@ -17,16 +16,22 @@ namespace MOM
 			var builder = new StringBuilder();
 			if (ex is not null)
 			{
-				builder.AppendLine("Message:");
+				builder.AppendLine("**Message:**");
 				builder.AppendLine(ex.Message);
 				builder.AppendLine();
-				builder.AppendLine("Stack trace:");
+				builder.AppendLine("**Stack trace:**");
 				builder.AppendLine(ex.StackTrace);
+
+				var inner = ex.InnerException;
+				while (inner is not null)
+				{
+					builder.AppendLine();
+					builder.AppendLine("Inner exception:");
+					builder.AppendLine(inner.Message);
+					inner = inner.InnerException;
+				}
 			}
-			else
-			{
-				builder.AppendLine("No exception data");
-			}
+			else builder.AppendLine("No exception data");
 
 			_title = "Unhandled Exception";
 			_body = builder.ToString();
@@ -34,11 +39,27 @@ namespace MOM
 			tbErrorMessage.Text = _body;
 		}
 
+		private void frmError_Shown(object sender, EventArgs e)
+		{
+			llReport.Focus();
+		}
+
 		private void llSubmitBugReport_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
+			var sb = new StringBuilder();
+			sb.AppendLine("**Steps to recreate error:**");
+			sb.AppendLine();
+			sb.AppendLine();
+			sb.AppendLine("*Please fill in this section!*");
+			sb.AppendLine();
+			sb.AppendLine();
+			sb.AppendLine();
+			sb.Append(_body);
+
 			var query = HttpUtility.ParseQueryString(string.Empty);
+			query["template"] = "bug_report.md";
 			query["title"] = _title;
-			query["body"] = _body;
+			query["body"] = sb.ToString();
 			var builder = new UriBuilder("https://github.com/MedwardR/MOM/issues/new")
 			{
 				Query = query.ToString()
@@ -53,21 +74,6 @@ namespace MOM
 
 		private void btnCloseProgram_Click(object sender, EventArgs e)
 		{
-			DialogResult = DialogResult.Cancel;
-			try
-			{
-				Application.Exit();
-			}
-			catch (Exception ex)
-			{
-				Log.Error(ex, "An error occurred while closing the app");
-				Environment.Exit(1);
-			}
-		}
-
-		private void btnContinueAnyway_Click(object sender, EventArgs e)
-		{
-			DialogResult = DialogResult.Continue;
 			Close();
 		}
 	}

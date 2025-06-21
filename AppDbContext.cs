@@ -35,6 +35,9 @@ namespace MOM
 			modelBuilder.Entity<User>(entity =>
 			{
 				entity.HasIndex(u => u.Username).IsUnique();
+				entity.Property(u => u.IsLoggedIn).HasDefaultValue(false);
+				entity.Property(u => u.IsActive).HasDefaultValue(true);
+				entity.Property(u => u.CreatedAt).HasDefaultValueSql("now()");
 			});
 		}
 	}

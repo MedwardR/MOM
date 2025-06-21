@@ -1,3 +1,4 @@
+using MOM.Forms;
 using Serilog;
 
 namespace MOM
@@ -23,25 +24,33 @@ namespace MOM
 		}
 
 		[STAThread]
-        private static void Main()
+        private static void Main(string[] args)
         {
-			Application.ThreadException += (s, e) =>
+			ApplicationConfiguration.Initialize();
+
+			if (args.Length > 0)
 			{
-				HandleException(e.Exception, "An unhandled UI exception occurred");
-			};
-			AppDomain.CurrentDomain.UnhandledException += (s, e) =>
+				if (args[0] == "tools") Application.Run(new frmTools());
+			}
+			else
 			{
-				HandleException(e.ExceptionObject as Exception, "An unhandled non-UI exception occurred");
-			};
+				Application.ThreadException += (s, e) =>
+				{
+					HandleException(e.Exception, "An unhandled UI exception occurred");
+				};
+				AppDomain.CurrentDomain.UnhandledException += (s, e) =>
+				{
+					HandleException(e.ExceptionObject as Exception, "An unhandled non-UI exception occurred");
+				};
 
-            ApplicationConfiguration.Initialize();
-			InitializeLogger();
+				InitializeLogger();
 
-			Log.Information("Application start");
-			Application.Run(new frmMain());
+				Log.Information("Application start");
+				Application.Run(new frmMain());
 
-			Log.Information("Application close" + Environment.NewLine);
-			Log.CloseAndFlush();
+				Log.Information("Application close" + Environment.NewLine);
+				Log.CloseAndFlush();
+			}
         }
 
 		private static void InitializeLogger()
@@ -55,15 +64,24 @@ namespace MOM
 
 		private static void HandleException(Exception? ex, string context)
 		{
-			Log.Error(ex, context);
+			Log.Fatal(ex, context);
 			try
 			{
 				using var frm = new frmError(ex);
 				frm.ShowDialog();
 			}
-			catch (Exception ex)
+			catch (Exception e)
 			{
-
+				Log.Fatal(e, "An error occurred while displaying the error form");
+			}
+			try
+			{
+				Application.Exit();
+			}
+			catch (Exception e)
+			{
+				Log.Fatal(e, "An error occurred while closing the app");
+				Environment.Exit(1);
 			}
 		}
 	}

@@ -1,3 +1,5 @@
+using Serilog;
+
 namespace MOM
 {
 	public partial class frmMain : Form
@@ -10,12 +12,18 @@ namespace MOM
 			var frm = new frmLogin();
 			frm.ShowDialog();
 
-			if (frm.IsAuthenticated)
+			if (frm.DbContext is not null)
 			{
+				_db = frm.DbContext;
 				InitializeComponent();
 				Show();
 			}
-			else Application.Exit();
+			else
+			{
+				Log.Information("Application close" + Environment.NewLine);
+				Log.CloseAndFlush();
+				Environment.Exit(0);
+			}
 		}
 	}
 }

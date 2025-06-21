@@ -7,12 +7,12 @@ namespace MOM
 		private AppDbContext? _db;
 		private ListBox? _log;
 
-		public bool IsAuthenticated { get; private set; }
+		public AppDbContext? DbContext { get; private set; }
 
 		public frmLogin()
 		{
+			DbContext = null;
 			InitializeComponent();
-			IsAuthenticated = false;
 		}
 
 		private void frmLogin_Shown(object sender, EventArgs e)
@@ -42,26 +42,12 @@ namespace MOM
 			}
 
 			Log("Configuring database connection...");
-			try
-			{
-				_db = new AppDbContext();
-			}
-			catch (Exception ex)
-			{
-				Log(ex, "Failed to configure database connection");
-				return;
-			}
+			_db = new AppDbContext();
+
 			Log("Connecting to database...");
-			try
-			{
-				await _db.Database.OpenConnectionAsync();
-				await _db.Database.CloseConnectionAsync();
-			}
-			catch (Exception ex)
-			{
-				Log(ex, "Failed to connect to database");
-				return;
-			}
+			await _db.Database.OpenConnectionAsync();
+			await _db.Database.CloseConnectionAsync();
+
 			Log("Updating database...");
 			try
 			{
@@ -96,6 +82,8 @@ namespace MOM
 			{
 				tbPassword.Focus();
 			}
+			lbUsernameNotFound.Visible = false;
+			lbPasswordInvalid.Visible = false;
 		}
 
 		private void tbPassword_KeyDown(object sender, KeyEventArgs e)
@@ -104,6 +92,7 @@ namespace MOM
 			{
 				LoginAsync();
 			}
+			lbPasswordInvalid.Visible = false;
 		}
 
 		private void btnLogin_Click(object sender, EventArgs e)
@@ -115,25 +104,35 @@ namespace MOM
 		{
 			if (_db is not null)
 			{
-				var user = await _db.Users.FirstOrDefaultAsync(u => u.Username == tbUsername.Text);
+				btnLogin.Enabled = false;
+
+				string username = tbUsername.Text;
+				string password = tbPassword.Text;
+
+				var user = await _db.Users.FirstOrDefaultAsync(u => u.Username == username);
 				if (user is not null)
 				{
 					(byte[] salt, byte[] hash) = SecurityHelper.Decode(user.PasswordHash);
-					if (await SecurityHelper.VerifyPasswordAsync(tbPassword.Text, hash, salt))
+					if (await SecurityHelper.VerifyPasswordAsync(password, hash, salt))
 					{
-						new frmMain(_db).Show();
+						DbContext = _db;
 						Close();
 					}
 					else
 					{
 						lbPasswordInvalid.Visible = true;
+						tbPassword.Focus();
 					}
 				}
 				else
 				{
 					lbUsernameNotFound.Visible = true;
+					tbUsername.Focus();
 				}
+
+				btnLogin.Enabled = true;
 			}
+			else throw new Exception("Attempted to log in before database was initialized");
 		}
 	}
 }
