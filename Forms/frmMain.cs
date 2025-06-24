@@ -4,25 +4,41 @@ namespace MOM
 {
 	public partial class frmMain : Form
 	{
-		private readonly AppDbContext _db;
+		private readonly DataManager _dm;
 
 		public frmMain()
 		{
-			Hide();
-			var frm = new frmLogin();
-			frm.ShowDialog();
+			try
+			{
+				var frm = new frmLogin();
+				frm.ShowDialog();
 
-			if (frm.DbContext is not null)
-			{
-				_db = frm.DbContext;
-				InitializeComponent();
-				Show();
+				if (frm.DataManager is not null)
+				{
+					_dm = frm.DataManager;
+					InitializeComponent();
+					throw new Exception("Bork");
+				}
+				else
+				{
+					Log.Information("Application closed before logging in" + Environment.NewLine);
+					Program.CloseLogger();
+					Environment.Exit(0);
+				}
 			}
-			else
+			catch
 			{
-				Log.Information("Application close" + Environment.NewLine);
-				Log.CloseAndFlush();
-				Environment.Exit(0);
+				LogOut();
+				throw;
+			}
+		}
+
+		public void LogOut()
+		{
+			if (_dm is not null)
+			{
+				_dm.AuthenticatedUser.IsLoggedIn = false;
+				_dm.DbContext.SaveChanges();
 			}
 		}
 	}

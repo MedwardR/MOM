@@ -34,6 +34,7 @@
 			textBox1 = new TextBox();
 			label1 = new Label();
 			button1 = new Button();
+			tableLayoutPanel3 = new TableLayoutPanel();
 			groupBox1 = new GroupBox();
 			tableLayoutPanel2 = new TableLayoutPanel();
 			textBox7 = new TextBox();
@@ -52,15 +53,17 @@
 			label9 = new Label();
 			label8 = new Label();
 			textBox8 = new TextBox();
-			label10 = new Label();
+			groupBox2 = new GroupBox();
 			flowLayoutPanel1 = new FlowLayoutPanel();
 			((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
 			splitContainer1.Panel1.SuspendLayout();
 			splitContainer1.Panel2.SuspendLayout();
 			splitContainer1.SuspendLayout();
 			tableLayoutPanel1.SuspendLayout();
+			tableLayoutPanel3.SuspendLayout();
 			groupBox1.SuspendLayout();
 			tableLayoutPanel2.SuspendLayout();
+			groupBox2.SuspendLayout();
 			SuspendLayout();
 			// 
 			// splitContainer1
@@ -77,7 +80,7 @@
 			// 
 			// splitContainer1.Panel2
 			// 
-			splitContainer1.Panel2.Controls.Add(groupBox1);
+			splitContainer1.Panel2.Controls.Add(tableLayoutPanel3);
 			splitContainer1.Panel2.Padding = new Padding(0, 4, 4, 4);
 			splitContainer1.Size = new Size(832, 515);
 			splitContainer1.SplitterDistance = 336;
@@ -147,14 +150,29 @@
 			button1.Text = "New";
 			button1.UseVisualStyleBackColor = true;
 			// 
+			// tableLayoutPanel3
+			// 
+			tableLayoutPanel3.ColumnCount = 1;
+			tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+			tableLayoutPanel3.Controls.Add(groupBox1, 0, 0);
+			tableLayoutPanel3.Controls.Add(groupBox2, 0, 1);
+			tableLayoutPanel3.Dock = DockStyle.Fill;
+			tableLayoutPanel3.Location = new Point(0, 4);
+			tableLayoutPanel3.Name = "tableLayoutPanel3";
+			tableLayoutPanel3.RowCount = 2;
+			tableLayoutPanel3.RowStyles.Add(new RowStyle());
+			tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+			tableLayoutPanel3.Size = new Size(488, 507);
+			tableLayoutPanel3.TabIndex = 1;
+			// 
 			// groupBox1
 			// 
+			groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			groupBox1.Controls.Add(tableLayoutPanel2);
-			groupBox1.Dock = DockStyle.Fill;
 			groupBox1.Font = new Font("Segoe UI", 11F);
-			groupBox1.Location = new Point(0, 4);
+			groupBox1.Location = new Point(3, 3);
 			groupBox1.Name = "groupBox1";
-			groupBox1.Size = new Size(488, 507);
+			groupBox1.Size = new Size(482, 239);
 			groupBox1.TabIndex = 0;
 			groupBox1.TabStop = false;
 			groupBox1.Text = "Household";
@@ -162,12 +180,12 @@
 			// tableLayoutPanel2
 			// 
 			tableLayoutPanel2.ColumnCount = 6;
-			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666679F));
-			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666641F));
-			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666641F));
-			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666641F));
-			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666641F));
-			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666641F));
+			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666718F));
+			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.666666F));
+			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.666666F));
+			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.666666F));
+			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.666666F));
+			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.666666F));
 			tableLayoutPanel2.Controls.Add(textBox7, 4, 5);
 			tableLayoutPanel2.Controls.Add(label7, 4, 4);
 			tableLayoutPanel2.Controls.Add(textBox3, 0, 3);
@@ -184,13 +202,10 @@
 			tableLayoutPanel2.Controls.Add(label9, 0, 6);
 			tableLayoutPanel2.Controls.Add(label8, 2, 6);
 			tableLayoutPanel2.Controls.Add(textBox8, 2, 7);
-			tableLayoutPanel2.Controls.Add(label10, 0, 8);
-			tableLayoutPanel2.Controls.Add(flowLayoutPanel1, 0, 9);
 			tableLayoutPanel2.Dock = DockStyle.Fill;
 			tableLayoutPanel2.Location = new Point(3, 23);
 			tableLayoutPanel2.Name = "tableLayoutPanel2";
-			tableLayoutPanel2.RowCount = 10;
-			tableLayoutPanel2.RowStyles.Add(new RowStyle());
+			tableLayoutPanel2.RowCount = 9;
 			tableLayoutPanel2.RowStyles.Add(new RowStyle());
 			tableLayoutPanel2.RowStyles.Add(new RowStyle());
 			tableLayoutPanel2.RowStyles.Add(new RowStyle());
@@ -200,7 +215,8 @@
 			tableLayoutPanel2.RowStyles.Add(new RowStyle());
 			tableLayoutPanel2.RowStyles.Add(new RowStyle());
 			tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-			tableLayoutPanel2.Size = new Size(482, 481);
+			tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+			tableLayoutPanel2.Size = new Size(476, 213);
 			tableLayoutPanel2.TabIndex = 4;
 			// 
 			// textBox7
@@ -208,10 +224,10 @@
 			textBox7.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			tableLayoutPanel2.SetColumnSpan(textBox7, 2);
 			textBox7.Font = new Font("Segoe UI", 11F);
-			textBox7.Location = new Point(323, 129);
+			textBox7.Location = new Point(319, 129);
 			textBox7.Name = "textBox7";
 			textBox7.PlaceholderText = "USA";
-			textBox7.Size = new Size(156, 27);
+			textBox7.Size = new Size(154, 27);
 			textBox7.TabIndex = 60;
 			textBox7.Text = "USA";
 			// 
@@ -220,7 +236,7 @@
 			label7.AutoSize = true;
 			tableLayoutPanel2.SetColumnSpan(label7, 2);
 			label7.Font = new Font("Segoe UI", 11F);
-			label7.Location = new Point(323, 106);
+			label7.Location = new Point(319, 106);
 			label7.Name = "label7";
 			label7.Size = new Size(60, 20);
 			label7.TabIndex = 10;
@@ -234,7 +250,7 @@
 			textBox3.Location = new Point(3, 76);
 			textBox3.Name = "textBox3";
 			textBox3.PlaceholderText = "129 Pleasant Valley Rd.";
-			textBox3.Size = new Size(234, 27);
+			textBox3.Size = new Size(231, 27);
 			textBox3.TabIndex = 20;
 			// 
 			// label3
@@ -266,7 +282,7 @@
 			textBox2.Font = new Font("Segoe UI", 11F);
 			textBox2.Location = new Point(3, 23);
 			textBox2.Name = "textBox2";
-			textBox2.Size = new Size(476, 27);
+			textBox2.Size = new Size(470, 27);
 			textBox2.TabIndex = 10;
 			// 
 			// label4
@@ -274,7 +290,7 @@
 			label4.AutoSize = true;
 			tableLayoutPanel2.SetColumnSpan(label4, 3);
 			label4.Font = new Font("Segoe UI", 11F);
-			label4.Location = new Point(243, 53);
+			label4.Location = new Point(240, 53);
 			label4.Name = "label4";
 			label4.Size = new Size(34, 20);
 			label4.TabIndex = 4;
@@ -285,10 +301,10 @@
 			textBox4.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			tableLayoutPanel2.SetColumnSpan(textBox4, 3);
 			textBox4.Font = new Font("Segoe UI", 11F);
-			textBox4.Location = new Point(243, 76);
+			textBox4.Location = new Point(240, 76);
 			textBox4.Name = "textBox4";
 			textBox4.PlaceholderText = "East Earl";
-			textBox4.Size = new Size(236, 27);
+			textBox4.Size = new Size(233, 27);
 			textBox4.TabIndex = 30;
 			// 
 			// label6
@@ -307,7 +323,7 @@
 			label5.AutoSize = true;
 			tableLayoutPanel2.SetColumnSpan(label5, 2);
 			label5.Font = new Font("Segoe UI", 11F);
-			label5.Location = new Point(163, 106);
+			label5.Location = new Point(161, 106);
 			label5.Name = "label5";
 			label5.Size = new Size(43, 20);
 			label5.TabIndex = 6;
@@ -321,7 +337,7 @@
 			textBox6.Location = new Point(3, 129);
 			textBox6.Name = "textBox6";
 			textBox6.PlaceholderText = "17519";
-			textBox6.Size = new Size(154, 27);
+			textBox6.Size = new Size(152, 27);
 			textBox6.TabIndex = 40;
 			// 
 			// textBox5
@@ -329,10 +345,10 @@
 			textBox5.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			tableLayoutPanel2.SetColumnSpan(textBox5, 2);
 			textBox5.Font = new Font("Segoe UI", 11F);
-			textBox5.Location = new Point(163, 129);
+			textBox5.Location = new Point(161, 129);
 			textBox5.Name = "textBox5";
 			textBox5.PlaceholderText = "PA";
-			textBox5.Size = new Size(154, 27);
+			textBox5.Size = new Size(152, 27);
 			textBox5.TabIndex = 50;
 			textBox5.Text = "PA";
 			// 
@@ -343,7 +359,7 @@
 			maskedTextBox1.Location = new Point(3, 182);
 			maskedTextBox1.Mask = "(999) 000-0000";
 			maskedTextBox1.Name = "maskedTextBox1";
-			maskedTextBox1.Size = new Size(154, 27);
+			maskedTextBox1.Size = new Size(152, 27);
 			maskedTextBox1.TabIndex = 70;
 			// 
 			// label9
@@ -362,7 +378,7 @@
 			label8.AutoSize = true;
 			tableLayoutPanel2.SetColumnSpan(label8, 4);
 			label8.Font = new Font("Segoe UI", 11F);
-			label8.Location = new Point(163, 159);
+			label8.Location = new Point(161, 159);
 			label8.Name = "label8";
 			label8.Size = new Size(46, 20);
 			label8.TabIndex = 12;
@@ -373,30 +389,29 @@
 			textBox8.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			tableLayoutPanel2.SetColumnSpan(textBox8, 4);
 			textBox8.Font = new Font("Segoe UI", 11F);
-			textBox8.Location = new Point(163, 182);
+			textBox8.Location = new Point(161, 182);
 			textBox8.Name = "textBox8";
-			textBox8.Size = new Size(316, 27);
+			textBox8.Size = new Size(312, 27);
 			textBox8.TabIndex = 80;
 			// 
-			// label10
+			// groupBox2
 			// 
-			label10.AutoSize = true;
-			tableLayoutPanel2.SetColumnSpan(label10, 2);
-			label10.Font = new Font("Segoe UI", 11F);
-			label10.Location = new Point(3, 212);
-			label10.Name = "label10";
-			label10.Size = new Size(71, 20);
-			label10.TabIndex = 81;
-			label10.Text = "Members";
+			groupBox2.Controls.Add(flowLayoutPanel1);
+			groupBox2.Dock = DockStyle.Fill;
+			groupBox2.Location = new Point(3, 248);
+			groupBox2.Name = "groupBox2";
+			groupBox2.Size = new Size(482, 256);
+			groupBox2.TabIndex = 1;
+			groupBox2.TabStop = false;
+			groupBox2.Text = "Members";
 			// 
 			// flowLayoutPanel1
 			// 
-			flowLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-			tableLayoutPanel2.SetColumnSpan(flowLayoutPanel1, 6);
-			flowLayoutPanel1.Location = new Point(3, 235);
+			flowLayoutPanel1.Dock = DockStyle.Fill;
+			flowLayoutPanel1.Location = new Point(3, 23);
 			flowLayoutPanel1.Name = "flowLayoutPanel1";
-			flowLayoutPanel1.Size = new Size(476, 243);
-			flowLayoutPanel1.TabIndex = 82;
+			flowLayoutPanel1.Size = new Size(476, 230);
+			flowLayoutPanel1.TabIndex = 0;
 			// 
 			// frmMain
 			// 
@@ -409,16 +424,17 @@
 			Margin = new Padding(4);
 			Name = "frmMain";
 			Text = "Membership Office Manager";
-			WindowState = FormWindowState.Minimized;
 			splitContainer1.Panel1.ResumeLayout(false);
 			splitContainer1.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
 			splitContainer1.ResumeLayout(false);
 			tableLayoutPanel1.ResumeLayout(false);
 			tableLayoutPanel1.PerformLayout();
+			tableLayoutPanel3.ResumeLayout(false);
 			groupBox1.ResumeLayout(false);
 			tableLayoutPanel2.ResumeLayout(false);
 			tableLayoutPanel2.PerformLayout();
+			groupBox2.ResumeLayout(false);
 			ResumeLayout(false);
 		}
 
@@ -448,7 +464,8 @@
 		private Label label8;
 		private Label label9;
 		private TextBox textBox8;
-		private Label label10;
+		private TableLayoutPanel tableLayoutPanel3;
+		private GroupBox groupBox2;
 		private FlowLayoutPanel flowLayoutPanel1;
 	}
 }

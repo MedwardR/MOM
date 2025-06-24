@@ -14,7 +14,7 @@ namespace MOM
 			{
 				Database = "mom",
 			};
-			if (Program.IsDevelopmentEnvironment)
+			if (Program.IsDevelopmentEnvironment())
 			{
 				connectionStringBuilder.Port = 5432;
 				connectionStringBuilder.Host = "localhost";

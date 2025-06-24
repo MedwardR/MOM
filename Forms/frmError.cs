@@ -49,8 +49,10 @@ namespace MOM
 			var sb = new StringBuilder();
 			sb.AppendLine("**Steps to recreate error:**");
 			sb.AppendLine();
+			sb.AppendLine("1. ");
+			sb.AppendLine("2. ");
+			sb.AppendLine("3. ");
 			sb.AppendLine();
-			sb.AppendLine("*Please fill in this section!*");
 			sb.AppendLine();
 			sb.AppendLine();
 			sb.AppendLine();
