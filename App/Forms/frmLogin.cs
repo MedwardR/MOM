@@ -30,7 +30,7 @@ namespace MOM
 			Log("Checking for updates");
 			try
 			{
-				await Task.Delay(500); // update for real though
+				
 			}
 			catch (Exception ex)
 			{
@@ -40,20 +40,8 @@ namespace MOM
 			Log("Configuring database connection");
 			_db = new AppDbContext();
 
-			Log("Connecting to database");
-			await _db.Database.OpenConnectionAsync();
-			await _db.Database.CloseConnectionAsync();
-
 			Log("Updating database...");
-			try
-			{
-				await _db.Database.MigrateAsync();
-			}
-			catch (Exception ex)
-			{
-				Log(ex, "Failed to update database");
-				return;
-			}
+			await _db.Database.MigrateAsync();
 
 			Controls.Remove(_log);
 			_log.Dispose();
