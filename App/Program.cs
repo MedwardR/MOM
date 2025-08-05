@@ -6,7 +6,7 @@ namespace MOM
     internal static class Program
     {
 		public static string Name { get => "MOM"; }
-		public static int Version { get => 1; }
+		public static Version Version { get => Version.Parse("1.0.0"); }
 
 		private static frmMain? _mainForm;
 
