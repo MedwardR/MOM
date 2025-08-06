@@ -48,9 +48,18 @@ namespace MOM
 			{
 				if (latestVersion > Program.Version)
 				{
-					Log("Updating application");
-					await UpdateApplicationAsync(downloadUrl);
+					var choice = MessageBox.Show(
+						"An update is available. Is now a good time to update the program?", "Update available",
+						MessageBoxButtons.YesNo, MessageBoxIcon.Question
+					);
+					if (choice == DialogResult.Yes)
+					{
+						Log("Updating application");
+						await UpdateApplicationAsync(downloadUrl);
+					}
+					else Log("Update cancelled by user");
 				}
+				else Log("No updates available");
 			}
 
 			Log("Updating database");
@@ -60,9 +69,11 @@ namespace MOM
 			_log.Dispose();
 			_log = null;
 			tableLayoutPanel1.Visible = true;
+			await Task.Delay(100);
+			tbUsername.Focus();
 		}
 
-		private async Task<(Version version, string downloadUrl)> GetLatestVersionAsync()
+		private static async Task<(Version version, string downloadUrl)> GetLatestVersionAsync()
 		{
 			using var client = new HttpClient();
 			client.DefaultRequestHeaders.UserAgent.ParseAdd("MOM");
@@ -100,7 +111,7 @@ namespace MOM
 			else throw new Exception("The latest version could not be found");
 		}
 
-		private async Task UpdateApplicationAsync(string downloadUrl)
+		private static async Task UpdateApplicationAsync(string downloadUrl)
 		{
 			using var client = new HttpClient();
 			var data = await client.GetByteArrayAsync(downloadUrl);
@@ -114,6 +125,7 @@ namespace MOM
 				Arguments = "/silent",
 				UseShellExecute = true,
 			});
+			Program.CloseLogger();
 			Environment.Exit(0);
 		}
 
@@ -140,19 +152,32 @@ namespace MOM
 		{
 			if (e.KeyCode == Keys.Enter)
 			{
-				tbPassword.Focus();
+				if (!string.IsNullOrWhiteSpace(tbUsername.Text))
+				{
+					tbPassword.Focus();
+				}
 			}
-			lbUsernameNotFound.Visible = false;
-			lbPasswordInvalid.Visible = false;
+			else
+			{
+				lbUsernameNotFound.Visible = false;
+				lbPasswordInvalid.Visible = false;
+			}
 		}
 
 		private void tbPassword_KeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.KeyCode == Keys.Enter)
 			{
-				LoginAsync();
+				if (!string.IsNullOrWhiteSpace(tbUsername.Text))
+				{
+					if (!string.IsNullOrWhiteSpace(tbPassword.Text))
+					{
+						LoginAsync();
+					}
+				}
+				else tbUsername.Focus();
 			}
-			lbPasswordInvalid.Visible = false;
+			else lbPasswordInvalid.Visible = false;
 		}
 
 		private void btnLogin_Click(object sender, EventArgs e)

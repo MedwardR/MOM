@@ -117,9 +117,9 @@
 			lbUsernameNotFound.Location = new Point(94, 3);
 			lbUsernameNotFound.Margin = new Padding(3);
 			lbUsernameNotFound.Name = "lbUsernameNotFound";
-			lbUsernameNotFound.Size = new Size(94, 20);
+			lbUsernameNotFound.Size = new Size(125, 20);
 			lbUsernameNotFound.TabIndex = 4;
-			lbUsernameNotFound.Text = "<not found>";
+			lbUsernameNotFound.Text = "<user not found>";
 			lbUsernameNotFound.Visible = false;
 			// 
 			// lbPasswordInvalid
@@ -159,6 +159,7 @@
 			MaximizeBox = false;
 			MinimumSize = new Size(440, 142);
 			Name = "frmLogin";
+			StartPosition = FormStartPosition.CenterScreen;
 			Text = "Membership Office Manager";
 			Shown += frmLogin_Shown;
 			tableLayoutPanel1.ResumeLayout(false);

@@ -17,7 +17,6 @@ namespace MOM
 				{
 					_dm = frm.DataManager;
 					InitializeComponent();
-					throw new Exception("Bork");
 				}
 				else
 				{

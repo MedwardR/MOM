@@ -60,7 +60,6 @@ namespace MOM
 		public static void CloseLogger()
 		{
 			Log.CloseAndFlush();
-			File.AppendAllText(GetLogFile(), Environment.NewLine);
 		}
 
 		private static string GetLogFile()
