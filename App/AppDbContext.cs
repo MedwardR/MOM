@@ -5,7 +5,9 @@ namespace MOM
 {
 	public class AppDbContext : DbContext
 	{
+		public DbSet<Address> Addresses { get; set; }
 		public DbSet<Household> Households { get; set; }
+		public DbSet<Individual> Individuals { get; set; }
 		public DbSet<User> Users { get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -32,6 +34,11 @@ namespace MOM
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
+			modelBuilder.Entity<Address>(entity =>
+			{
+				entity.Property(a => a.State).HasDefaultValue("PA");
+				entity.Property(a => a.Country).HasDefaultValue("USA");
+			});
 			modelBuilder.Entity<User>(entity =>
 			{
 				entity.HasIndex(u => u.Username).IsUnique();
