@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace MOM.Migrations
 {
-    [DbContext(typeof(AppDbContext))]
+    [DbContext(typeof(AppContext))]
     [Migration("20250619224349_AddUserTableForReal")]
     partial class AddUserTableForReal
     {

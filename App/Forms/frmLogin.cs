@@ -6,10 +6,10 @@ namespace MOM
 {
 	public partial class frmLogin : Form
 	{
-		private AppDbContext? _db;
+		private AppContext? _app;
 		private ListBox? _log;
 
-		public DataManager? DataManager { get; private set; }
+		public AppContext? AppContext { get; private set; }
 
 		public frmLogin()
 		{
@@ -30,7 +30,7 @@ namespace MOM
 			_log.Focus();
 
 			Log("Configuring database connection");
-			_db = new AppDbContext();
+			_app = new AppContext();
 
 			Log("Checking for updates");
 			Version? latestVersion = null;
@@ -63,7 +63,7 @@ namespace MOM
 			}
 
 			Log("Updating database");
-			await _db.Database.MigrateAsync();
+			await _app.Database.MigrateAsync();
 
 			Controls.Remove(_log);
 			_log.Dispose();
@@ -114,7 +114,7 @@ namespace MOM
 		private static async Task UpdateApplicationAsync(string downloadUrl)
 		{
 			using var client = new HttpClient();
-			var data = await client.GetByteArrayAsync(downloadUrl);
+			byte[] data = await client.GetByteArrayAsync(downloadUrl);
 
 			string filePath = Path.Combine(Path.GetTempPath(), "MOMInstaller.exe");
 			await File.WriteAllBytesAsync(filePath, data);
@@ -164,7 +164,7 @@ namespace MOM
 			}
 		}
 
-		private void tbPassword_KeyDown(object sender, KeyEventArgs e)
+		private async void tbPassword_KeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.KeyCode == Keys.Enter)
 			{
@@ -172,7 +172,7 @@ namespace MOM
 				{
 					if (!string.IsNullOrWhiteSpace(tbPassword.Text))
 					{
-						LoginAsync();
+						await LoginAsync();
 					}
 				}
 				else tbUsername.Focus();
@@ -180,21 +180,21 @@ namespace MOM
 			else lbPasswordInvalid.Visible = false;
 		}
 
-		private void btnLogin_Click(object sender, EventArgs e)
+		private async void btnLogin_Click(object sender, EventArgs e)
 		{
-			LoginAsync();
+			await LoginAsync();
 		}
 
-		private async void LoginAsync()
+		private async Task LoginAsync()
 		{
-			if (_db is not null)
+			if (_app is not null)
 			{
 				btnLogin.Enabled = false;
 
 				string username = tbUsername.Text.Trim();
 				string password = tbPassword.Text;
 
-				var user = await _db.Users.FirstOrDefaultAsync(u => u.Username == username);
+				var user = await _app.Users.FirstOrDefaultAsync(u => u.Username == username);
 				if (user is not null)
 				{
 					Log($"Attempting to log in as '{user.Username}' ({user.Id})");
@@ -202,10 +202,12 @@ namespace MOM
 					(byte[] salt, byte[] hash) = SecurityHelper.Decode(user.PasswordHash);
 					if (await SecurityHelper.VerifyPasswordAsync(password, hash, salt))
 					{
-						user.IsLoggedIn = true;
-						await _db.SaveChangesAsync();
+						_app.AssignAuthenticatedUser(user);
 
-						DataManager = new(_db, user);
+						user.IsLoggedIn = true;
+						await _app.SaveChangesAsync();
+
+						AppContext = _app;
 						Log($"Logged in as '{user.Username}' ({user.Id})");
 						Close();
 					}
@@ -213,6 +215,7 @@ namespace MOM
 					{
 						Log("Invalid password");
 						lbPasswordInvalid.Visible = true;
+						tbPassword.Text = string.Empty;
 						tbPassword.Focus();
 					}
 				}

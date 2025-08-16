@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace MOM.Migrations
 {
-    [DbContext(typeof(AppDbContext))]
+    [DbContext(typeof(AppContext))]
     [Migration("20250619215303_AddUserTable")]
     partial class AddUserTable
     {

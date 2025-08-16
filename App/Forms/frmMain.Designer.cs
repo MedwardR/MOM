@@ -33,9 +33,12 @@
 			listView1 = new ListView();
 			textBox1 = new TextBox();
 			label1 = new Label();
-			button1 = new Button();
 			tableLayoutPanel3 = new TableLayoutPanel();
 			groupBox1 = new GroupBox();
+			flowLayoutPanel2 = new FlowLayoutPanel();
+			button3 = new Button();
+			button1 = new Button();
+			button2 = new Button();
 			tableLayoutPanel2 = new TableLayoutPanel();
 			textBox7 = new TextBox();
 			label7 = new Label();
@@ -62,6 +65,7 @@
 			tableLayoutPanel1.SuspendLayout();
 			tableLayoutPanel3.SuspendLayout();
 			groupBox1.SuspendLayout();
+			flowLayoutPanel2.SuspendLayout();
 			tableLayoutPanel2.SuspendLayout();
 			groupBox2.SuspendLayout();
 			SuspendLayout();
@@ -81,21 +85,21 @@
 			// splitContainer1.Panel2
 			// 
 			splitContainer1.Panel2.Controls.Add(tableLayoutPanel3);
-			splitContainer1.Panel2.Padding = new Padding(0, 4, 4, 4);
+			splitContainer1.Panel2.Padding = new Padding(0, 3, 3, 3);
 			splitContainer1.Size = new Size(832, 515);
 			splitContainer1.SplitterDistance = 336;
+			splitContainer1.SplitterWidth = 6;
 			splitContainer1.TabIndex = 0;
 			// 
 			// tableLayoutPanel1
 			// 
-			tableLayoutPanel1.ColumnCount = 3;
+			tableLayoutPanel1.ColumnCount = 2;
 			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
 			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
+			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
 			tableLayoutPanel1.Controls.Add(listView1, 0, 1);
 			tableLayoutPanel1.Controls.Add(textBox1, 1, 0);
 			tableLayoutPanel1.Controls.Add(label1, 0, 0);
-			tableLayoutPanel1.Controls.Add(button1, 2, 0);
 			tableLayoutPanel1.Dock = DockStyle.Fill;
 			tableLayoutPanel1.Font = new Font("Segoe UI", 11F);
 			tableLayoutPanel1.Location = new Point(3, 3);
@@ -108,7 +112,7 @@
 			// 
 			// listView1
 			// 
-			tableLayoutPanel1.SetColumnSpan(listView1, 3);
+			tableLayoutPanel1.SetColumnSpan(listView1, 2);
 			listView1.Dock = DockStyle.Fill;
 			listView1.Font = new Font("Segoe UI", 11F);
 			listView1.Location = new Point(3, 36);
@@ -123,8 +127,9 @@
 			textBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			textBox1.Font = new Font("Segoe UI", 11F);
 			textBox1.Location = new Point(62, 3);
+			textBox1.Margin = new Padding(3, 3, 0, 3);
 			textBox1.Name = "textBox1";
-			textBox1.Size = new Size(215, 27);
+			textBox1.Size = new Size(271, 27);
 			textBox1.TabIndex = 10;
 			// 
 			// label1
@@ -138,18 +143,6 @@
 			label1.TabIndex = 2;
 			label1.Text = "Search";
 			// 
-			// button1
-			// 
-			button1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-			button1.Font = new Font("Segoe UI", 11F);
-			button1.Location = new Point(283, 3);
-			button1.Margin = new Padding(3, 3, 0, 3);
-			button1.Name = "button1";
-			button1.Size = new Size(50, 27);
-			button1.TabIndex = 20;
-			button1.Text = "New";
-			button1.UseVisualStyleBackColor = true;
-			// 
 			// tableLayoutPanel3
 			// 
 			tableLayoutPanel3.ColumnCount = 1;
@@ -157,25 +150,72 @@
 			tableLayoutPanel3.Controls.Add(groupBox1, 0, 0);
 			tableLayoutPanel3.Controls.Add(groupBox2, 0, 1);
 			tableLayoutPanel3.Dock = DockStyle.Fill;
-			tableLayoutPanel3.Location = new Point(0, 4);
+			tableLayoutPanel3.Location = new Point(0, 3);
 			tableLayoutPanel3.Name = "tableLayoutPanel3";
 			tableLayoutPanel3.RowCount = 2;
 			tableLayoutPanel3.RowStyles.Add(new RowStyle());
 			tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-			tableLayoutPanel3.Size = new Size(488, 507);
+			tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+			tableLayoutPanel3.Size = new Size(487, 509);
 			tableLayoutPanel3.TabIndex = 1;
 			// 
 			// groupBox1
 			// 
 			groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			groupBox1.Controls.Add(flowLayoutPanel2);
 			groupBox1.Controls.Add(tableLayoutPanel2);
 			groupBox1.Font = new Font("Segoe UI", 11F);
-			groupBox1.Location = new Point(3, 3);
+			groupBox1.Location = new Point(0, 3);
+			groupBox1.Margin = new Padding(0, 3, 3, 3);
 			groupBox1.Name = "groupBox1";
-			groupBox1.Size = new Size(482, 239);
+			groupBox1.Size = new Size(484, 239);
 			groupBox1.TabIndex = 0;
 			groupBox1.TabStop = false;
 			groupBox1.Text = "Household";
+			// 
+			// flowLayoutPanel2
+			// 
+			flowLayoutPanel2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			flowLayoutPanel2.AutoSize = true;
+			flowLayoutPanel2.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+			flowLayoutPanel2.Controls.Add(button3);
+			flowLayoutPanel2.Controls.Add(button1);
+			flowLayoutPanel2.Controls.Add(button2);
+			flowLayoutPanel2.Location = new Point(172, 0);
+			flowLayoutPanel2.Margin = new Padding(3, 3, 0, 3);
+			flowLayoutPanel2.Name = "flowLayoutPanel2";
+			flowLayoutPanel2.Size = new Size(309, 30);
+			flowLayoutPanel2.TabIndex = 0;
+			// 
+			// button3
+			// 
+			button3.Location = new Point(0, 0);
+			button3.Margin = new Padding(0, 0, 3, 0);
+			button3.Name = "button3";
+			button3.Size = new Size(100, 30);
+			button3.TabIndex = 10;
+			button3.Text = "New";
+			button3.UseVisualStyleBackColor = true;
+			// 
+			// button1
+			// 
+			button1.Location = new Point(103, 0);
+			button1.Margin = new Padding(0, 0, 3, 0);
+			button1.Name = "button1";
+			button1.Size = new Size(100, 30);
+			button1.TabIndex = 20;
+			button1.Text = "Save";
+			button1.UseVisualStyleBackColor = true;
+			// 
+			// button2
+			// 
+			button2.Location = new Point(206, 0);
+			button2.Margin = new Padding(0, 0, 3, 0);
+			button2.Name = "button2";
+			button2.Size = new Size(100, 30);
+			button2.TabIndex = 30;
+			button2.Text = "Refresh";
+			button2.UseVisualStyleBackColor = true;
 			// 
 			// tableLayoutPanel2
 			// 
@@ -216,7 +256,7 @@
 			tableLayoutPanel2.RowStyles.Add(new RowStyle());
 			tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
 			tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-			tableLayoutPanel2.Size = new Size(476, 213);
+			tableLayoutPanel2.Size = new Size(478, 213);
 			tableLayoutPanel2.TabIndex = 4;
 			// 
 			// textBox7
@@ -227,7 +267,7 @@
 			textBox7.Location = new Point(319, 129);
 			textBox7.Name = "textBox7";
 			textBox7.PlaceholderText = "USA";
-			textBox7.Size = new Size(154, 27);
+			textBox7.Size = new Size(156, 27);
 			textBox7.TabIndex = 60;
 			textBox7.Text = "USA";
 			// 
@@ -282,7 +322,7 @@
 			textBox2.Font = new Font("Segoe UI", 11F);
 			textBox2.Location = new Point(3, 23);
 			textBox2.Name = "textBox2";
-			textBox2.Size = new Size(470, 27);
+			textBox2.Size = new Size(472, 27);
 			textBox2.TabIndex = 10;
 			// 
 			// label4
@@ -304,7 +344,7 @@
 			textBox4.Location = new Point(240, 76);
 			textBox4.Name = "textBox4";
 			textBox4.PlaceholderText = "East Earl";
-			textBox4.Size = new Size(233, 27);
+			textBox4.Size = new Size(235, 27);
 			textBox4.TabIndex = 30;
 			// 
 			// label6
@@ -391,16 +431,17 @@
 			textBox8.Font = new Font("Segoe UI", 11F);
 			textBox8.Location = new Point(161, 182);
 			textBox8.Name = "textBox8";
-			textBox8.Size = new Size(312, 27);
+			textBox8.Size = new Size(314, 27);
 			textBox8.TabIndex = 80;
 			// 
 			// groupBox2
 			// 
 			groupBox2.Controls.Add(flowLayoutPanel1);
 			groupBox2.Dock = DockStyle.Fill;
-			groupBox2.Location = new Point(3, 248);
+			groupBox2.Location = new Point(0, 248);
+			groupBox2.Margin = new Padding(0, 3, 3, 3);
 			groupBox2.Name = "groupBox2";
-			groupBox2.Size = new Size(482, 256);
+			groupBox2.Size = new Size(484, 258);
 			groupBox2.TabIndex = 1;
 			groupBox2.TabStop = false;
 			groupBox2.Text = "Members";
@@ -410,7 +451,7 @@
 			flowLayoutPanel1.Dock = DockStyle.Fill;
 			flowLayoutPanel1.Location = new Point(3, 23);
 			flowLayoutPanel1.Name = "flowLayoutPanel1";
-			flowLayoutPanel1.Size = new Size(476, 230);
+			flowLayoutPanel1.Size = new Size(478, 232);
 			flowLayoutPanel1.TabIndex = 0;
 			// 
 			// frmMain
@@ -432,6 +473,8 @@
 			tableLayoutPanel1.PerformLayout();
 			tableLayoutPanel3.ResumeLayout(false);
 			groupBox1.ResumeLayout(false);
+			groupBox1.PerformLayout();
+			flowLayoutPanel2.ResumeLayout(false);
 			tableLayoutPanel2.ResumeLayout(false);
 			tableLayoutPanel2.PerformLayout();
 			groupBox2.ResumeLayout(false);
@@ -444,7 +487,6 @@
 		private TableLayoutPanel tableLayoutPanel1;
 		private TextBox textBox1;
 		private Label label1;
-		private Button button1;
 		private ListView listView1;
 		private GroupBox groupBox1;
 		private Label label2;
@@ -467,5 +509,9 @@
 		private TableLayoutPanel tableLayoutPanel3;
 		private GroupBox groupBox2;
 		private FlowLayoutPanel flowLayoutPanel1;
+		private FlowLayoutPanel flowLayoutPanel2;
+		private Button button1;
+		private Button button2;
+		private Button button3;
 	}
 }

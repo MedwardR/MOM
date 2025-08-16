@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace MOM.Migrations
 {
-    [DbContext(typeof(AppDbContext))]
+    [DbContext(typeof(AppContext))]
     [Migration("20250621001611_UserDefaults")]
     partial class UserDefaults
     {

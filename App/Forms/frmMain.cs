@@ -4,7 +4,7 @@ namespace MOM
 {
 	public partial class frmMain : Form
 	{
-		private readonly DataManager _dm;
+		private readonly AppContext _app;
 
 		public frmMain()
 		{
@@ -13,9 +13,9 @@ namespace MOM
 				var frm = new frmLogin();
 				frm.ShowDialog();
 
-				if (frm.DataManager is not null)
+				if (frm.AppContext is not null)
 				{
-					_dm = frm.DataManager;
+					_app = frm.AppContext;
 					InitializeComponent();
 				}
 				else
@@ -32,12 +32,17 @@ namespace MOM
 			}
 		}
 
+
+
 		public void LogOut()
 		{
-			if (_dm is not null)
+			if (_app is not null)
 			{
-				_dm.AuthenticatedUser.IsLoggedIn = false;
-				_dm.DbContext.SaveChanges();
+				if (_app.AuthenticatedUser is not null)
+				{
+					_app.AuthenticatedUser.IsLoggedIn = false;
+					_app.SaveChanges();
+				}
 			}
 		}
 	}
