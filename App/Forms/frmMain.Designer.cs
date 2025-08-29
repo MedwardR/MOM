@@ -30,34 +30,34 @@
 		{
 			splitContainer1 = new SplitContainer();
 			tableLayoutPanel1 = new TableLayoutPanel();
-			listView1 = new ListView();
-			textBox1 = new TextBox();
+			lsvHouseholds = new ListView();
+			tbSearch = new TextBox();
 			label1 = new Label();
 			tableLayoutPanel3 = new TableLayoutPanel();
 			groupBox1 = new GroupBox();
 			flowLayoutPanel2 = new FlowLayoutPanel();
-			button3 = new Button();
-			button1 = new Button();
-			button2 = new Button();
+			btnNew = new Button();
+			btnSave = new Button();
+			btnRevert = new Button();
 			tableLayoutPanel2 = new TableLayoutPanel();
-			textBox7 = new TextBox();
+			tbCountry = new TextBox();
 			label7 = new Label();
-			textBox3 = new TextBox();
+			tbStreet = new TextBox();
 			label3 = new Label();
 			label2 = new Label();
-			textBox2 = new TextBox();
+			tbName = new TextBox();
 			label4 = new Label();
-			textBox4 = new TextBox();
+			tbCity = new TextBox();
 			label6 = new Label();
 			label5 = new Label();
-			textBox6 = new TextBox();
-			textBox5 = new TextBox();
-			maskedTextBox1 = new MaskedTextBox();
+			tbZIP = new TextBox();
+			tbState = new TextBox();
+			tbPhone = new MaskedTextBox();
 			label9 = new Label();
 			label8 = new Label();
-			textBox8 = new TextBox();
+			tbEmail = new TextBox();
 			groupBox2 = new GroupBox();
-			flowLayoutPanel1 = new FlowLayoutPanel();
+			flpMembers = new FlowLayoutPanel();
 			((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
 			splitContainer1.Panel1.SuspendLayout();
 			splitContainer1.Panel2.SuspendLayout();
@@ -97,8 +97,8 @@
 			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
 			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
 			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-			tableLayoutPanel1.Controls.Add(listView1, 0, 1);
-			tableLayoutPanel1.Controls.Add(textBox1, 1, 0);
+			tableLayoutPanel1.Controls.Add(lsvHouseholds, 0, 1);
+			tableLayoutPanel1.Controls.Add(tbSearch, 1, 0);
 			tableLayoutPanel1.Controls.Add(label1, 0, 0);
 			tableLayoutPanel1.Dock = DockStyle.Fill;
 			tableLayoutPanel1.Font = new Font("Segoe UI", 11F);
@@ -110,27 +110,27 @@
 			tableLayoutPanel1.Size = new Size(333, 509);
 			tableLayoutPanel1.TabIndex = 0;
 			// 
-			// listView1
+			// lsvHouseholds
 			// 
-			tableLayoutPanel1.SetColumnSpan(listView1, 2);
-			listView1.Dock = DockStyle.Fill;
-			listView1.Font = new Font("Segoe UI", 11F);
-			listView1.Location = new Point(3, 36);
-			listView1.Margin = new Padding(3, 3, 0, 3);
-			listView1.Name = "listView1";
-			listView1.Size = new Size(330, 470);
-			listView1.TabIndex = 30;
-			listView1.UseCompatibleStateImageBehavior = false;
+			tableLayoutPanel1.SetColumnSpan(lsvHouseholds, 2);
+			lsvHouseholds.Dock = DockStyle.Fill;
+			lsvHouseholds.Font = new Font("Segoe UI", 11F);
+			lsvHouseholds.Location = new Point(3, 36);
+			lsvHouseholds.Margin = new Padding(3, 3, 0, 3);
+			lsvHouseholds.Name = "lsvHouseholds";
+			lsvHouseholds.Size = new Size(330, 470);
+			lsvHouseholds.TabIndex = 30;
+			lsvHouseholds.UseCompatibleStateImageBehavior = false;
 			// 
-			// textBox1
+			// tbSearch
 			// 
-			textBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			textBox1.Font = new Font("Segoe UI", 11F);
-			textBox1.Location = new Point(62, 3);
-			textBox1.Margin = new Padding(3, 3, 0, 3);
-			textBox1.Name = "textBox1";
-			textBox1.Size = new Size(271, 27);
-			textBox1.TabIndex = 10;
+			tbSearch.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tbSearch.Font = new Font("Segoe UI", 11F);
+			tbSearch.Location = new Point(62, 3);
+			tbSearch.Margin = new Padding(3, 3, 0, 3);
+			tbSearch.Name = "tbSearch";
+			tbSearch.Size = new Size(271, 27);
+			tbSearch.TabIndex = 10;
 			// 
 			// label1
 			// 
@@ -178,44 +178,44 @@
 			flowLayoutPanel2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
 			flowLayoutPanel2.AutoSize = true;
 			flowLayoutPanel2.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-			flowLayoutPanel2.Controls.Add(button3);
-			flowLayoutPanel2.Controls.Add(button1);
-			flowLayoutPanel2.Controls.Add(button2);
+			flowLayoutPanel2.Controls.Add(btnNew);
+			flowLayoutPanel2.Controls.Add(btnSave);
+			flowLayoutPanel2.Controls.Add(btnRevert);
 			flowLayoutPanel2.Location = new Point(172, 0);
 			flowLayoutPanel2.Margin = new Padding(3, 3, 0, 3);
 			flowLayoutPanel2.Name = "flowLayoutPanel2";
 			flowLayoutPanel2.Size = new Size(309, 30);
 			flowLayoutPanel2.TabIndex = 0;
 			// 
-			// button3
+			// btnNew
 			// 
-			button3.Location = new Point(0, 0);
-			button3.Margin = new Padding(0, 0, 3, 0);
-			button3.Name = "button3";
-			button3.Size = new Size(100, 30);
-			button3.TabIndex = 10;
-			button3.Text = "New";
-			button3.UseVisualStyleBackColor = true;
+			btnNew.Location = new Point(0, 0);
+			btnNew.Margin = new Padding(0, 0, 3, 0);
+			btnNew.Name = "btnNew";
+			btnNew.Size = new Size(100, 30);
+			btnNew.TabIndex = 10;
+			btnNew.Text = "New";
+			btnNew.UseVisualStyleBackColor = true;
 			// 
-			// button1
+			// btnSave
 			// 
-			button1.Location = new Point(103, 0);
-			button1.Margin = new Padding(0, 0, 3, 0);
-			button1.Name = "button1";
-			button1.Size = new Size(100, 30);
-			button1.TabIndex = 20;
-			button1.Text = "Save";
-			button1.UseVisualStyleBackColor = true;
+			btnSave.Location = new Point(103, 0);
+			btnSave.Margin = new Padding(0, 0, 3, 0);
+			btnSave.Name = "btnSave";
+			btnSave.Size = new Size(100, 30);
+			btnSave.TabIndex = 20;
+			btnSave.Text = "Save";
+			btnSave.UseVisualStyleBackColor = true;
 			// 
-			// button2
+			// btnRevert
 			// 
-			button2.Location = new Point(206, 0);
-			button2.Margin = new Padding(0, 0, 3, 0);
-			button2.Name = "button2";
-			button2.Size = new Size(100, 30);
-			button2.TabIndex = 30;
-			button2.Text = "Refresh";
-			button2.UseVisualStyleBackColor = true;
+			btnRevert.Location = new Point(206, 0);
+			btnRevert.Margin = new Padding(0, 0, 3, 0);
+			btnRevert.Name = "btnRevert";
+			btnRevert.Size = new Size(100, 30);
+			btnRevert.TabIndex = 30;
+			btnRevert.Text = "Revert";
+			btnRevert.UseVisualStyleBackColor = true;
 			// 
 			// tableLayoutPanel2
 			// 
@@ -226,22 +226,22 @@
 			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.666666F));
 			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.666666F));
 			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.666666F));
-			tableLayoutPanel2.Controls.Add(textBox7, 4, 5);
+			tableLayoutPanel2.Controls.Add(tbCountry, 4, 5);
 			tableLayoutPanel2.Controls.Add(label7, 4, 4);
-			tableLayoutPanel2.Controls.Add(textBox3, 0, 3);
+			tableLayoutPanel2.Controls.Add(tbStreet, 0, 3);
 			tableLayoutPanel2.Controls.Add(label3, 0, 2);
 			tableLayoutPanel2.Controls.Add(label2, 0, 0);
-			tableLayoutPanel2.Controls.Add(textBox2, 0, 1);
+			tableLayoutPanel2.Controls.Add(tbName, 0, 1);
 			tableLayoutPanel2.Controls.Add(label4, 3, 2);
-			tableLayoutPanel2.Controls.Add(textBox4, 3, 3);
+			tableLayoutPanel2.Controls.Add(tbCity, 3, 3);
 			tableLayoutPanel2.Controls.Add(label6, 0, 4);
 			tableLayoutPanel2.Controls.Add(label5, 2, 4);
-			tableLayoutPanel2.Controls.Add(textBox6, 0, 5);
-			tableLayoutPanel2.Controls.Add(textBox5, 2, 5);
-			tableLayoutPanel2.Controls.Add(maskedTextBox1, 0, 7);
+			tableLayoutPanel2.Controls.Add(tbZIP, 0, 5);
+			tableLayoutPanel2.Controls.Add(tbState, 2, 5);
+			tableLayoutPanel2.Controls.Add(tbPhone, 0, 7);
 			tableLayoutPanel2.Controls.Add(label9, 0, 6);
 			tableLayoutPanel2.Controls.Add(label8, 2, 6);
-			tableLayoutPanel2.Controls.Add(textBox8, 2, 7);
+			tableLayoutPanel2.Controls.Add(tbEmail, 2, 7);
 			tableLayoutPanel2.Dock = DockStyle.Fill;
 			tableLayoutPanel2.Location = new Point(3, 23);
 			tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -259,17 +259,17 @@
 			tableLayoutPanel2.Size = new Size(478, 213);
 			tableLayoutPanel2.TabIndex = 4;
 			// 
-			// textBox7
+			// tbCountry
 			// 
-			textBox7.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			tableLayoutPanel2.SetColumnSpan(textBox7, 2);
-			textBox7.Font = new Font("Segoe UI", 11F);
-			textBox7.Location = new Point(319, 129);
-			textBox7.Name = "textBox7";
-			textBox7.PlaceholderText = "USA";
-			textBox7.Size = new Size(156, 27);
-			textBox7.TabIndex = 60;
-			textBox7.Text = "USA";
+			tbCountry.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tableLayoutPanel2.SetColumnSpan(tbCountry, 2);
+			tbCountry.Font = new Font("Segoe UI", 11F);
+			tbCountry.Location = new Point(319, 129);
+			tbCountry.Name = "tbCountry";
+			tbCountry.PlaceholderText = "USA";
+			tbCountry.Size = new Size(156, 27);
+			tbCountry.TabIndex = 60;
+			tbCountry.Text = "USA";
 			// 
 			// label7
 			// 
@@ -282,16 +282,16 @@
 			label7.TabIndex = 10;
 			label7.Text = "Country";
 			// 
-			// textBox3
+			// tbStreet
 			// 
-			textBox3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			tableLayoutPanel2.SetColumnSpan(textBox3, 3);
-			textBox3.Font = new Font("Segoe UI", 11F);
-			textBox3.Location = new Point(3, 76);
-			textBox3.Name = "textBox3";
-			textBox3.PlaceholderText = "129 Pleasant Valley Rd.";
-			textBox3.Size = new Size(231, 27);
-			textBox3.TabIndex = 20;
+			tbStreet.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tableLayoutPanel2.SetColumnSpan(tbStreet, 3);
+			tbStreet.Font = new Font("Segoe UI", 11F);
+			tbStreet.Location = new Point(3, 76);
+			tbStreet.Name = "tbStreet";
+			tbStreet.PlaceholderText = "129 Pleasant Valley Rd.";
+			tbStreet.Size = new Size(231, 27);
+			tbStreet.TabIndex = 20;
 			// 
 			// label3
 			// 
@@ -315,15 +315,15 @@
 			label2.TabIndex = 1;
 			label2.Text = "Name";
 			// 
-			// textBox2
+			// tbName
 			// 
-			textBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			tableLayoutPanel2.SetColumnSpan(textBox2, 6);
-			textBox2.Font = new Font("Segoe UI", 11F);
-			textBox2.Location = new Point(3, 23);
-			textBox2.Name = "textBox2";
-			textBox2.Size = new Size(472, 27);
-			textBox2.TabIndex = 10;
+			tbName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tableLayoutPanel2.SetColumnSpan(tbName, 6);
+			tbName.Font = new Font("Segoe UI", 11F);
+			tbName.Location = new Point(3, 23);
+			tbName.Name = "tbName";
+			tbName.Size = new Size(472, 27);
+			tbName.TabIndex = 10;
 			// 
 			// label4
 			// 
@@ -336,16 +336,16 @@
 			label4.TabIndex = 4;
 			label4.Text = "City";
 			// 
-			// textBox4
+			// tbCity
 			// 
-			textBox4.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			tableLayoutPanel2.SetColumnSpan(textBox4, 3);
-			textBox4.Font = new Font("Segoe UI", 11F);
-			textBox4.Location = new Point(240, 76);
-			textBox4.Name = "textBox4";
-			textBox4.PlaceholderText = "East Earl";
-			textBox4.Size = new Size(235, 27);
-			textBox4.TabIndex = 30;
+			tbCity.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tableLayoutPanel2.SetColumnSpan(tbCity, 3);
+			tbCity.Font = new Font("Segoe UI", 11F);
+			tbCity.Location = new Point(240, 76);
+			tbCity.Name = "tbCity";
+			tbCity.PlaceholderText = "East Earl";
+			tbCity.Size = new Size(235, 27);
+			tbCity.TabIndex = 30;
 			// 
 			// label6
 			// 
@@ -369,38 +369,38 @@
 			label5.TabIndex = 6;
 			label5.Text = "State";
 			// 
-			// textBox6
+			// tbZIP
 			// 
-			textBox6.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			tableLayoutPanel2.SetColumnSpan(textBox6, 2);
-			textBox6.Font = new Font("Segoe UI", 11F);
-			textBox6.Location = new Point(3, 129);
-			textBox6.Name = "textBox6";
-			textBox6.PlaceholderText = "17519";
-			textBox6.Size = new Size(152, 27);
-			textBox6.TabIndex = 40;
+			tbZIP.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tableLayoutPanel2.SetColumnSpan(tbZIP, 2);
+			tbZIP.Font = new Font("Segoe UI", 11F);
+			tbZIP.Location = new Point(3, 129);
+			tbZIP.Name = "tbZIP";
+			tbZIP.PlaceholderText = "17519";
+			tbZIP.Size = new Size(152, 27);
+			tbZIP.TabIndex = 40;
 			// 
-			// textBox5
+			// tbState
 			// 
-			textBox5.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			tableLayoutPanel2.SetColumnSpan(textBox5, 2);
-			textBox5.Font = new Font("Segoe UI", 11F);
-			textBox5.Location = new Point(161, 129);
-			textBox5.Name = "textBox5";
-			textBox5.PlaceholderText = "PA";
-			textBox5.Size = new Size(152, 27);
-			textBox5.TabIndex = 50;
-			textBox5.Text = "PA";
+			tbState.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tableLayoutPanel2.SetColumnSpan(tbState, 2);
+			tbState.Font = new Font("Segoe UI", 11F);
+			tbState.Location = new Point(161, 129);
+			tbState.Name = "tbState";
+			tbState.PlaceholderText = "PA";
+			tbState.Size = new Size(152, 27);
+			tbState.TabIndex = 50;
+			tbState.Text = "PA";
 			// 
-			// maskedTextBox1
+			// tbPhone
 			// 
-			maskedTextBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			tableLayoutPanel2.SetColumnSpan(maskedTextBox1, 2);
-			maskedTextBox1.Location = new Point(3, 182);
-			maskedTextBox1.Mask = "(999) 000-0000";
-			maskedTextBox1.Name = "maskedTextBox1";
-			maskedTextBox1.Size = new Size(152, 27);
-			maskedTextBox1.TabIndex = 70;
+			tbPhone.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tableLayoutPanel2.SetColumnSpan(tbPhone, 2);
+			tbPhone.Location = new Point(3, 182);
+			tbPhone.Mask = "(999) 000-0000";
+			tbPhone.Name = "tbPhone";
+			tbPhone.Size = new Size(152, 27);
+			tbPhone.TabIndex = 70;
 			// 
 			// label9
 			// 
@@ -424,19 +424,19 @@
 			label8.TabIndex = 12;
 			label8.Text = "Email";
 			// 
-			// textBox8
+			// tbEmail
 			// 
-			textBox8.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			tableLayoutPanel2.SetColumnSpan(textBox8, 4);
-			textBox8.Font = new Font("Segoe UI", 11F);
-			textBox8.Location = new Point(161, 182);
-			textBox8.Name = "textBox8";
-			textBox8.Size = new Size(314, 27);
-			textBox8.TabIndex = 80;
+			tbEmail.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tableLayoutPanel2.SetColumnSpan(tbEmail, 4);
+			tbEmail.Font = new Font("Segoe UI", 11F);
+			tbEmail.Location = new Point(161, 182);
+			tbEmail.Name = "tbEmail";
+			tbEmail.Size = new Size(314, 27);
+			tbEmail.TabIndex = 80;
 			// 
 			// groupBox2
 			// 
-			groupBox2.Controls.Add(flowLayoutPanel1);
+			groupBox2.Controls.Add(flpMembers);
 			groupBox2.Dock = DockStyle.Fill;
 			groupBox2.Location = new Point(0, 248);
 			groupBox2.Margin = new Padding(0, 3, 3, 3);
@@ -446,13 +446,13 @@
 			groupBox2.TabStop = false;
 			groupBox2.Text = "Members";
 			// 
-			// flowLayoutPanel1
+			// flpMembers
 			// 
-			flowLayoutPanel1.Dock = DockStyle.Fill;
-			flowLayoutPanel1.Location = new Point(3, 23);
-			flowLayoutPanel1.Name = "flowLayoutPanel1";
-			flowLayoutPanel1.Size = new Size(478, 232);
-			flowLayoutPanel1.TabIndex = 0;
+			flpMembers.Dock = DockStyle.Fill;
+			flpMembers.Location = new Point(3, 23);
+			flpMembers.Name = "flpMembers";
+			flpMembers.Size = new Size(478, 232);
+			flpMembers.TabIndex = 0;
 			// 
 			// frmMain
 			// 
@@ -485,33 +485,33 @@
 
 		private SplitContainer splitContainer1;
 		private TableLayoutPanel tableLayoutPanel1;
-		private TextBox textBox1;
+		private TextBox tbSearch;
 		private Label label1;
-		private ListView listView1;
+		private ListView lsvHouseholds;
 		private GroupBox groupBox1;
 		private Label label2;
-		private TextBox textBox2;
+		private TextBox tbName;
 		private Label label3;
-		private TextBox textBox3;
+		private TextBox tbStreet;
 		private TableLayoutPanel tableLayoutPanel2;
-		private TextBox textBox4;
+		private TextBox tbCity;
 		private Label label4;
 		private Label label5;
-		private TextBox textBox7;
+		private TextBox tbCountry;
 		private Label label7;
-		private TextBox textBox5;
+		private TextBox tbState;
 		private Label label6;
-		private TextBox textBox6;
-		private MaskedTextBox maskedTextBox1;
+		private TextBox tbZIP;
+		private MaskedTextBox tbPhone;
 		private Label label8;
 		private Label label9;
-		private TextBox textBox8;
+		private TextBox tbEmail;
 		private TableLayoutPanel tableLayoutPanel3;
 		private GroupBox groupBox2;
-		private FlowLayoutPanel flowLayoutPanel1;
+		private FlowLayoutPanel flpMembers;
 		private FlowLayoutPanel flowLayoutPanel2;
-		private Button button1;
-		private Button button2;
-		private Button button3;
+		private Button btnSave;
+		private Button btnRevert;
+		private Button btnNew;
 	}
 }

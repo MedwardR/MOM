@@ -1,7 +1,17 @@
 {
   "profiles": {
-    "MOM": {
-      "commandName": "Project"
+    "Development": {
+      "commandName": "Project",
+      "commandLineArgs": "debug"
+    },
+    "Production": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "MOM_DB_HOST": "bmcmom",
+        "MOM_DB_PORT": "5432",
+        "MOM_DB_USERNAME": "mom",
+        "MOM_DB_PASSWORD": "Gtq5^pGS7jKDrEse3EF&K@4&M7apBguAT7N3%P&0cPhPNsSu3S8ac*n9@0gKmXht"
+      }
     },
     "Tools": {
       "commandName": "Project",

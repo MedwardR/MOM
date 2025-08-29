@@ -5,8 +5,8 @@ namespace MOM
 {
     internal static class Program
     {
-		public static string Name { get => "MOM"; }
-		public static Version Version { get => Version.Parse("1.0.1"); }
+		public static Version Version { get => Version.Parse("1.0.2"); }
+		public static bool DevelopmentMode { get; private set; }
 
 		private static frmMain? _mainForm;
 
@@ -15,7 +15,9 @@ namespace MOM
         {
 			ApplicationConfiguration.Initialize();
 
-			if (args.FirstOrDefault() == "tools")
+			DevelopmentMode = args.Contains("debug", StringComparer.OrdinalIgnoreCase);
+
+			if (args.Contains("tools", StringComparer.OrdinalIgnoreCase))
 			{
 				Application.Run(new frmTools());
 			}
@@ -42,12 +44,6 @@ namespace MOM
 			}
         }
 
-		public static bool IsDevelopmentEnvironment()
-		{
-			string debugFile = GetSavedFile("debug");
-			return File.Exists(debugFile);
-		}
-
 		private static void InitializeLogger()
 		{
 			var logFile = GetLogFile();
@@ -70,7 +66,7 @@ namespace MOM
 		public static string GetSavedFile(string fileName)
 		{
 			string localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-			return Path.Combine(localAppData, Name, fileName);
+			return Path.Combine(localAppData, "MOM", fileName);
 		}
 
 		private static void HandleException(Exception? ex, string context)

@@ -14,22 +14,10 @@ namespace MOM
 			InitializeComponent();
 
 			var builder = new StringBuilder();
+			builder.AppendLine($"Version: {Program.Version}");
 			if (ex is not null)
 			{
-				builder.AppendLine("**Message:**");
-				builder.AppendLine(ex.Message);
-				builder.AppendLine();
-				builder.AppendLine("**Stack trace:**");
-				builder.AppendLine(ex.StackTrace);
-
-				var inner = ex.InnerException;
-				while (inner is not null)
-				{
-					builder.AppendLine();
-					builder.AppendLine("Inner exception:");
-					builder.AppendLine(inner.Message);
-					inner = inner.InnerException;
-				}
+				builder.AppendLine(ex.ToString());
 			}
 			else builder.AppendLine("No exception data");
 

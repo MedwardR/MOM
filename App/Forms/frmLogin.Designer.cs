@@ -160,7 +160,7 @@
 			MinimumSize = new Size(440, 142);
 			Name = "frmLogin";
 			StartPosition = FormStartPosition.CenterScreen;
-			Text = "Membership Office Manager";
+			Text = "MOM ~ Login ~ ";
 			Shown += frmLogin_Shown;
 			tableLayoutPanel1.ResumeLayout(false);
 			tableLayoutPanel1.PerformLayout();

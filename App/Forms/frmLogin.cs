@@ -14,6 +14,7 @@ namespace MOM
 		public frmLogin()
 		{
 			InitializeComponent();
+			Text += Program.Version;
 		}
 
 		private async void frmLogin_Shown(object sender, EventArgs e)

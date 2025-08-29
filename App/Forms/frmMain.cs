@@ -8,31 +8,31 @@ namespace MOM
 
 		public frmMain()
 		{
-			try
-			{
-				var frm = new frmLogin();
-				frm.ShowDialog();
+			var frm = new frmLogin();
+			frm.ShowDialog();
 
-				if (frm.AppContext is not null)
-				{
-					_app = frm.AppContext;
-					InitializeComponent();
-				}
-				else
-				{
-					Log.Information("Application closed before logging in" + Environment.NewLine);
-					Program.CloseLogger();
-					Environment.Exit(0);
-				}
-			}
-			catch
+			if (frm.AppContext is not null)
 			{
-				LogOut();
-				throw;
+				_app = frm.AppContext;
+				InitializeComponent();
+			}
+			else
+			{
+				Log.Information("Application closed before logging in" + Environment.NewLine);
+				Program.CloseLogger();
+				Environment.Exit(0);
 			}
 		}
 
+		private void GetData()
+		{
 
+		}
+
+		private void SaveData()
+		{
+
+		}
 
 		public void LogOut()
 		{
