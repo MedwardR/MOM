@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MOM.Helpers;
 using MOM.Models;
 using MOM.Models.Abstract;
+using Npgsql;
 using System.Security.Authentication;
 
 namespace MOM
@@ -41,6 +43,26 @@ namespace MOM
 			return result;
 		}
 
+		public void RevertChanges()
+		{
+			foreach (var entry in ChangeTracker.Entries())
+			{
+				if (entry.State == EntityState.Modified)
+				{
+					entry.CurrentValues.SetValues(entry.OriginalValues);
+					entry.State = EntityState.Unchanged;
+				}
+				else if (entry.State == EntityState.Added)
+				{
+					entry.State = EntityState.Detached;
+				}
+				else if (entry.State == EntityState.Deleted)
+				{
+					entry.State = EntityState.Unchanged;
+				}
+			}
+		}
+
 		private void SetAuditFields()
 		{
 			if (AuthenticatedUser is not null)
@@ -64,24 +86,15 @@ namespace MOM
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
-			var connectionStringBuilder = new Npgsql.NpgsqlConnectionStringBuilder
+			var connectionStringBuilder = new NpgsqlConnectionStringBuilder
 			{
 				Database = "mom",
+				Host = UserSettings.DatabaseHost,
+				Port = UserSettings.DatabasePort ?? 5432,
+				Username = UserSettings.DatabaseUsername,
+				Password = SecurityHelper.Decrypt(UserSettings.DatabasePassword)
 			};
-			if (Program.DevelopmentMode)
-			{
-				connectionStringBuilder.Host = "localhost";
-				connectionStringBuilder.Port = 5432;
-				connectionStringBuilder.Username = "postgres";
-				connectionStringBuilder.Password = "postgres";
-			}
-			else
-			{
-				connectionStringBuilder.Host = UserSettings.DatabaseHost;
-				connectionStringBuilder.Port = UserSettings.DatabasePort ?? 5432;
-				connectionStringBuilder.Username = UserSettings.DatabaseUsername;
-				connectionStringBuilder.Password = SecurityHelper.Decrypt(UserSettings.DatabasePassword);
-			}
+
 			string connectionString = connectionStringBuilder.ToString();
 			optionsBuilder.UseNpgsql(connectionString);
 		}

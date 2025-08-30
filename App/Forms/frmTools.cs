@@ -1,4 +1,6 @@
-﻿namespace MOM.Forms
+﻿using MOM.Helpers;
+
+namespace MOM.Forms
 {
 	public partial class frmTools : Form
 	{

@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace MOM
+namespace MOM.Helpers
 {
 	internal class SecurityHelper
 	{

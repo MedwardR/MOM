@@ -28,11 +28,14 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			components = new System.ComponentModel.Container();
 			splitContainer1 = new SplitContainer();
 			tableLayoutPanel1 = new TableLayoutPanel();
-			lsvHouseholds = new ListView();
 			tbSearch = new TextBox();
 			label1 = new Label();
+			dgHouseholds = new DataGridView();
+			nameDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+			bsHouseholds = new BindingSource(components);
 			tableLayoutPanel3 = new TableLayoutPanel();
 			groupBox1 = new GroupBox();
 			flowLayoutPanel2 = new FlowLayoutPanel();
@@ -63,6 +66,8 @@
 			splitContainer1.Panel2.SuspendLayout();
 			splitContainer1.SuspendLayout();
 			tableLayoutPanel1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)dgHouseholds).BeginInit();
+			((System.ComponentModel.ISupportInitialize)bsHouseholds).BeginInit();
 			tableLayoutPanel3.SuspendLayout();
 			groupBox1.SuspendLayout();
 			flowLayoutPanel2.SuspendLayout();
@@ -97,9 +102,9 @@
 			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
 			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
 			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-			tableLayoutPanel1.Controls.Add(lsvHouseholds, 0, 1);
 			tableLayoutPanel1.Controls.Add(tbSearch, 1, 0);
 			tableLayoutPanel1.Controls.Add(label1, 0, 0);
+			tableLayoutPanel1.Controls.Add(dgHouseholds, 0, 1);
 			tableLayoutPanel1.Dock = DockStyle.Fill;
 			tableLayoutPanel1.Font = new Font("Segoe UI", 11F);
 			tableLayoutPanel1.Location = new Point(3, 3);
@@ -109,18 +114,6 @@
 			tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
 			tableLayoutPanel1.Size = new Size(333, 509);
 			tableLayoutPanel1.TabIndex = 0;
-			// 
-			// lsvHouseholds
-			// 
-			tableLayoutPanel1.SetColumnSpan(lsvHouseholds, 2);
-			lsvHouseholds.Dock = DockStyle.Fill;
-			lsvHouseholds.Font = new Font("Segoe UI", 11F);
-			lsvHouseholds.Location = new Point(3, 36);
-			lsvHouseholds.Margin = new Padding(3, 3, 0, 3);
-			lsvHouseholds.Name = "lsvHouseholds";
-			lsvHouseholds.Size = new Size(330, 470);
-			lsvHouseholds.TabIndex = 30;
-			lsvHouseholds.UseCompatibleStateImageBehavior = false;
 			// 
 			// tbSearch
 			// 
@@ -142,6 +135,37 @@
 			label1.Size = new Size(53, 20);
 			label1.TabIndex = 2;
 			label1.Text = "Search";
+			// 
+			// dgHouseholds
+			// 
+			dgHouseholds.AutoGenerateColumns = false;
+			dgHouseholds.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			dgHouseholds.ColumnHeadersVisible = false;
+			dgHouseholds.Columns.AddRange(new DataGridViewColumn[] { nameDataGridViewTextBoxColumn });
+			tableLayoutPanel1.SetColumnSpan(dgHouseholds, 2);
+			dgHouseholds.DataSource = bsHouseholds;
+			dgHouseholds.Dock = DockStyle.Fill;
+			dgHouseholds.Location = new Point(3, 36);
+			dgHouseholds.MultiSelect = false;
+			dgHouseholds.Name = "dgHouseholds";
+			dgHouseholds.ReadOnly = true;
+			dgHouseholds.RowHeadersVisible = false;
+			dgHouseholds.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+			dgHouseholds.Size = new Size(327, 470);
+			dgHouseholds.TabIndex = 11;
+			// 
+			// nameDataGridViewTextBoxColumn
+			// 
+			nameDataGridViewTextBoxColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+			nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+			nameDataGridViewTextBoxColumn.HeaderText = "Name";
+			nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+			nameDataGridViewTextBoxColumn.ReadOnly = true;
+			// 
+			// bsHouseholds
+			// 
+			bsHouseholds.DataSource = typeof(Models.Household);
+			bsHouseholds.CurrentChanged += bsHouseholds_CurrentChanged;
 			// 
 			// tableLayoutPanel3
 			// 
@@ -196,6 +220,7 @@
 			btnNew.TabIndex = 10;
 			btnNew.Text = "New";
 			btnNew.UseVisualStyleBackColor = true;
+			btnNew.Click += btnNew_Click;
 			// 
 			// btnSave
 			// 
@@ -206,6 +231,7 @@
 			btnSave.TabIndex = 20;
 			btnSave.Text = "Save";
 			btnSave.UseVisualStyleBackColor = true;
+			btnSave.Click += btnSave_Click;
 			// 
 			// btnRevert
 			// 
@@ -216,6 +242,7 @@
 			btnRevert.TabIndex = 30;
 			btnRevert.Text = "Revert";
 			btnRevert.UseVisualStyleBackColor = true;
+			btnRevert.Click += btnRevert_Click;
 			// 
 			// tableLayoutPanel2
 			// 
@@ -465,12 +492,15 @@
 			Margin = new Padding(4);
 			Name = "frmMain";
 			Text = "Membership Office Manager";
+			Shown += frmMain_Shown;
 			splitContainer1.Panel1.ResumeLayout(false);
 			splitContainer1.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
 			splitContainer1.ResumeLayout(false);
 			tableLayoutPanel1.ResumeLayout(false);
 			tableLayoutPanel1.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)dgHouseholds).EndInit();
+			((System.ComponentModel.ISupportInitialize)bsHouseholds).EndInit();
 			tableLayoutPanel3.ResumeLayout(false);
 			groupBox1.ResumeLayout(false);
 			groupBox1.PerformLayout();
@@ -487,7 +517,6 @@
 		private TableLayoutPanel tableLayoutPanel1;
 		private TextBox tbSearch;
 		private Label label1;
-		private ListView lsvHouseholds;
 		private GroupBox groupBox1;
 		private Label label2;
 		private TextBox tbName;
@@ -513,5 +542,8 @@
 		private Button btnSave;
 		private Button btnRevert;
 		private Button btnNew;
+		private DataGridView dgHouseholds;
+		private DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
+		private BindingSource bsHouseholds;
 	}
 }

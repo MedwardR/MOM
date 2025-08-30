@@ -5,7 +5,7 @@ namespace MOM
 {
     internal static class Program
     {
-		public static Version Version { get => Version.Parse("1.0.3"); }
+		public static Version Version { get => Version.Parse("1.0.4"); }
 		public static bool DevelopmentMode { get; private set; }
 
 		private static frmMain? _mainForm;
