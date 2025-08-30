@@ -5,9 +5,10 @@ using System.Security.Authentication;
 
 namespace MOM
 {
-	public class AppContext : DbContext
+	public class AppContext(UserSettings settings) : DbContext
 	{
 		public User? AuthenticatedUser { get; private set; }
+		public UserSettings UserSettings { get; } = settings;
 
 		public DbSet<Household> Households { get; set; }
 		public DbSet<Individual> Individuals { get; set; }
@@ -24,14 +25,20 @@ namespace MOM
 
 		public override int SaveChanges(bool acceptAllChangesOnSuccess)
 		{
+			var t = UserSettings.SaveAsync();
 			SetAuditFields();
-			return base.SaveChanges(acceptAllChangesOnSuccess);
+			int result = base.SaveChanges(acceptAllChangesOnSuccess);
+			t.GetAwaiter().GetResult();
+			return result;
 		}
 
-		public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
+		public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
 		{
+			var t = UserSettings.SaveAsync(cancellationToken);
 			SetAuditFields();
-			return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+			int result = await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+			await t;
+			return result;
 		}
 
 		private void SetAuditFields()
@@ -70,10 +77,10 @@ namespace MOM
 			}
 			else
 			{
-				connectionStringBuilder.Host = Environment.GetEnvironmentVariable("MOM_DB_HOST");
-				connectionStringBuilder.Port = int.Parse(Environment.GetEnvironmentVariable("MOM_DB_PORT") ?? "5432");
-				connectionStringBuilder.Username = Environment.GetEnvironmentVariable("MOM_DB_USERNAME");
-				connectionStringBuilder.Password = Environment.GetEnvironmentVariable("MOM_DB_PASSWORD");
+				connectionStringBuilder.Host = UserSettings.DatabaseHost;
+				connectionStringBuilder.Port = UserSettings.DatabasePort ?? 5432;
+				connectionStringBuilder.Username = UserSettings.DatabaseUsername;
+				connectionStringBuilder.Password = SecurityHelper.Decrypt(UserSettings.DatabasePassword);
 			}
 			string connectionString = connectionStringBuilder.ToString();
 			optionsBuilder.UseNpgsql(connectionString);

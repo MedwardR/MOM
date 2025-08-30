@@ -24,9 +24,9 @@ namespace MOM
 			}
 		}
 
-		private void GetData()
+		private void LoadData()
 		{
-
+			
 		}
 
 		private void SaveData()

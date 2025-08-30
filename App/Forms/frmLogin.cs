@@ -30,8 +30,11 @@ namespace MOM
 			Controls.Add(_log);
 			_log.Focus();
 
+			Log("Loading user settings");
+			var settings = await UserSettings.LoadAsync();
+
 			Log("Configuring database connection");
-			_app = new AppContext();
+			_app = new AppContext(settings);
 
 			Log("Checking for updates");
 			Version? latestVersion = null;

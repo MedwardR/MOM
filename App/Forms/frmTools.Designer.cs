@@ -29,13 +29,20 @@
 		private void InitializeComponent()
 		{
 			groupBox1 = new GroupBox();
+			btnCopyEncrypted = new Button();
 			btnCopyHash = new Button();
 			tbPassword = new TextBox();
+			groupBox2 = new GroupBox();
+			btnLoadSettings = new Button();
+			btnSaveSettings = new Button();
+			pgSettings = new PropertyGrid();
 			groupBox1.SuspendLayout();
+			groupBox2.SuspendLayout();
 			SuspendLayout();
 			// 
 			// groupBox1
 			// 
+			groupBox1.Controls.Add(btnCopyEncrypted);
 			groupBox1.Controls.Add(btnCopyHash);
 			groupBox1.Controls.Add(tbPassword);
 			groupBox1.Location = new Point(12, 12);
@@ -43,13 +50,23 @@
 			groupBox1.Size = new Size(228, 95);
 			groupBox1.TabIndex = 0;
 			groupBox1.TabStop = false;
-			groupBox1.Text = "Hash password";
+			groupBox1.Text = "Password tools";
+			// 
+			// btnCopyEncrypted
+			// 
+			btnCopyEncrypted.Location = new Point(98, 59);
+			btnCopyEncrypted.Name = "btnCopyEncrypted";
+			btnCopyEncrypted.Size = new Size(124, 30);
+			btnCopyEncrypted.TabIndex = 1;
+			btnCopyEncrypted.Text = "Copy encrypted";
+			btnCopyEncrypted.UseVisualStyleBackColor = true;
+			btnCopyEncrypted.Click += btnCopyEncrypted_Click;
 			// 
 			// btnCopyHash
 			// 
 			btnCopyHash.Location = new Point(6, 59);
 			btnCopyHash.Name = "btnCopyHash";
-			btnCopyHash.Size = new Size(216, 30);
+			btnCopyHash.Size = new Size(86, 30);
 			btnCopyHash.TabIndex = 1;
 			btnCopyHash.Text = "Copy hash";
 			btnCopyHash.UseVisualStyleBackColor = true;
@@ -63,11 +80,57 @@
 			tbPassword.Size = new Size(216, 27);
 			tbPassword.TabIndex = 0;
 			// 
+			// groupBox2
+			// 
+			groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			groupBox2.Controls.Add(btnLoadSettings);
+			groupBox2.Controls.Add(btnSaveSettings);
+			groupBox2.Controls.Add(pgSettings);
+			groupBox2.Location = new Point(246, 12);
+			groupBox2.Name = "groupBox2";
+			groupBox2.Size = new Size(420, 373);
+			groupBox2.TabIndex = 2;
+			groupBox2.TabStop = false;
+			groupBox2.Text = "User settings";
+			// 
+			// btnLoadSettings
+			// 
+			btnLoadSettings.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+			btnLoadSettings.Location = new Point(124, 337);
+			btnLoadSettings.Name = "btnLoadSettings";
+			btnLoadSettings.Size = new Size(142, 30);
+			btnLoadSettings.TabIndex = 3;
+			btnLoadSettings.Text = "Load";
+			btnLoadSettings.UseVisualStyleBackColor = true;
+			btnLoadSettings.Click += btnLoadSettings_Click;
+			// 
+			// btnSaveSettings
+			// 
+			btnSaveSettings.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+			btnSaveSettings.Enabled = false;
+			btnSaveSettings.Location = new Point(272, 337);
+			btnSaveSettings.Name = "btnSaveSettings";
+			btnSaveSettings.Size = new Size(142, 30);
+			btnSaveSettings.TabIndex = 2;
+			btnSaveSettings.Text = "Save";
+			btnSaveSettings.UseVisualStyleBackColor = true;
+			btnSaveSettings.Click += btnSaveSettings_Click;
+			// 
+			// pgSettings
+			// 
+			pgSettings.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+			pgSettings.Location = new Point(6, 26);
+			pgSettings.Name = "pgSettings";
+			pgSettings.PropertySort = PropertySort.NoSort;
+			pgSettings.Size = new Size(408, 305);
+			pgSettings.TabIndex = 0;
+			// 
 			// frmTools
 			// 
 			AutoScaleDimensions = new SizeF(8F, 20F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(678, 397);
+			Controls.Add(groupBox2);
 			Controls.Add(groupBox1);
 			Font = new Font("Segoe UI", 11F);
 			Margin = new Padding(3, 4, 3, 4);
@@ -75,6 +138,7 @@
 			Text = "Tools";
 			groupBox1.ResumeLayout(false);
 			groupBox1.PerformLayout();
+			groupBox2.ResumeLayout(false);
 			ResumeLayout(false);
 		}
 
@@ -83,5 +147,10 @@
 		private GroupBox groupBox1;
 		private TextBox tbPassword;
 		private Button btnCopyHash;
+		private Button btnCopyEncrypted;
+		private GroupBox groupBox2;
+		private Button btnSaveSettings;
+		private PropertyGrid pgSettings;
+		private Button btnLoadSettings;
 	}
 }

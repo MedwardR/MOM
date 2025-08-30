@@ -42,5 +42,27 @@ namespace MOM
 			byte[] hash = bytes[16..];
 			return (salt, hash);
 		}
+
+		public static string Encrypt(string? secret)
+		{
+			if (secret is not null)
+			{
+				byte[] bytes = Encoding.UTF8.GetBytes(secret);
+				byte[] encrypted = ProtectedData.Protect(bytes, null, DataProtectionScope.CurrentUser);
+				return Convert.ToBase64String(encrypted);
+			}
+			else return string.Empty;
+		}
+
+		public static string Decrypt(string? encrypted)
+		{
+			if (encrypted is not null)
+			{
+				byte[] bytes = Convert.FromBase64String(encrypted);
+				byte[] decrypted = ProtectedData.Unprotect(bytes, null, DataProtectionScope.CurrentUser);
+				return Encoding.UTF8.GetString(decrypted);
+			}
+			else return string.Empty;
+		}
 	}
 }
