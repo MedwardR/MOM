@@ -6,25 +6,14 @@ namespace MOM
 {
 	public partial class frmError : Form
 	{
-		private readonly string _title;
-		private readonly string _body;
+		public Exception Exception { get; }
+		public bool ExitProgram { get; private set; }
 
 		public frmError(Exception? ex)
 		{
 			InitializeComponent();
-
-			var builder = new StringBuilder();
-			builder.AppendLine($"Version: {Program.Version}");
-			if (ex is not null)
-			{
-				builder.AppendLine(ex.ToString());
-			}
-			else builder.AppendLine("No exception data");
-
-			_title = "Unhandled Exception";
-			_body = builder.ToString();
-
-			tbErrorMessage.Text = _body;
+			Exception = ex ?? new Exception("No exception data");
+			tbErrorMessage.Text = Exception.ToString();
 		}
 
 		private void frmError_Shown(object sender, EventArgs e)
@@ -32,10 +21,10 @@ namespace MOM
 			llReport.Focus();
 		}
 
-		private void llSubmitBugReport_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		private void llReport_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
 			var sb = new StringBuilder();
-			sb.AppendLine("**Steps to recreate error:**");
+			sb.AppendLine("**Steps to recreate the error:**");
 			sb.AppendLine();
 			sb.AppendLine("1. ");
 			sb.AppendLine("2. ");
@@ -44,11 +33,15 @@ namespace MOM
 			sb.AppendLine();
 			sb.AppendLine();
 			sb.AppendLine();
-			sb.Append(_body);
+			sb.AppendLine("**Exception details:**");
+			sb.AppendLine(Exception.ToString());
+			sb.AppendLine();
+			sb.AppendLine();
+			sb.AppendLine($"**Version: {Program.Version}**");
 
 			var query = HttpUtility.ParseQueryString(string.Empty);
 			query["template"] = "bug_report.md";
-			query["title"] = _title;
+			query["title"] = "Unhandled Exception";
 			query["body"] = sb.ToString();
 			var builder = new UriBuilder("https://github.com/MedwardR/MOM/issues/new")
 			{
@@ -62,8 +55,15 @@ namespace MOM
 			Process.Start(startInfo);
 		}
 
+		private void btnContinueAnyway_Click(object sender, EventArgs e)
+		{
+			ExitProgram = false;
+			Close();
+		}
+
 		private void btnCloseProgram_Click(object sender, EventArgs e)
 		{
+			ExitProgram = true;
 			Close();
 		}
 	}

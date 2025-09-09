@@ -31,6 +31,7 @@
 			tbErrorMessage = new TextBox();
 			btnCloseProgram = new Button();
 			llReport = new LinkLabel();
+			btnContinueAnyway = new Button();
 			SuspendLayout();
 			// 
 			// tbErrorMessage
@@ -52,7 +53,7 @@
 			btnCloseProgram.Location = new Point(406, 285);
 			btnCloseProgram.Name = "btnCloseProgram";
 			btnCloseProgram.Size = new Size(102, 23);
-			btnCloseProgram.TabIndex = 2;
+			btnCloseProgram.TabIndex = 3;
 			btnCloseProgram.Text = "Close program";
 			btnCloseProgram.UseVisualStyleBackColor = true;
 			btnCloseProgram.Click += btnCloseProgram_Click;
@@ -67,7 +68,18 @@
 			llReport.TabIndex = 1;
 			llReport.TabStop = true;
 			llReport.Text = "Please report this error";
-			llReport.LinkClicked += llSubmitBugReport_LinkClicked;
+			llReport.LinkClicked += llReport_LinkClicked;
+			// 
+			// btnContinueAnyway
+			// 
+			btnContinueAnyway.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+			btnContinueAnyway.Location = new Point(282, 285);
+			btnContinueAnyway.Name = "btnContinueAnyway";
+			btnContinueAnyway.Size = new Size(118, 23);
+			btnContinueAnyway.TabIndex = 2;
+			btnContinueAnyway.Text = "Continue anyway";
+			btnContinueAnyway.UseVisualStyleBackColor = true;
+			btnContinueAnyway.Click += btnContinueAnyway_Click;
 			// 
 			// frmError
 			// 
@@ -75,6 +87,8 @@
 			AutoScaleMode = AutoScaleMode.Font;
 			BackColor = Color.FromArgb(243, 243, 243);
 			ClientSize = new Size(520, 320);
+			ControlBox = false;
+			Controls.Add(btnContinueAnyway);
 			Controls.Add(btnCloseProgram);
 			Controls.Add(tbErrorMessage);
 			Controls.Add(llReport);
@@ -91,5 +105,6 @@
 		private TextBox tbErrorMessage;
 		private Button btnCloseProgram;
 		private LinkLabel llReport;
+		private Button btnContinueAnyway;
 	}
 }

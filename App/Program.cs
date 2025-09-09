@@ -8,7 +8,7 @@ namespace MOM
 		public static Version Version { get => Version.Parse("1.0.4"); }
 		public static bool DevelopmentMode { get; private set; }
 
-		private static frmMain? _mainForm;
+		private static frmHouseholds? _mainForm;
 
 		[STAThread]
         private static void Main(string[] args)
@@ -35,7 +35,7 @@ namespace MOM
 				InitializeLogger();
 				Log.Information("Application start");
 
-				_mainForm = new frmMain();
+				_mainForm = new frmHouseholds();
 				Application.Run(_mainForm);
 				_mainForm.LogOut();
 
@@ -71,19 +71,27 @@ namespace MOM
 
 		private static void HandleException(Exception? ex, string context)
 		{
-			Log.Fatal(ex, context);
+			bool exit;
+
+			Log.Error(ex, context);
 			try
 			{
 				using var frm = new frmError(ex);
 				frm.ShowDialog();
+				exit = frm.ExitProgram;
 			}
 			catch (Exception e)
 			{
 				Log.Fatal(e, "An error occurred while displaying the error form");
+				exit = true;
 			}
-			_mainForm?.LogOut();
-			CloseLogger();
-			Environment.Exit(1);
+			
+			if (exit)
+			{
+				_mainForm?.LogOut();
+				CloseLogger();
+				Environment.Exit(1);
+			}
 		}
 	}
 }

@@ -11,6 +11,11 @@ namespace MOM.Models
 		public string? Email { get; set; }
 
 		public virtual List<Individual> Individuals { get; set; } = [];
-		public Address? Address { get; set; }
+		public Address Address { get; set; }
+
+		public Household()
+		{
+			Address = new();
+		}
 	}
 }
