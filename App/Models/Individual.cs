@@ -29,6 +29,11 @@ namespace MOM.Models
 		public DateTime? MarriedDate { get; set; }
 
 		[ForeignKey(nameof(HouseholdId))] public virtual required Household Household { get; set; }
-		public Address? Address { get; set; }
+		public Address Address { get; set; }
+
+		public Individual()
+		{
+			Address = new();
+		}
 	}
 }

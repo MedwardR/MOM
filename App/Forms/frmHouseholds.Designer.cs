@@ -51,14 +51,14 @@
 			tbName = new TextBox();
 			label4 = new Label();
 			tbCity = new TextBox();
-			label6 = new Label();
-			label5 = new Label();
-			tbZIP = new TextBox();
-			tbState = new TextBox();
 			tbPhone = new MaskedTextBox();
 			label9 = new Label();
 			label8 = new Label();
 			tbEmail = new TextBox();
+			label5 = new Label();
+			label6 = new Label();
+			tbState = new TextBox();
+			tbZIP = new TextBox();
 			groupBox2 = new GroupBox();
 			flpMembers = new FlowLayoutPanel();
 			((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
@@ -375,51 +375,6 @@
 			tbCity.Size = new Size(235, 27);
 			tbCity.TabIndex = 30;
 			// 
-			// label6
-			// 
-			label6.AutoSize = true;
-			tableLayoutPanel2.SetColumnSpan(label6, 2);
-			label6.Font = new Font("Segoe UI", 11F);
-			label6.Location = new Point(161, 106);
-			label6.Name = "label6";
-			label6.Size = new Size(69, 20);
-			label6.TabIndex = 8;
-			label6.Text = "ZIP Code";
-			// 
-			// label5
-			// 
-			label5.AutoSize = true;
-			tableLayoutPanel2.SetColumnSpan(label5, 2);
-			label5.Font = new Font("Segoe UI", 11F);
-			label5.Location = new Point(3, 106);
-			label5.Name = "label5";
-			label5.Size = new Size(43, 20);
-			label5.TabIndex = 6;
-			label5.Text = "State";
-			// 
-			// tbZIP
-			// 
-			tbZIP.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			tableLayoutPanel2.SetColumnSpan(tbZIP, 2);
-			tbZIP.Font = new Font("Segoe UI", 11F);
-			tbZIP.Location = new Point(161, 129);
-			tbZIP.Name = "tbZIP";
-			tbZIP.PlaceholderText = "17519";
-			tbZIP.Size = new Size(152, 27);
-			tbZIP.TabIndex = 50;
-			// 
-			// tbState
-			// 
-			tbState.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			tableLayoutPanel2.SetColumnSpan(tbState, 2);
-			tbState.Font = new Font("Segoe UI", 11F);
-			tbState.Location = new Point(3, 129);
-			tbState.Name = "tbState";
-			tbState.PlaceholderText = "PA";
-			tbState.Size = new Size(152, 27);
-			tbState.TabIndex = 40;
-			tbState.Text = "PA";
-			// 
 			// tbPhone
 			// 
 			tbPhone.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
@@ -462,6 +417,51 @@
 			tbEmail.Name = "tbEmail";
 			tbEmail.Size = new Size(314, 27);
 			tbEmail.TabIndex = 80;
+			// 
+			// label5
+			// 
+			label5.AutoSize = true;
+			tableLayoutPanel2.SetColumnSpan(label5, 2);
+			label5.Font = new Font("Segoe UI", 11F);
+			label5.Location = new Point(3, 106);
+			label5.Name = "label5";
+			label5.Size = new Size(43, 20);
+			label5.TabIndex = 6;
+			label5.Text = "State";
+			// 
+			// label6
+			// 
+			label6.AutoSize = true;
+			tableLayoutPanel2.SetColumnSpan(label6, 2);
+			label6.Font = new Font("Segoe UI", 11F);
+			label6.Location = new Point(161, 106);
+			label6.Name = "label6";
+			label6.Size = new Size(69, 20);
+			label6.TabIndex = 8;
+			label6.Text = "ZIP Code";
+			// 
+			// tbState
+			// 
+			tbState.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tableLayoutPanel2.SetColumnSpan(tbState, 2);
+			tbState.Font = new Font("Segoe UI", 11F);
+			tbState.Location = new Point(3, 129);
+			tbState.Name = "tbState";
+			tbState.PlaceholderText = "PA";
+			tbState.Size = new Size(152, 27);
+			tbState.TabIndex = 40;
+			tbState.Text = "PA";
+			// 
+			// tbZIP
+			// 
+			tbZIP.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tableLayoutPanel2.SetColumnSpan(tbZIP, 2);
+			tbZIP.Font = new Font("Segoe UI", 11F);
+			tbZIP.Location = new Point(161, 129);
+			tbZIP.Name = "tbZIP";
+			tbZIP.PlaceholderText = "17519";
+			tbZIP.Size = new Size(152, 27);
+			tbZIP.TabIndex = 50;
 			// 
 			// groupBox2
 			// 
