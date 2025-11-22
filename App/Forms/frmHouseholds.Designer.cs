@@ -37,9 +37,9 @@
 			nameDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
 			bsHouseholds = new BindingSource(components);
 			tableLayoutPanel3 = new TableLayoutPanel();
-			groupBox1 = new GroupBox();
+			gbHousehold = new GroupBox();
 			flowLayoutPanel2 = new FlowLayoutPanel();
-			btnNew = new Button();
+			btnNewHousehold = new Button();
 			btnSave = new Button();
 			btnRevert = new Button();
 			tableLayoutPanel2 = new TableLayoutPanel();
@@ -59,8 +59,11 @@
 			label6 = new Label();
 			tbState = new TextBox();
 			tbZIP = new TextBox();
-			groupBox2 = new GroupBox();
+			gbMembers = new GroupBox();
+			flowLayoutPanel1 = new FlowLayoutPanel();
+			btnAddMember = new Button();
 			flpMembers = new FlowLayoutPanel();
+			btnMemberTemplate = new Button();
 			((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
 			splitContainer1.Panel1.SuspendLayout();
 			splitContainer1.Panel2.SuspendLayout();
@@ -69,10 +72,12 @@
 			((System.ComponentModel.ISupportInitialize)dgvHouseholds).BeginInit();
 			((System.ComponentModel.ISupportInitialize)bsHouseholds).BeginInit();
 			tableLayoutPanel3.SuspendLayout();
-			groupBox1.SuspendLayout();
+			gbHousehold.SuspendLayout();
 			flowLayoutPanel2.SuspendLayout();
 			tableLayoutPanel2.SuspendLayout();
-			groupBox2.SuspendLayout();
+			gbMembers.SuspendLayout();
+			flowLayoutPanel1.SuspendLayout();
+			flpMembers.SuspendLayout();
 			SuspendLayout();
 			// 
 			// splitContainer1
@@ -166,14 +171,15 @@
 			// 
 			// bsHouseholds
 			// 
+			bsHouseholds.AllowNew = false;
 			bsHouseholds.DataSource = typeof(Models.Household);
 			// 
 			// tableLayoutPanel3
 			// 
 			tableLayoutPanel3.ColumnCount = 1;
 			tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-			tableLayoutPanel3.Controls.Add(groupBox1, 0, 0);
-			tableLayoutPanel3.Controls.Add(groupBox2, 0, 1);
+			tableLayoutPanel3.Controls.Add(gbHousehold, 0, 0);
+			tableLayoutPanel3.Controls.Add(gbMembers, 0, 1);
 			tableLayoutPanel3.Dock = DockStyle.Fill;
 			tableLayoutPanel3.Location = new Point(0, 3);
 			tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -184,26 +190,26 @@
 			tableLayoutPanel3.Size = new Size(487, 509);
 			tableLayoutPanel3.TabIndex = 1;
 			// 
-			// groupBox1
+			// gbHousehold
 			// 
-			groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			groupBox1.Controls.Add(flowLayoutPanel2);
-			groupBox1.Controls.Add(tableLayoutPanel2);
-			groupBox1.Font = new Font("Segoe UI", 11F);
-			groupBox1.Location = new Point(0, 3);
-			groupBox1.Margin = new Padding(0, 3, 3, 3);
-			groupBox1.Name = "groupBox1";
-			groupBox1.Size = new Size(484, 239);
-			groupBox1.TabIndex = 0;
-			groupBox1.TabStop = false;
-			groupBox1.Text = "Household";
+			gbHousehold.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			gbHousehold.Controls.Add(flowLayoutPanel2);
+			gbHousehold.Controls.Add(tableLayoutPanel2);
+			gbHousehold.Font = new Font("Segoe UI", 11F);
+			gbHousehold.Location = new Point(0, 3);
+			gbHousehold.Margin = new Padding(0, 3, 3, 3);
+			gbHousehold.Name = "gbHousehold";
+			gbHousehold.Size = new Size(484, 239);
+			gbHousehold.TabIndex = 0;
+			gbHousehold.TabStop = false;
+			gbHousehold.Text = "Household";
 			// 
 			// flowLayoutPanel2
 			// 
 			flowLayoutPanel2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
 			flowLayoutPanel2.AutoSize = true;
 			flowLayoutPanel2.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-			flowLayoutPanel2.Controls.Add(btnNew);
+			flowLayoutPanel2.Controls.Add(btnNewHousehold);
 			flowLayoutPanel2.Controls.Add(btnSave);
 			flowLayoutPanel2.Controls.Add(btnRevert);
 			flowLayoutPanel2.Location = new Point(172, 0);
@@ -212,16 +218,16 @@
 			flowLayoutPanel2.Size = new Size(309, 30);
 			flowLayoutPanel2.TabIndex = 0;
 			// 
-			// btnNew
+			// btnNewHousehold
 			// 
-			btnNew.Location = new Point(0, 0);
-			btnNew.Margin = new Padding(0, 0, 3, 0);
-			btnNew.Name = "btnNew";
-			btnNew.Size = new Size(100, 30);
-			btnNew.TabIndex = 10;
-			btnNew.Text = "New";
-			btnNew.UseVisualStyleBackColor = true;
-			btnNew.Click += btnNew_Click;
+			btnNewHousehold.Location = new Point(0, 0);
+			btnNewHousehold.Margin = new Padding(0, 0, 3, 0);
+			btnNewHousehold.Name = "btnNewHousehold";
+			btnNewHousehold.Size = new Size(100, 30);
+			btnNewHousehold.TabIndex = 10;
+			btnNewHousehold.Text = "New";
+			btnNewHousehold.UseVisualStyleBackColor = true;
+			btnNewHousehold.Click += btnNewHousehold_Click;
 			// 
 			// btnSave
 			// 
@@ -463,25 +469,64 @@
 			tbZIP.Size = new Size(152, 27);
 			tbZIP.TabIndex = 50;
 			// 
-			// groupBox2
+			// gbMembers
 			// 
-			groupBox2.Controls.Add(flpMembers);
-			groupBox2.Dock = DockStyle.Fill;
-			groupBox2.Location = new Point(0, 248);
-			groupBox2.Margin = new Padding(0, 3, 3, 3);
-			groupBox2.Name = "groupBox2";
-			groupBox2.Size = new Size(484, 258);
-			groupBox2.TabIndex = 1;
-			groupBox2.TabStop = false;
-			groupBox2.Text = "Members";
+			gbMembers.Controls.Add(flowLayoutPanel1);
+			gbMembers.Controls.Add(flpMembers);
+			gbMembers.Dock = DockStyle.Fill;
+			gbMembers.Location = new Point(0, 248);
+			gbMembers.Margin = new Padding(0, 3, 3, 3);
+			gbMembers.Name = "gbMembers";
+			gbMembers.Size = new Size(484, 258);
+			gbMembers.TabIndex = 1;
+			gbMembers.TabStop = false;
+			gbMembers.Text = "Members";
+			// 
+			// flowLayoutPanel1
+			// 
+			flowLayoutPanel1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			flowLayoutPanel1.AutoSize = true;
+			flowLayoutPanel1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+			flowLayoutPanel1.Controls.Add(btnAddMember);
+			flowLayoutPanel1.Location = new Point(378, 0);
+			flowLayoutPanel1.Margin = new Padding(3, 3, 0, 3);
+			flowLayoutPanel1.Name = "flowLayoutPanel1";
+			flowLayoutPanel1.Size = new Size(103, 30);
+			flowLayoutPanel1.TabIndex = 1;
+			// 
+			// btnAddMember
+			// 
+			btnAddMember.Location = new Point(0, 0);
+			btnAddMember.Margin = new Padding(0, 0, 3, 0);
+			btnAddMember.Name = "btnAddMember";
+			btnAddMember.Size = new Size(100, 30);
+			btnAddMember.TabIndex = 10;
+			btnAddMember.Text = "Add";
+			btnAddMember.UseVisualStyleBackColor = true;
+			btnAddMember.Click += btnAddMember_Click;
 			// 
 			// flpMembers
 			// 
+			flpMembers.Controls.Add(btnMemberTemplate);
 			flpMembers.Dock = DockStyle.Fill;
+			flpMembers.FlowDirection = FlowDirection.TopDown;
 			flpMembers.Location = new Point(3, 23);
 			flpMembers.Name = "flpMembers";
 			flpMembers.Size = new Size(478, 232);
 			flpMembers.TabIndex = 0;
+			// 
+			// btnMemberTemplate
+			// 
+			btnMemberTemplate.AutoSize = true;
+			btnMemberTemplate.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+			btnMemberTemplate.Location = new Point(3, 3);
+			btnMemberTemplate.Name = "btnMemberTemplate";
+			btnMemberTemplate.Padding = new Padding(12, 0, 12, 0);
+			btnMemberTemplate.Size = new Size(78, 30);
+			btnMemberTemplate.TabIndex = 0;
+			btnMemberTemplate.Text = "Miles";
+			btnMemberTemplate.UseVisualStyleBackColor = true;
+			btnMemberTemplate.Visible = false;
 			// 
 			// frmHouseholds
 			// 
@@ -504,12 +549,16 @@
 			((System.ComponentModel.ISupportInitialize)dgvHouseholds).EndInit();
 			((System.ComponentModel.ISupportInitialize)bsHouseholds).EndInit();
 			tableLayoutPanel3.ResumeLayout(false);
-			groupBox1.ResumeLayout(false);
-			groupBox1.PerformLayout();
+			gbHousehold.ResumeLayout(false);
+			gbHousehold.PerformLayout();
 			flowLayoutPanel2.ResumeLayout(false);
 			tableLayoutPanel2.ResumeLayout(false);
 			tableLayoutPanel2.PerformLayout();
-			groupBox2.ResumeLayout(false);
+			gbMembers.ResumeLayout(false);
+			gbMembers.PerformLayout();
+			flowLayoutPanel1.ResumeLayout(false);
+			flpMembers.ResumeLayout(false);
+			flpMembers.PerformLayout();
 			ResumeLayout(false);
 		}
 
@@ -519,7 +568,7 @@
 		private TableLayoutPanel tableLayoutPanel1;
 		private TextBox tbSearch;
 		private Label label1;
-		private GroupBox groupBox1;
+		private GroupBox gbHousehold;
 		private Label label2;
 		private TextBox tbName;
 		private Label label3;
@@ -538,14 +587,17 @@
 		private Label label9;
 		private TextBox tbEmail;
 		private TableLayoutPanel tableLayoutPanel3;
-		private GroupBox groupBox2;
+		private GroupBox gbMembers;
 		private FlowLayoutPanel flpMembers;
 		private FlowLayoutPanel flowLayoutPanel2;
 		private Button btnSave;
 		private Button btnRevert;
-		private Button btnNew;
+		private Button btnNewHousehold;
 		private DataGridView dgvHouseholds;
 		private DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
 		private BindingSource bsHouseholds;
+		private Button btnMemberTemplate;
+		private FlowLayoutPanel flowLayoutPanel1;
+		private Button btnAddMember;
 	}
 }

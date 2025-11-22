@@ -6,7 +6,6 @@ namespace MOM
     internal static class Program
     {
 		public static Version Version { get => Version.Parse("1.0.4"); }
-		public static bool DevelopmentMode { get; private set; }
 
 		private static frmHouseholds? _mainForm;
 
@@ -14,8 +13,6 @@ namespace MOM
         private static void Main(string[] args)
         {
 			ApplicationConfiguration.Initialize();
-
-			DevelopmentMode = args.Contains("debug", StringComparer.OrdinalIgnoreCase);
 
 			if (args.Contains("tools", StringComparer.OrdinalIgnoreCase))
 			{

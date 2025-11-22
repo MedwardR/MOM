@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MOM.Models.Abstractions;
+using System.ComponentModel.DataAnnotations;
 
 namespace MOM.Models
 {
-	public class Household
+	public class Household : AuditableEntity
 	{
 		public int Id { get; set; }
 
@@ -16,6 +17,24 @@ namespace MOM.Models
 		public Household()
 		{
 			Address = new();
+		}
+
+		public Individual GetNewMember() => new Individual
+		{
+			FirstName = "(New Individual)",
+			LastName = GetDefaultLastName(),
+			Household = this,
+		};
+
+		private string GetDefaultLastName()
+		{
+			var mostCommon = Individuals
+				.Where(m => !string.IsNullOrWhiteSpace(m.LastName))
+				.GroupBy(m => m.LastName.Trim(), StringComparer.OrdinalIgnoreCase)
+				.OrderByDescending(g => g.Count())
+				.FirstOrDefault()?.Key;
+
+			return mostCommon ?? Name.Split(' ').LastOrDefault() ?? string.Empty;
 		}
 	}
 }

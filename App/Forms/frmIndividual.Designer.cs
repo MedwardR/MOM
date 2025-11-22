@@ -28,53 +28,110 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			groupBox1 = new GroupBox();
+			gbName = new GroupBox();
+			flowLayoutPanel2 = new FlowLayoutPanel();
+			btnSave = new Button();
+			btnCancel = new Button();
 			tableLayoutPanel1 = new TableLayoutPanel();
-			textBox1 = new TextBox();
+			tbLastName = new TextBox();
+			tbMiddleName = new TextBox();
+			label3 = new Label();
+			tbFirstName = new TextBox();
 			label1 = new Label();
 			label2 = new Label();
-			label3 = new Label();
-			textBox2 = new TextBox();
-			textBox3 = new TextBox();
-			groupBox2 = new GroupBox();
+			gbContact = new GroupBox();
 			tableLayoutPanel2 = new TableLayoutPanel();
-			textBox5 = new TextBox();
-			label5 = new Label();
-			label6 = new Label();
-			tableLayoutPanel3 = new TableLayoutPanel();
-			tbPhone = new MaskedTextBox();
+			tbCommunicationPreference = new TextBox();
 			label4 = new Label();
-			textBox4 = new TextBox();
-			groupBox3 = new GroupBox();
+			label6 = new Label();
+			label5 = new Label();
+			tbEmail = new TextBox();
+			tbPhone = new MaskedTextBox();
+			tableLayoutPanel3 = new TableLayoutPanel();
+			gbLife = new GroupBox();
+			tableLayoutPanel5 = new TableLayoutPanel();
+			tbMarriageDate = new MaskedTextBox();
+			tbMaritalStatus = new TextBox();
+			label16 = new Label();
+			label15 = new Label();
+			tbJoinedMethod = new TextBox();
+			label11 = new Label();
+			label12 = new Label();
+			tbJoinedDate = new MaskedTextBox();
+			label13 = new Label();
+			label14 = new Label();
+			tbBaptismLocation = new TextBox();
+			tbBaptismDate = new MaskedTextBox();
+			gbPersonal = new GroupBox();
 			tableLayoutPanel4 = new TableLayoutPanel();
+			tbOccupation = new TextBox();
 			label8 = new Label();
 			label9 = new Label();
-			textBox7 = new TextBox();
+			tbEmployer = new TextBox();
 			label7 = new Label();
-			textBox6 = new TextBox();
-			textBox8 = new TextBox();
-			textBox9 = new TextBox();
 			label10 = new Label();
-			groupBox1.SuspendLayout();
+			tbBirthDate = new MaskedTextBox();
+			tbGender = new TextBox();
+			cbActive = new CheckBox();
+			gbName.SuspendLayout();
+			flowLayoutPanel2.SuspendLayout();
 			tableLayoutPanel1.SuspendLayout();
-			groupBox2.SuspendLayout();
+			gbContact.SuspendLayout();
 			tableLayoutPanel2.SuspendLayout();
 			tableLayoutPanel3.SuspendLayout();
-			groupBox3.SuspendLayout();
+			gbLife.SuspendLayout();
+			tableLayoutPanel5.SuspendLayout();
+			gbPersonal.SuspendLayout();
 			tableLayoutPanel4.SuspendLayout();
 			SuspendLayout();
 			// 
-			// groupBox1
+			// gbName
 			// 
-			groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			tableLayoutPanel3.SetColumnSpan(groupBox1, 2);
-			groupBox1.Controls.Add(tableLayoutPanel1);
-			groupBox1.Location = new Point(3, 3);
-			groupBox1.Name = "groupBox1";
-			groupBox1.Size = new Size(908, 80);
-			groupBox1.TabIndex = 0;
-			groupBox1.TabStop = false;
-			groupBox1.Text = "Name";
+			gbName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tableLayoutPanel3.SetColumnSpan(gbName, 2);
+			gbName.Controls.Add(flowLayoutPanel2);
+			gbName.Controls.Add(tableLayoutPanel1);
+			gbName.Location = new Point(3, 3);
+			gbName.Name = "gbName";
+			gbName.Size = new Size(908, 80);
+			gbName.TabIndex = 0;
+			gbName.TabStop = false;
+			gbName.Text = "Name";
+			// 
+			// flowLayoutPanel2
+			// 
+			flowLayoutPanel2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			flowLayoutPanel2.AutoSize = true;
+			flowLayoutPanel2.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+			flowLayoutPanel2.Controls.Add(btnSave);
+			flowLayoutPanel2.Controls.Add(btnCancel);
+			flowLayoutPanel2.Location = new Point(699, 0);
+			flowLayoutPanel2.Margin = new Padding(3, 3, 0, 3);
+			flowLayoutPanel2.Name = "flowLayoutPanel2";
+			flowLayoutPanel2.Size = new Size(206, 30);
+			flowLayoutPanel2.TabIndex = 1;
+			// 
+			// btnSave
+			// 
+			btnSave.Location = new Point(0, 0);
+			btnSave.Margin = new Padding(0, 0, 3, 0);
+			btnSave.Name = "btnSave";
+			btnSave.Size = new Size(100, 30);
+			btnSave.TabIndex = 20;
+			btnSave.Text = "Save";
+			btnSave.UseVisualStyleBackColor = true;
+			btnSave.Click += btnSave_Click;
+			// 
+			// btnCancel
+			// 
+			btnCancel.Location = new Point(103, 0);
+			btnCancel.Margin = new Padding(0, 0, 3, 0);
+			btnCancel.Name = "btnCancel";
+			btnCancel.Size = new Size(100, 30);
+			btnCancel.TabIndex = 30;
+			btnCancel.Text = "Cancel";
+			btnCancel.UseVisualStyleBackColor = true;
+			btnCancel.Click += btnCancel_Click;
 			// 
 			// tableLayoutPanel1
 			// 
@@ -85,10 +142,10 @@
 			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666679F));
 			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666679F));
 			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666679F));
-			tableLayoutPanel1.Controls.Add(textBox3, 4, 1);
-			tableLayoutPanel1.Controls.Add(textBox2, 2, 1);
+			tableLayoutPanel1.Controls.Add(tbLastName, 4, 1);
+			tableLayoutPanel1.Controls.Add(tbMiddleName, 2, 1);
 			tableLayoutPanel1.Controls.Add(label3, 4, 0);
-			tableLayoutPanel1.Controls.Add(textBox1, 0, 1);
+			tableLayoutPanel1.Controls.Add(tbFirstName, 0, 1);
 			tableLayoutPanel1.Controls.Add(label1, 0, 0);
 			tableLayoutPanel1.Controls.Add(label2, 2, 0);
 			tableLayoutPanel1.Dock = DockStyle.Fill;
@@ -104,14 +161,42 @@
 			tableLayoutPanel1.Size = new Size(902, 54);
 			tableLayoutPanel1.TabIndex = 0;
 			// 
-			// textBox1
+			// tbLastName
 			// 
-			textBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			tableLayoutPanel1.SetColumnSpan(textBox1, 2);
-			textBox1.Location = new Point(3, 23);
-			textBox1.Name = "textBox1";
-			textBox1.Size = new Size(294, 27);
-			textBox1.TabIndex = 1;
+			tbLastName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tableLayoutPanel1.SetColumnSpan(tbLastName, 2);
+			tbLastName.Location = new Point(603, 23);
+			tbLastName.Name = "tbLastName";
+			tbLastName.Size = new Size(296, 27);
+			tbLastName.TabIndex = 6;
+			// 
+			// tbMiddleName
+			// 
+			tbMiddleName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tableLayoutPanel1.SetColumnSpan(tbMiddleName, 2);
+			tbMiddleName.Location = new Point(303, 23);
+			tbMiddleName.Name = "tbMiddleName";
+			tbMiddleName.Size = new Size(294, 27);
+			tbMiddleName.TabIndex = 5;
+			// 
+			// label3
+			// 
+			label3.AutoSize = true;
+			tableLayoutPanel1.SetColumnSpan(label3, 2);
+			label3.Location = new Point(603, 0);
+			label3.Name = "label3";
+			label3.Size = new Size(35, 20);
+			label3.TabIndex = 4;
+			label3.Text = "Last";
+			// 
+			// tbFirstName
+			// 
+			tbFirstName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tableLayoutPanel1.SetColumnSpan(tbFirstName, 2);
+			tbFirstName.Location = new Point(3, 23);
+			tbFirstName.Name = "tbFirstName";
+			tbFirstName.Size = new Size(294, 27);
+			tbFirstName.TabIndex = 1;
 			// 
 			// label1
 			// 
@@ -133,44 +218,16 @@
 			label2.TabIndex = 3;
 			label2.Text = "Middle";
 			// 
-			// label3
+			// gbContact
 			// 
-			label3.AutoSize = true;
-			tableLayoutPanel1.SetColumnSpan(label3, 2);
-			label3.Location = new Point(603, 0);
-			label3.Name = "label3";
-			label3.Size = new Size(35, 20);
-			label3.TabIndex = 4;
-			label3.Text = "Last";
-			// 
-			// textBox2
-			// 
-			textBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			tableLayoutPanel1.SetColumnSpan(textBox2, 2);
-			textBox2.Location = new Point(303, 23);
-			textBox2.Name = "textBox2";
-			textBox2.Size = new Size(294, 27);
-			textBox2.TabIndex = 5;
-			// 
-			// textBox3
-			// 
-			textBox3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			tableLayoutPanel1.SetColumnSpan(textBox3, 2);
-			textBox3.Location = new Point(603, 23);
-			textBox3.Name = "textBox3";
-			textBox3.Size = new Size(296, 27);
-			textBox3.TabIndex = 6;
-			// 
-			// groupBox2
-			// 
-			groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			groupBox2.Controls.Add(tableLayoutPanel2);
-			groupBox2.Location = new Point(3, 89);
-			groupBox2.Name = "groupBox2";
-			groupBox2.Size = new Size(451, 133);
-			groupBox2.TabIndex = 1;
-			groupBox2.TabStop = false;
-			groupBox2.Text = "Contact";
+			gbContact.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			gbContact.Controls.Add(tableLayoutPanel2);
+			gbContact.Location = new Point(3, 89);
+			gbContact.Name = "gbContact";
+			gbContact.Size = new Size(451, 133);
+			gbContact.TabIndex = 1;
+			gbContact.TabStop = false;
+			gbContact.Text = "Contact";
 			// 
 			// tableLayoutPanel2
 			// 
@@ -178,11 +235,11 @@
 			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33333F));
 			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333359F));
 			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333359F));
-			tableLayoutPanel2.Controls.Add(textBox4, 0, 3);
+			tableLayoutPanel2.Controls.Add(tbCommunicationPreference, 0, 3);
 			tableLayoutPanel2.Controls.Add(label4, 0, 2);
 			tableLayoutPanel2.Controls.Add(label6, 1, 0);
 			tableLayoutPanel2.Controls.Add(label5, 0, 0);
-			tableLayoutPanel2.Controls.Add(textBox5, 1, 1);
+			tableLayoutPanel2.Controls.Add(tbEmail, 1, 1);
 			tableLayoutPanel2.Controls.Add(tbPhone, 0, 1);
 			tableLayoutPanel2.Dock = DockStyle.Fill;
 			tableLayoutPanel2.Location = new Point(3, 23);
@@ -196,62 +253,14 @@
 			tableLayoutPanel2.Size = new Size(445, 107);
 			tableLayoutPanel2.TabIndex = 0;
 			// 
-			// textBox5
+			// tbCommunicationPreference
 			// 
-			textBox5.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			tableLayoutPanel2.SetColumnSpan(textBox5, 2);
-			textBox5.Location = new Point(151, 23);
-			textBox5.Name = "textBox5";
-			textBox5.Size = new Size(291, 27);
-			textBox5.TabIndex = 5;
-			// 
-			// label5
-			// 
-			label5.AutoSize = true;
-			label5.Location = new Point(3, 0);
-			label5.Name = "label5";
-			label5.Size = new Size(50, 20);
-			label5.TabIndex = 2;
-			label5.Text = "Phone";
-			// 
-			// label6
-			// 
-			label6.AutoSize = true;
-			tableLayoutPanel2.SetColumnSpan(label6, 2);
-			label6.Location = new Point(151, 0);
-			label6.Name = "label6";
-			label6.Size = new Size(46, 20);
-			label6.TabIndex = 3;
-			label6.Text = "Email";
-			// 
-			// tableLayoutPanel3
-			// 
-			tableLayoutPanel3.ColumnCount = 2;
-			tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-			tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-			tableLayoutPanel3.Controls.Add(groupBox3, 1, 1);
-			tableLayoutPanel3.Controls.Add(groupBox2, 0, 1);
-			tableLayoutPanel3.Controls.Add(groupBox1, 0, 0);
-			tableLayoutPanel3.Dock = DockStyle.Fill;
-			tableLayoutPanel3.Location = new Point(0, 0);
-			tableLayoutPanel3.Name = "tableLayoutPanel3";
-			tableLayoutPanel3.RowCount = 4;
-			tableLayoutPanel3.RowStyles.Add(new RowStyle());
-			tableLayoutPanel3.RowStyles.Add(new RowStyle());
-			tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-			tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-			tableLayoutPanel3.Size = new Size(914, 600);
-			tableLayoutPanel3.TabIndex = 2;
-			// 
-			// tbPhone
-			// 
-			tbPhone.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			tbPhone.Location = new Point(3, 23);
-			tbPhone.Mask = "(999) 000-0000";
-			tbPhone.Name = "tbPhone";
-			tbPhone.Size = new Size(142, 27);
-			tbPhone.TabIndex = 71;
-			tbPhone.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
+			tbCommunicationPreference.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tableLayoutPanel2.SetColumnSpan(tbCommunicationPreference, 3);
+			tbCommunicationPreference.Location = new Point(3, 76);
+			tbCommunicationPreference.Name = "tbCommunicationPreference";
+			tbCommunicationPreference.Size = new Size(439, 27);
+			tbCommunicationPreference.TabIndex = 73;
 			// 
 			// label4
 			// 
@@ -263,25 +272,225 @@
 			label4.TabIndex = 72;
 			label4.Text = "Communication preference";
 			// 
-			// textBox4
+			// label6
 			// 
-			textBox4.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			tableLayoutPanel2.SetColumnSpan(textBox4, 3);
-			textBox4.Location = new Point(3, 76);
-			textBox4.Name = "textBox4";
-			textBox4.Size = new Size(439, 27);
-			textBox4.TabIndex = 73;
+			label6.AutoSize = true;
+			tableLayoutPanel2.SetColumnSpan(label6, 2);
+			label6.Location = new Point(151, 0);
+			label6.Name = "label6";
+			label6.Size = new Size(46, 20);
+			label6.TabIndex = 3;
+			label6.Text = "Email";
 			// 
-			// groupBox3
+			// label5
 			// 
-			groupBox3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			groupBox3.Controls.Add(tableLayoutPanel4);
-			groupBox3.Location = new Point(460, 89);
-			groupBox3.Name = "groupBox3";
-			groupBox3.Size = new Size(451, 133);
-			groupBox3.TabIndex = 2;
-			groupBox3.TabStop = false;
-			groupBox3.Text = "Personal";
+			label5.AutoSize = true;
+			label5.Location = new Point(3, 0);
+			label5.Name = "label5";
+			label5.Size = new Size(50, 20);
+			label5.TabIndex = 2;
+			label5.Text = "Phone";
+			// 
+			// tbEmail
+			// 
+			tbEmail.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tableLayoutPanel2.SetColumnSpan(tbEmail, 2);
+			tbEmail.Location = new Point(151, 23);
+			tbEmail.Name = "tbEmail";
+			tbEmail.Size = new Size(291, 27);
+			tbEmail.TabIndex = 5;
+			// 
+			// tbPhone
+			// 
+			tbPhone.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tbPhone.Location = new Point(3, 23);
+			tbPhone.Mask = "(999) 000-0000";
+			tbPhone.Name = "tbPhone";
+			tbPhone.Size = new Size(142, 27);
+			tbPhone.TabIndex = 71;
+			tbPhone.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
+			// 
+			// tableLayoutPanel3
+			// 
+			tableLayoutPanel3.ColumnCount = 2;
+			tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+			tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+			tableLayoutPanel3.Controls.Add(gbName, 0, 0);
+			tableLayoutPanel3.Controls.Add(gbLife, 0, 2);
+			tableLayoutPanel3.Controls.Add(gbPersonal, 1, 1);
+			tableLayoutPanel3.Controls.Add(gbContact, 0, 1);
+			tableLayoutPanel3.Controls.Add(cbActive, 1, 2);
+			tableLayoutPanel3.Dock = DockStyle.Fill;
+			tableLayoutPanel3.Location = new Point(0, 0);
+			tableLayoutPanel3.Name = "tableLayoutPanel3";
+			tableLayoutPanel3.RowCount = 4;
+			tableLayoutPanel3.RowStyles.Add(new RowStyle());
+			tableLayoutPanel3.RowStyles.Add(new RowStyle());
+			tableLayoutPanel3.RowStyles.Add(new RowStyle());
+			tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+			tableLayoutPanel3.Size = new Size(914, 418);
+			tableLayoutPanel3.TabIndex = 2;
+			// 
+			// gbLife
+			// 
+			gbLife.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			gbLife.Controls.Add(tableLayoutPanel5);
+			gbLife.Location = new Point(3, 228);
+			gbLife.Name = "gbLife";
+			gbLife.Size = new Size(451, 186);
+			gbLife.TabIndex = 3;
+			gbLife.TabStop = false;
+			gbLife.Text = "Life";
+			// 
+			// tableLayoutPanel5
+			// 
+			tableLayoutPanel5.ColumnCount = 2;
+			tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 49.99999F));
+			tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50.0000076F));
+			tableLayoutPanel5.Controls.Add(tbMarriageDate, 1, 5);
+			tableLayoutPanel5.Controls.Add(tbMaritalStatus, 0, 5);
+			tableLayoutPanel5.Controls.Add(label16, 1, 4);
+			tableLayoutPanel5.Controls.Add(label15, 0, 4);
+			tableLayoutPanel5.Controls.Add(tbJoinedMethod, 0, 1);
+			tableLayoutPanel5.Controls.Add(label11, 1, 0);
+			tableLayoutPanel5.Controls.Add(label12, 0, 0);
+			tableLayoutPanel5.Controls.Add(tbJoinedDate, 1, 1);
+			tableLayoutPanel5.Controls.Add(label13, 1, 2);
+			tableLayoutPanel5.Controls.Add(label14, 0, 2);
+			tableLayoutPanel5.Controls.Add(tbBaptismLocation, 0, 3);
+			tableLayoutPanel5.Controls.Add(tbBaptismDate, 1, 3);
+			tableLayoutPanel5.Dock = DockStyle.Fill;
+			tableLayoutPanel5.Location = new Point(3, 23);
+			tableLayoutPanel5.Name = "tableLayoutPanel5";
+			tableLayoutPanel5.RowCount = 7;
+			tableLayoutPanel5.RowStyles.Add(new RowStyle());
+			tableLayoutPanel5.RowStyles.Add(new RowStyle());
+			tableLayoutPanel5.RowStyles.Add(new RowStyle());
+			tableLayoutPanel5.RowStyles.Add(new RowStyle());
+			tableLayoutPanel5.RowStyles.Add(new RowStyle());
+			tableLayoutPanel5.RowStyles.Add(new RowStyle());
+			tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+			tableLayoutPanel5.Size = new Size(445, 160);
+			tableLayoutPanel5.TabIndex = 0;
+			// 
+			// tbMarriageDate
+			// 
+			tbMarriageDate.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tbMarriageDate.Location = new Point(225, 129);
+			tbMarriageDate.Mask = "00/00/0000";
+			tbMarriageDate.Name = "tbMarriageDate";
+			tbMarriageDate.Size = new Size(217, 27);
+			tbMarriageDate.TabIndex = 80;
+			tbMarriageDate.ValidatingType = typeof(DateTime);
+			// 
+			// tbMaritalStatus
+			// 
+			tbMaritalStatus.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tbMaritalStatus.Location = new Point(3, 129);
+			tbMaritalStatus.Name = "tbMaritalStatus";
+			tbMaritalStatus.Size = new Size(216, 27);
+			tbMaritalStatus.TabIndex = 79;
+			// 
+			// label16
+			// 
+			label16.AutoSize = true;
+			label16.Location = new Point(225, 106);
+			label16.Name = "label16";
+			label16.Size = new Size(103, 20);
+			label16.TabIndex = 78;
+			label16.Text = "Marriage date";
+			// 
+			// label15
+			// 
+			label15.AutoSize = true;
+			label15.Location = new Point(3, 106);
+			label15.Name = "label15";
+			label15.Size = new Size(98, 20);
+			label15.TabIndex = 77;
+			label15.Text = "Marital status";
+			// 
+			// tbJoinedMethod
+			// 
+			tbJoinedMethod.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tbJoinedMethod.Location = new Point(3, 23);
+			tbJoinedMethod.Name = "tbJoinedMethod";
+			tbJoinedMethod.Size = new Size(216, 27);
+			tbJoinedMethod.TabIndex = 74;
+			// 
+			// label11
+			// 
+			label11.AutoSize = true;
+			label11.Location = new Point(225, 0);
+			label11.Name = "label11";
+			label11.Size = new Size(86, 20);
+			label11.TabIndex = 3;
+			label11.Text = "Joined date";
+			// 
+			// label12
+			// 
+			label12.AutoSize = true;
+			label12.Location = new Point(3, 0);
+			label12.Name = "label12";
+			label12.Size = new Size(108, 20);
+			label12.TabIndex = 2;
+			label12.Text = "Joined method";
+			// 
+			// tbJoinedDate
+			// 
+			tbJoinedDate.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tbJoinedDate.Location = new Point(225, 23);
+			tbJoinedDate.Mask = "00/00/0000";
+			tbJoinedDate.Name = "tbJoinedDate";
+			tbJoinedDate.Size = new Size(217, 27);
+			tbJoinedDate.TabIndex = 5;
+			tbJoinedDate.ValidatingType = typeof(DateTime);
+			// 
+			// label13
+			// 
+			label13.AutoSize = true;
+			label13.Location = new Point(225, 53);
+			label13.Name = "label13";
+			label13.Size = new Size(97, 20);
+			label13.TabIndex = 72;
+			label13.Text = "Baptism date";
+			// 
+			// label14
+			// 
+			label14.AutoSize = true;
+			label14.Location = new Point(3, 53);
+			label14.Name = "label14";
+			label14.Size = new Size(121, 20);
+			label14.TabIndex = 76;
+			label14.Text = "Baptism location";
+			// 
+			// tbBaptismLocation
+			// 
+			tbBaptismLocation.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tbBaptismLocation.Location = new Point(3, 76);
+			tbBaptismLocation.Name = "tbBaptismLocation";
+			tbBaptismLocation.Size = new Size(216, 27);
+			tbBaptismLocation.TabIndex = 75;
+			// 
+			// tbBaptismDate
+			// 
+			tbBaptismDate.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tbBaptismDate.Location = new Point(225, 76);
+			tbBaptismDate.Mask = "00/00/0000";
+			tbBaptismDate.Name = "tbBaptismDate";
+			tbBaptismDate.Size = new Size(217, 27);
+			tbBaptismDate.TabIndex = 73;
+			tbBaptismDate.ValidatingType = typeof(DateTime);
+			// 
+			// gbPersonal
+			// 
+			gbPersonal.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			gbPersonal.Controls.Add(tableLayoutPanel4);
+			gbPersonal.Location = new Point(460, 89);
+			gbPersonal.Name = "gbPersonal";
+			gbPersonal.Size = new Size(451, 133);
+			gbPersonal.TabIndex = 2;
+			gbPersonal.TabStop = false;
+			gbPersonal.Text = "Personal";
 			// 
 			// tableLayoutPanel4
 			// 
@@ -289,14 +498,14 @@
 			tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 49.9999924F));
 			tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50.0000038F));
 			tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-			tableLayoutPanel4.Controls.Add(textBox8, 0, 1);
+			tableLayoutPanel4.Controls.Add(tbOccupation, 0, 1);
 			tableLayoutPanel4.Controls.Add(label8, 1, 0);
 			tableLayoutPanel4.Controls.Add(label9, 0, 0);
-			tableLayoutPanel4.Controls.Add(textBox7, 1, 1);
+			tableLayoutPanel4.Controls.Add(tbEmployer, 1, 1);
 			tableLayoutPanel4.Controls.Add(label7, 1, 2);
 			tableLayoutPanel4.Controls.Add(label10, 0, 2);
-			tableLayoutPanel4.Controls.Add(textBox9, 0, 3);
-			tableLayoutPanel4.Controls.Add(textBox6, 1, 3);
+			tableLayoutPanel4.Controls.Add(tbBirthDate, 0, 3);
+			tableLayoutPanel4.Controls.Add(tbGender, 1, 3);
 			tableLayoutPanel4.Dock = DockStyle.Fill;
 			tableLayoutPanel4.Location = new Point(3, 23);
 			tableLayoutPanel4.Name = "tableLayoutPanel4";
@@ -308,6 +517,14 @@
 			tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
 			tableLayoutPanel4.Size = new Size(445, 107);
 			tableLayoutPanel4.TabIndex = 0;
+			// 
+			// tbOccupation
+			// 
+			tbOccupation.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tbOccupation.Location = new Point(3, 23);
+			tbOccupation.Name = "tbOccupation";
+			tbOccupation.Size = new Size(216, 27);
+			tbOccupation.TabIndex = 74;
 			// 
 			// label8
 			// 
@@ -327,13 +544,13 @@
 			label9.TabIndex = 2;
 			label9.Text = "Occupation";
 			// 
-			// textBox7
+			// tbEmployer
 			// 
-			textBox7.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			textBox7.Location = new Point(225, 23);
-			textBox7.Name = "textBox7";
-			textBox7.Size = new Size(217, 27);
-			textBox7.TabIndex = 5;
+			tbEmployer.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tbEmployer.Location = new Point(225, 23);
+			tbEmployer.Name = "tbEmployer";
+			tbEmployer.Size = new Size(217, 27);
+			tbEmployer.TabIndex = 5;
 			// 
 			// label7
 			// 
@@ -344,30 +561,6 @@
 			label7.TabIndex = 72;
 			label7.Text = "Gender";
 			// 
-			// textBox6
-			// 
-			textBox6.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			textBox6.Location = new Point(225, 76);
-			textBox6.Name = "textBox6";
-			textBox6.Size = new Size(217, 27);
-			textBox6.TabIndex = 73;
-			// 
-			// textBox8
-			// 
-			textBox8.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			textBox8.Location = new Point(3, 23);
-			textBox8.Name = "textBox8";
-			textBox8.Size = new Size(216, 27);
-			textBox8.TabIndex = 74;
-			// 
-			// textBox9
-			// 
-			textBox9.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			textBox9.Location = new Point(3, 76);
-			textBox9.Name = "textBox9";
-			textBox9.Size = new Size(216, 27);
-			textBox9.TabIndex = 75;
-			// 
 			// label10
 			// 
 			label10.AutoSize = true;
@@ -377,25 +570,61 @@
 			label10.TabIndex = 76;
 			label10.Text = "Birth date";
 			// 
+			// tbBirthDate
+			// 
+			tbBirthDate.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tbBirthDate.Location = new Point(3, 76);
+			tbBirthDate.Mask = "00/00/0000";
+			tbBirthDate.Name = "tbBirthDate";
+			tbBirthDate.Size = new Size(216, 27);
+			tbBirthDate.TabIndex = 75;
+			tbBirthDate.ValidatingType = typeof(DateTime);
+			// 
+			// tbGender
+			// 
+			tbGender.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tbGender.Location = new Point(225, 76);
+			tbGender.Name = "tbGender";
+			tbGender.Size = new Size(217, 27);
+			tbGender.TabIndex = 73;
+			// 
+			// cbActive
+			// 
+			cbActive.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+			cbActive.AutoSize = true;
+			cbActive.Location = new Point(842, 390);
+			cbActive.Name = "cbActive";
+			cbActive.Size = new Size(69, 24);
+			cbActive.TabIndex = 4;
+			cbActive.Text = "Active";
+			cbActive.UseVisualStyleBackColor = true;
+			// 
 			// frmIndividual
 			// 
 			AutoScaleDimensions = new SizeF(8F, 20F);
 			AutoScaleMode = AutoScaleMode.Font;
 			BackColor = Color.FromArgb(243, 243, 243);
-			ClientSize = new Size(914, 600);
+			ClientSize = new Size(914, 418);
 			Controls.Add(tableLayoutPanel3);
 			Font = new Font("Segoe UI", 11F);
 			Margin = new Padding(3, 4, 3, 4);
 			Name = "frmIndividual";
 			Text = "MOM - Individual";
-			groupBox1.ResumeLayout(false);
+			Shown += frmIndividual_Shown;
+			gbName.ResumeLayout(false);
+			gbName.PerformLayout();
+			flowLayoutPanel2.ResumeLayout(false);
 			tableLayoutPanel1.ResumeLayout(false);
 			tableLayoutPanel1.PerformLayout();
-			groupBox2.ResumeLayout(false);
+			gbContact.ResumeLayout(false);
 			tableLayoutPanel2.ResumeLayout(false);
 			tableLayoutPanel2.PerformLayout();
 			tableLayoutPanel3.ResumeLayout(false);
-			groupBox3.ResumeLayout(false);
+			tableLayoutPanel3.PerformLayout();
+			gbLife.ResumeLayout(false);
+			tableLayoutPanel5.ResumeLayout(false);
+			tableLayoutPanel5.PerformLayout();
+			gbPersonal.ResumeLayout(false);
 			tableLayoutPanel4.ResumeLayout(false);
 			tableLayoutPanel4.PerformLayout();
 			ResumeLayout(false);
@@ -403,32 +632,50 @@
 
 		#endregion
 
-		private GroupBox groupBox1;
+		private GroupBox gbName;
 		private TableLayoutPanel tableLayoutPanel1;
-		private TextBox textBox1;
+		private TextBox tbFirstName;
 		private Label label1;
 		private Label label2;
 		private Label label3;
-		private TextBox textBox3;
-		private TextBox textBox2;
-		private GroupBox groupBox2;
+		private TextBox tbLastName;
+		private TextBox tbMiddleName;
+		private GroupBox gbContact;
 		private TableLayoutPanel tableLayoutPanel2;
-		private TextBox textBox5;
+		private TextBox tbEmail;
 		private Label label5;
 		private Label label6;
 		private TableLayoutPanel tableLayoutPanel3;
 		private MaskedTextBox tbPhone;
-		private TextBox textBox4;
+		private TextBox tbCommunicationPreference;
 		private Label label4;
-		private GroupBox groupBox3;
+		private GroupBox gbPersonal;
 		private TableLayoutPanel tableLayoutPanel4;
 		private Label label8;
 		private Label label9;
-		private TextBox textBox7;
-		private TextBox textBox6;
+		private TextBox tbEmployer;
+		private TextBox tbGender;
 		private Label label7;
 		private Label label10;
-		private TextBox textBox8;
-		private TextBox textBox9;
+		private TextBox tbOccupation;
+		private MaskedTextBox tbBirthDate;
+		private GroupBox gbLife;
+		private TableLayoutPanel tableLayoutPanel5;
+		private TextBox tbJoinedMethod;
+		private Label label11;
+		private Label label12;
+		private MaskedTextBox tbJoinedDate;
+		private Label label13;
+		private Label label14;
+		private TextBox tbBaptismLocation;
+		private MaskedTextBox tbBaptismDate;
+		private MaskedTextBox tbMarriageDate;
+		private TextBox tbMaritalStatus;
+		private Label label16;
+		private Label label15;
+		private FlowLayoutPanel flowLayoutPanel2;
+		private Button btnSave;
+		private Button btnCancel;
+		private CheckBox cbActive;
 	}
 }

@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using MOM.Forms;
 using MOM.Models;
 using Serilog;
 using System.ComponentModel;
@@ -73,17 +74,32 @@ namespace MOM
 
 		private void ChangeCurrent(Household household)
 		{
-			_current = household;
-			FocusCurrent();
+			if (household is not null)
+			{
+				_current = household;
+				FocusCurrent();
 
-			tbName.Text = household.Name;
-			tbStreet.Text = household.Address.Street;
-			tbCity.Text = household.Address.City;
-			tbState.Text = household.Address.State;
-			tbZIP.Text = household.Address.Zip;
-			tbCountry.Text = household.Address.Country;
-			tbPhone.Text = household.Phone;
-			tbEmail.Text = household.Email;
+				tbName.Text = household.Name;
+				tbStreet.Text = household.Address.Street;
+				tbCity.Text = household.Address.City;
+				tbState.Text = household.Address.State;
+				tbZIP.Text = household.Address.Zip;
+				tbCountry.Text = household.Address.Country;
+				tbPhone.Text = household.Phone;
+				tbEmail.Text = household.Email;
+
+				flpMembers.SuspendLayout();
+				flpMembers.Controls.Clear();
+				foreach (var member in household.Individuals)
+				{
+					if (member.Active)
+					{
+						InitializeMember(member);
+					}
+				}
+				flpMembers.ResumeLayout();
+			}
+			else throw new ArgumentNullException(nameof(household));
 		}
 
 		private void FocusCurrent()
@@ -130,6 +146,31 @@ namespace MOM
 			else return false;
 		}
 
+		private void InitializeMember(Individual member)
+		{
+			var button = new Button
+			{
+				AutoSize = btnMemberTemplate.AutoSize,
+				AutoSizeMode = btnMemberTemplate.AutoSizeMode,
+				Text = member.FirstName,
+			};
+			button.Click += (s, e) =>
+			{
+				using var frm = new frmIndividual(member);
+				frm.ShowDialog();
+
+				if (frm.DialogResult != DialogResult.Cancel)
+				{
+					if (!member.Active)
+					{
+						button.Dispose();
+						flpMembers.Controls.Remove(button);
+					}
+				}
+			};
+			flpMembers.Controls.Add(button);
+		}
+
 		private async void frmHouseholds_Shown(object sender, EventArgs e)
 		{
 			Enabled = false;
@@ -143,7 +184,7 @@ namespace MOM
 			}
 		}
 
-		private void btnNew_Click(object sender, EventArgs e)
+		private void btnNewHousehold_Click(object sender, EventArgs e)
 		{
 			Enabled = false;
 			try
@@ -188,6 +229,23 @@ namespace MOM
 			finally
 			{
 				Enabled = true;
+			}
+		}
+
+		private void btnAddMember_Click(object sender, EventArgs e)
+		{
+			if (_current is not null)
+			{
+				var member = _current.GetNewMember();
+
+				using var frm = new frmIndividual(member);
+				frm.ShowDialog();
+
+				if (frm.DialogResult != DialogResult.Cancel)
+				{
+					_current.Individuals.Add(member);
+					InitializeMember(member);
+				}
 			}
 		}
 

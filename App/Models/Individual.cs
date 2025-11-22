@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MOM.Models.Abstractions;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MOM.Models
 {
-	public class Individual
+	public class Individual : AuditableEntity
 	{
 		public int Id { get; set; }
 		public int HouseholdId { get; set; }

@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using MOM.Helpers;
 using MOM.Models;
-using MOM.Models.Abstract;
+using MOM.Models.Abstractions;
 using Npgsql;
 using System.Security.Authentication;
 
@@ -71,13 +72,18 @@ namespace MOM
 				{
 					if (entry.State == EntityState.Added)
 					{
-						entry.Entity.CreatedAt = DateTime.Now;
+						entry.Entity.CreatedAt = DateTime.UtcNow;
 						entry.Entity.CreatedBy = AuthenticatedUser.Id;
 					}
 					else if (entry.State == EntityState.Modified)
 					{
-						entry.Entity.ModifiedAt = DateTime.Now;
+						entry.Entity.ModifiedAt = DateTime.UtcNow;
 						entry.Entity.ModifiedBy = AuthenticatedUser.Id;
+					}
+					else if (entry.State == EntityState.Deleted)
+					{
+						entry.Entity.Active = false;
+						entry.State = EntityState.Modified;
 					}
 				}
 			}
@@ -105,11 +111,32 @@ namespace MOM
 			{
 				entity.HasIndex(u => u.Username).IsUnique();
 				entity.Property(u => u.IsLoggedIn).HasDefaultValue(false);
-				entity.Property(u => u.IsActive).HasDefaultValue(true);
-				entity.Property(u => u.CreatedAt).HasDefaultValueSql("now()");
 			});
 			modelBuilder.Entity<Individual>().OwnsOne(i => i.Address);
 			modelBuilder.Entity<Household>().OwnsOne(h => h.Address);
+
+			foreach (var type in modelBuilder.Model.GetEntityTypes())
+			{
+				if (typeof(AuditableEntity).IsAssignableFrom(type.ClrType))
+				{
+					modelBuilder.Entity(type.Name)
+						.Property<DateTime>(nameof(AuditableEntity.CreatedAt))
+						.HasDefaultValueSql("CURRENT_TIMESTAMP AT TIME ZONE 'UTC'");
+
+					modelBuilder.Entity(type.Name)
+						.Property<bool>(nameof(AuditableEntity.Active))
+						.HasDefaultValue(true);
+				}
+			}
+		}
+
+		public class AppContextFactory : IDesignTimeDbContextFactory<AppContext>
+		{
+			public AppContext CreateDbContext(string[] args)
+			{
+				var settings = UserSettings.LoadAsync().GetAwaiter().GetResult();
+				return new AppContext(settings);
+			}
 		}
 	}
 }
