@@ -19,7 +19,7 @@ namespace MOM.Models
 			Address = new();
 		}
 
-		public Individual GetNewMember() => new Individual
+		public Individual GetNewMember() => new()
 		{
 			FirstName = "(New Individual)",
 			LastName = GetDefaultLastName(),

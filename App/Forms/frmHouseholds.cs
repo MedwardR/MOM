@@ -153,6 +153,7 @@ namespace MOM
 				AutoSize = btnMemberTemplate.AutoSize,
 				AutoSizeMode = btnMemberTemplate.AutoSizeMode,
 				Text = member.FirstName,
+				UseVisualStyleBackColor = btnMemberTemplate.UseVisualStyleBackColor,
 			};
 			button.Click += (s, e) =>
 			{

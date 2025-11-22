@@ -24,15 +24,20 @@ namespace MOM.Forms
 
 			tbOccupation.Text = Individual.Occupation;
 			tbEmployer.Text = Individual.Employer;
-			tbBirthDate.Text = Individual.BirthDate?.ToString("MM/dd/yyyy");
+			tbBirthDate.Value = Individual.BirthDate;
 			tbGender.Text = Individual.Gender;
 
 			tbJoinedMethod.Text = Individual.JoinedMethod;
-			tbJoinedDate.Text = Individual.JoinedDate?.ToString("MM/dd/yyyy");
+			tbJoinedDate.Value = Individual.JoinedDate;
 			tbBaptismLocation.Text = Individual.BaptizedLocation;
-			tbBaptismDate.Text = Individual.BaptizedDate?.ToString("MM/dd/yyyy");
+			tbBaptismDate.Value = Individual.BaptizedDate;
 			tbMaritalStatus.Text = Individual.MaritalStatus;
-			tbMarriageDate.Text = Individual.MarriedDate?.ToString("MM/dd/yyyy");
+			tbMarriageDate.Value = Individual.MarriedDate;
+
+			cbActive.Checked = Individual.Active;
+
+			tbFirstName.Focus();
+			tbFirstName.SelectAll();
 		}
 
 		private void btnSave_Click(object sender, EventArgs e)
@@ -47,15 +52,15 @@ namespace MOM.Forms
 
 			Individual.Occupation = tbOccupation.Text;
 			Individual.Employer = tbEmployer.Text;
-			Individual.BirthDate = DateTime.TryParse(tbBirthDate.Text, out var birthday) ? birthday : null;
+			Individual.BirthDate = tbBirthDate.Value;
 			Individual.Gender = tbGender.Text;
 
 			Individual.JoinedMethod = tbJoinedMethod.Text;
-			Individual.JoinedDate = DateTime.TryParse(tbJoinedDate.Text, out var joined) ? joined : null;
+			Individual.JoinedDate = tbJoinedDate.Value;
 			Individual.BaptizedLocation = tbBaptismLocation.Text;
-			Individual.BaptizedDate = DateTime.TryParse(tbBaptismDate.Text, out var baptism) ? baptism : null;
+			Individual.BaptizedDate = tbBaptismDate.Value;
 			Individual.MaritalStatus = tbMaritalStatus.Text;
-			Individual.MarriedDate = DateTime.TryParse(tbMarriageDate.Text, out var marriage) ? marriage : null;
+			Individual.MarriedDate = tbMarriageDate.Value;
 
 			Individual.Active = cbActive.Checked;
 

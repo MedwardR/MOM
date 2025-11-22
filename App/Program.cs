@@ -32,6 +32,9 @@ namespace MOM
 				InitializeLogger();
 				Log.Information("Application start");
 
+				Application.EnableVisualStyles();
+				Application.SetCompatibleTextRenderingDefault(false);
+
 				_mainForm = new frmHouseholds();
 				Application.Run(_mainForm);
 				_mainForm.LogOut();

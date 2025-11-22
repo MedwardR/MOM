@@ -100,9 +100,10 @@ namespace MOM
 				Username = UserSettings.DatabaseUsername,
 				Password = SecurityHelper.Decrypt(UserSettings.DatabasePassword)
 			};
-
 			string connectionString = connectionStringBuilder.ToString();
+
 			optionsBuilder.UseNpgsql(connectionString);
+			optionsBuilder.UseLazyLoadingProxies();
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -112,7 +113,6 @@ namespace MOM
 				entity.HasIndex(u => u.Username).IsUnique();
 				entity.Property(u => u.IsLoggedIn).HasDefaultValue(false);
 			});
-			modelBuilder.Entity<Individual>().OwnsOne(i => i.Address);
 			modelBuilder.Entity<Household>().OwnsOne(h => h.Address);
 
 			foreach (var type in modelBuilder.Model.GetEntityTypes())

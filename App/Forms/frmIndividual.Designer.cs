@@ -1,4 +1,6 @@
-﻿namespace MOM.Forms
+﻿using MOM.Controls;
+
+namespace MOM.Forms
 {
 	partial class frmIndividual
 	{
@@ -50,18 +52,18 @@
 			tableLayoutPanel3 = new TableLayoutPanel();
 			gbLife = new GroupBox();
 			tableLayoutPanel5 = new TableLayoutPanel();
-			tbMarriageDate = new MaskedTextBox();
+			tbMarriageDate = new DateTimeTextBox();
 			tbMaritalStatus = new TextBox();
 			label16 = new Label();
 			label15 = new Label();
 			tbJoinedMethod = new TextBox();
 			label11 = new Label();
 			label12 = new Label();
-			tbJoinedDate = new MaskedTextBox();
+			tbJoinedDate = new DateTimeTextBox();
 			label13 = new Label();
 			label14 = new Label();
 			tbBaptismLocation = new TextBox();
-			tbBaptismDate = new MaskedTextBox();
+			tbBaptismDate = new DateTimeTextBox();
 			gbPersonal = new GroupBox();
 			tableLayoutPanel4 = new TableLayoutPanel();
 			tbOccupation = new TextBox();
@@ -70,7 +72,7 @@
 			tbEmployer = new TextBox();
 			label7 = new Label();
 			label10 = new Label();
-			tbBirthDate = new MaskedTextBox();
+			tbBirthDate = new DateTimeTextBox();
 			tbGender = new TextBox();
 			cbActive = new CheckBox();
 			gbName.SuspendLayout();
@@ -89,7 +91,6 @@
 			// 
 			gbName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			tableLayoutPanel3.SetColumnSpan(gbName, 2);
-			gbName.Controls.Add(flowLayoutPanel2);
 			gbName.Controls.Add(tableLayoutPanel1);
 			gbName.Location = new Point(3, 3);
 			gbName.Name = "gbName";
@@ -168,7 +169,7 @@
 			tbLastName.Location = new Point(603, 23);
 			tbLastName.Name = "tbLastName";
 			tbLastName.Size = new Size(296, 27);
-			tbLastName.TabIndex = 6;
+			tbLastName.TabIndex = 30;
 			// 
 			// tbMiddleName
 			// 
@@ -177,7 +178,7 @@
 			tbMiddleName.Location = new Point(303, 23);
 			tbMiddleName.Name = "tbMiddleName";
 			tbMiddleName.Size = new Size(294, 27);
-			tbMiddleName.TabIndex = 5;
+			tbMiddleName.TabIndex = 20;
 			// 
 			// label3
 			// 
@@ -196,7 +197,7 @@
 			tbFirstName.Location = new Point(3, 23);
 			tbFirstName.Name = "tbFirstName";
 			tbFirstName.Size = new Size(294, 27);
-			tbFirstName.TabIndex = 1;
+			tbFirstName.TabIndex = 10;
 			// 
 			// label1
 			// 
@@ -260,7 +261,7 @@
 			tbCommunicationPreference.Location = new Point(3, 76);
 			tbCommunicationPreference.Name = "tbCommunicationPreference";
 			tbCommunicationPreference.Size = new Size(439, 27);
-			tbCommunicationPreference.TabIndex = 73;
+			tbCommunicationPreference.TabIndex = 30;
 			// 
 			// label4
 			// 
@@ -298,7 +299,7 @@
 			tbEmail.Location = new Point(151, 23);
 			tbEmail.Name = "tbEmail";
 			tbEmail.Size = new Size(291, 27);
-			tbEmail.TabIndex = 5;
+			tbEmail.TabIndex = 20;
 			// 
 			// tbPhone
 			// 
@@ -307,7 +308,7 @@
 			tbPhone.Mask = "(999) 000-0000";
 			tbPhone.Name = "tbPhone";
 			tbPhone.Size = new Size(142, 27);
-			tbPhone.TabIndex = 71;
+			tbPhone.TabIndex = 10;
 			tbPhone.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
 			// 
 			// tableLayoutPanel3
@@ -377,11 +378,12 @@
 			// 
 			tbMarriageDate.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			tbMarriageDate.Location = new Point(225, 129);
-			tbMarriageDate.Mask = "00/00/0000";
+			tbMarriageDate.Mask = "90/90/9900";
 			tbMarriageDate.Name = "tbMarriageDate";
 			tbMarriageDate.Size = new Size(217, 27);
-			tbMarriageDate.TabIndex = 80;
+			tbMarriageDate.TabIndex = 60;
 			tbMarriageDate.ValidatingType = typeof(DateTime);
+			tbMarriageDate.Value = null;
 			// 
 			// tbMaritalStatus
 			// 
@@ -389,7 +391,7 @@
 			tbMaritalStatus.Location = new Point(3, 129);
 			tbMaritalStatus.Name = "tbMaritalStatus";
 			tbMaritalStatus.Size = new Size(216, 27);
-			tbMaritalStatus.TabIndex = 79;
+			tbMaritalStatus.TabIndex = 50;
 			// 
 			// label16
 			// 
@@ -415,7 +417,7 @@
 			tbJoinedMethod.Location = new Point(3, 23);
 			tbJoinedMethod.Name = "tbJoinedMethod";
 			tbJoinedMethod.Size = new Size(216, 27);
-			tbJoinedMethod.TabIndex = 74;
+			tbJoinedMethod.TabIndex = 10;
 			// 
 			// label11
 			// 
@@ -439,11 +441,12 @@
 			// 
 			tbJoinedDate.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			tbJoinedDate.Location = new Point(225, 23);
-			tbJoinedDate.Mask = "00/00/0000";
+			tbJoinedDate.Mask = "90/90/9900";
 			tbJoinedDate.Name = "tbJoinedDate";
 			tbJoinedDate.Size = new Size(217, 27);
-			tbJoinedDate.TabIndex = 5;
+			tbJoinedDate.TabIndex = 20;
 			tbJoinedDate.ValidatingType = typeof(DateTime);
+			tbJoinedDate.Value = null;
 			// 
 			// label13
 			// 
@@ -469,17 +472,18 @@
 			tbBaptismLocation.Location = new Point(3, 76);
 			tbBaptismLocation.Name = "tbBaptismLocation";
 			tbBaptismLocation.Size = new Size(216, 27);
-			tbBaptismLocation.TabIndex = 75;
+			tbBaptismLocation.TabIndex = 30;
 			// 
 			// tbBaptismDate
 			// 
 			tbBaptismDate.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			tbBaptismDate.Location = new Point(225, 76);
-			tbBaptismDate.Mask = "00/00/0000";
+			tbBaptismDate.Mask = "90/90/9900";
 			tbBaptismDate.Name = "tbBaptismDate";
 			tbBaptismDate.Size = new Size(217, 27);
-			tbBaptismDate.TabIndex = 73;
+			tbBaptismDate.TabIndex = 40;
 			tbBaptismDate.ValidatingType = typeof(DateTime);
+			tbBaptismDate.Value = null;
 			// 
 			// gbPersonal
 			// 
@@ -524,7 +528,7 @@
 			tbOccupation.Location = new Point(3, 23);
 			tbOccupation.Name = "tbOccupation";
 			tbOccupation.Size = new Size(216, 27);
-			tbOccupation.TabIndex = 74;
+			tbOccupation.TabIndex = 10;
 			// 
 			// label8
 			// 
@@ -550,7 +554,7 @@
 			tbEmployer.Location = new Point(225, 23);
 			tbEmployer.Name = "tbEmployer";
 			tbEmployer.Size = new Size(217, 27);
-			tbEmployer.TabIndex = 5;
+			tbEmployer.TabIndex = 20;
 			// 
 			// label7
 			// 
@@ -574,11 +578,12 @@
 			// 
 			tbBirthDate.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			tbBirthDate.Location = new Point(3, 76);
-			tbBirthDate.Mask = "00/00/0000";
+			tbBirthDate.Mask = "90/90/9900";
 			tbBirthDate.Name = "tbBirthDate";
 			tbBirthDate.Size = new Size(216, 27);
-			tbBirthDate.TabIndex = 75;
+			tbBirthDate.TabIndex = 30;
 			tbBirthDate.ValidatingType = typeof(DateTime);
+			tbBirthDate.Value = null;
 			// 
 			// tbGender
 			// 
@@ -586,7 +591,7 @@
 			tbGender.Location = new Point(225, 76);
 			tbGender.Name = "tbGender";
 			tbGender.Size = new Size(217, 27);
-			tbGender.TabIndex = 73;
+			tbGender.TabIndex = 40;
 			// 
 			// cbActive
 			// 
@@ -605,6 +610,7 @@
 			AutoScaleMode = AutoScaleMode.Font;
 			BackColor = Color.FromArgb(243, 243, 243);
 			ClientSize = new Size(914, 418);
+			Controls.Add(flowLayoutPanel2);
 			Controls.Add(tableLayoutPanel3);
 			Font = new Font("Segoe UI", 11F);
 			Margin = new Padding(3, 4, 3, 4);
@@ -658,18 +664,18 @@
 		private Label label7;
 		private Label label10;
 		private TextBox tbOccupation;
-		private MaskedTextBox tbBirthDate;
+		private DateTimeTextBox tbBirthDate;
 		private GroupBox gbLife;
 		private TableLayoutPanel tableLayoutPanel5;
 		private TextBox tbJoinedMethod;
 		private Label label11;
 		private Label label12;
-		private MaskedTextBox tbJoinedDate;
+		private DateTimeTextBox tbJoinedDate;
 		private Label label13;
 		private Label label14;
 		private TextBox tbBaptismLocation;
-		private MaskedTextBox tbBaptismDate;
-		private MaskedTextBox tbMarriageDate;
+		private DateTimeTextBox tbBaptismDate;
+		private DateTimeTextBox tbMarriageDate;
 		private TextBox tbMaritalStatus;
 		private Label label16;
 		private Label label15;
