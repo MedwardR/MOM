@@ -31,9 +31,6 @@ namespace MOM.Forms
 		private void InitializeComponent()
 		{
 			gbName = new GroupBox();
-			flowLayoutPanel2 = new FlowLayoutPanel();
-			btnSave = new Button();
-			btnCancel = new Button();
 			tableLayoutPanel1 = new TableLayoutPanel();
 			tbLastName = new TextBox();
 			tbMiddleName = new TextBox();
@@ -41,6 +38,9 @@ namespace MOM.Forms
 			tbFirstName = new TextBox();
 			label1 = new Label();
 			label2 = new Label();
+			flowLayoutPanel2 = new FlowLayoutPanel();
+			btnSave = new Button();
+			btnCancel = new Button();
 			gbContact = new GroupBox();
 			tableLayoutPanel2 = new TableLayoutPanel();
 			tbCommunicationPreference = new TextBox();
@@ -76,8 +76,8 @@ namespace MOM.Forms
 			tbGender = new TextBox();
 			cbActive = new CheckBox();
 			gbName.SuspendLayout();
-			flowLayoutPanel2.SuspendLayout();
 			tableLayoutPanel1.SuspendLayout();
+			flowLayoutPanel2.SuspendLayout();
 			gbContact.SuspendLayout();
 			tableLayoutPanel2.SuspendLayout();
 			tableLayoutPanel3.SuspendLayout();
@@ -98,41 +98,6 @@ namespace MOM.Forms
 			gbName.TabIndex = 0;
 			gbName.TabStop = false;
 			gbName.Text = "Name";
-			// 
-			// flowLayoutPanel2
-			// 
-			flowLayoutPanel2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-			flowLayoutPanel2.AutoSize = true;
-			flowLayoutPanel2.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-			flowLayoutPanel2.Controls.Add(btnSave);
-			flowLayoutPanel2.Controls.Add(btnCancel);
-			flowLayoutPanel2.Location = new Point(699, 0);
-			flowLayoutPanel2.Margin = new Padding(3, 3, 0, 3);
-			flowLayoutPanel2.Name = "flowLayoutPanel2";
-			flowLayoutPanel2.Size = new Size(206, 30);
-			flowLayoutPanel2.TabIndex = 1;
-			// 
-			// btnSave
-			// 
-			btnSave.Location = new Point(0, 0);
-			btnSave.Margin = new Padding(0, 0, 3, 0);
-			btnSave.Name = "btnSave";
-			btnSave.Size = new Size(100, 30);
-			btnSave.TabIndex = 20;
-			btnSave.Text = "Save";
-			btnSave.UseVisualStyleBackColor = true;
-			btnSave.Click += btnSave_Click;
-			// 
-			// btnCancel
-			// 
-			btnCancel.Location = new Point(103, 0);
-			btnCancel.Margin = new Padding(0, 0, 3, 0);
-			btnCancel.Name = "btnCancel";
-			btnCancel.Size = new Size(100, 30);
-			btnCancel.TabIndex = 30;
-			btnCancel.Text = "Cancel";
-			btnCancel.UseVisualStyleBackColor = true;
-			btnCancel.Click += btnCancel_Click;
 			// 
 			// tableLayoutPanel1
 			// 
@@ -218,6 +183,41 @@ namespace MOM.Forms
 			label2.Size = new Size(56, 20);
 			label2.TabIndex = 3;
 			label2.Text = "Middle";
+			// 
+			// flowLayoutPanel2
+			// 
+			flowLayoutPanel2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			flowLayoutPanel2.AutoSize = true;
+			flowLayoutPanel2.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+			flowLayoutPanel2.Controls.Add(btnSave);
+			flowLayoutPanel2.Controls.Add(btnCancel);
+			flowLayoutPanel2.Location = new Point(699, 0);
+			flowLayoutPanel2.Margin = new Padding(3, 3, 0, 3);
+			flowLayoutPanel2.Name = "flowLayoutPanel2";
+			flowLayoutPanel2.Size = new Size(206, 30);
+			flowLayoutPanel2.TabIndex = 1;
+			// 
+			// btnSave
+			// 
+			btnSave.Location = new Point(0, 0);
+			btnSave.Margin = new Padding(0, 0, 3, 0);
+			btnSave.Name = "btnSave";
+			btnSave.Size = new Size(100, 30);
+			btnSave.TabIndex = 20;
+			btnSave.Text = "OK";
+			btnSave.UseVisualStyleBackColor = true;
+			btnSave.Click += btnSave_Click;
+			// 
+			// btnCancel
+			// 
+			btnCancel.Location = new Point(103, 0);
+			btnCancel.Margin = new Padding(0, 0, 3, 0);
+			btnCancel.Name = "btnCancel";
+			btnCancel.Size = new Size(100, 30);
+			btnCancel.TabIndex = 30;
+			btnCancel.Text = "Cancel";
+			btnCancel.UseVisualStyleBackColor = true;
+			btnCancel.Click += btnCancel_Click;
 			// 
 			// gbContact
 			// 
@@ -618,10 +618,9 @@ namespace MOM.Forms
 			Text = "MOM - Individual";
 			Shown += frmIndividual_Shown;
 			gbName.ResumeLayout(false);
-			gbName.PerformLayout();
-			flowLayoutPanel2.ResumeLayout(false);
 			tableLayoutPanel1.ResumeLayout(false);
 			tableLayoutPanel1.PerformLayout();
+			flowLayoutPanel2.ResumeLayout(false);
 			gbContact.ResumeLayout(false);
 			tableLayoutPanel2.ResumeLayout(false);
 			tableLayoutPanel2.PerformLayout();
@@ -634,6 +633,7 @@ namespace MOM.Forms
 			tableLayoutPanel4.ResumeLayout(false);
 			tableLayoutPanel4.PerformLayout();
 			ResumeLayout(false);
+			PerformLayout();
 		}
 
 		#endregion

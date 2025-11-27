@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using MOM.Forms;
 using MOM.Models;
 using Serilog;
+using System.CodeDom;
 using System.ComponentModel;
 
 namespace MOM
@@ -66,10 +67,15 @@ namespace MOM
 				_current.Address.State = tbState.Text;
 				_current.Address.Zip = tbZIP.Text;
 				_current.Address.Country = tbCountry.Text;
-				_current.Phone = tbPhone.Text;
-				_current.Email = tbEmail.Text;
 			}
 			await _app.SaveChangesAsync();
+		}
+
+		private void RevertHouseholds()
+		{
+			SuspendLayout();
+			_app.RevertChanges();
+			ResumeLayout();
 		}
 
 		private void ChangeCurrent(Household household)
@@ -85,8 +91,6 @@ namespace MOM
 				tbState.Text = household.Address.State;
 				tbZIP.Text = household.Address.Zip;
 				tbCountry.Text = household.Address.Country;
-				tbPhone.Text = household.Phone;
-				tbEmail.Text = household.Email;
 
 				flpMembers.SuspendLayout();
 				flpMembers.Controls.Clear();
@@ -125,7 +129,7 @@ namespace MOM
 		{
 			if (_current is not null)
 			{
-				var fields = new (object?, object?)[]
+				var fields = new (string?, string?)[]
 				{
 					(_current.Name,            tbName.Text),
 					(_current.Address.Street,  tbStreet.Text),
@@ -133,15 +137,17 @@ namespace MOM
 					(_current.Address.State,   tbState.Text),
 					(_current.Address.Zip,     tbZIP.Text),
 					(_current.Address.Country, tbCountry.Text),
-					(_current.Phone,           tbPhone.Text),
-					(_current.Email,           tbEmail.Text),
 				};
-				return fields.Any(f =>
+				bool fieldsChanged = fields.Any(f =>
 				{
-					string? a = f.Item1?.ToString()?.Trim() ?? string.Empty;
-					string? b = f.Item2?.ToString()?.Trim() ?? string.Empty;
+					string? a = f.Item1?.Trim();
+					string? b = f.Item2?.Trim();
 					return !string.Equals(a, b, StringComparison.OrdinalIgnoreCase);
 				});
+				bool membersCountChanged = _current.Individuals.Count != flpMembers.Controls.Count;
+				bool membersChanged = _current.Individuals.Any(_app.EntityHasChanges);
+				
+				return fieldsChanged || membersCountChanged || membersChanged;
 			}
 			else return false;
 		}
@@ -167,9 +173,16 @@ namespace MOM
 						button.Dispose();
 						flpMembers.Controls.Remove(button);
 					}
+					button.Text = member.FirstName;
 				}
 			};
 			flpMembers.Controls.Add(button);
+		}
+
+		private static DialogResult ConfirmBeforeDiscardingChanges()
+		{
+			const string text = "The current household has unsaved changes! Continue without saving?";
+			return MessageBox.Show(text, "Unsaved Changes", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 		}
 
 		private async void frmHouseholds_Shown(object sender, EventArgs e)
@@ -217,15 +230,33 @@ namespace MOM
 			}
 		}
 
-		private async void btnRevert_Click(object sender, EventArgs e)
+		private void btnRevert_Click(object sender, EventArgs e)
 		{
-			Enabled = false;
 			try
 			{
-				SuspendLayout();
-				_app.RevertChanges();
-				await LoadHouseholdsAsync();
-				ResumeLayout();
+				Enabled = false;
+
+				bool cancel;
+				if (HasChanges())
+				{
+					var choice = ConfirmBeforeDiscardingChanges();
+					if (choice == DialogResult.Yes)
+					{
+						cancel = false;
+					}
+					else cancel = true;
+				}
+				else cancel = true;
+
+				if (!cancel)
+				{
+					RevertHouseholds();
+
+					if (_current is not null)
+					{
+						ChangeCurrent(_current);
+					}
+				}
 			}
 			finally
 			{
@@ -259,9 +290,7 @@ namespace MOM
 					bool cancel;
 					if (HasChanges())
 					{
-						var choice = MessageBox.Show(
-							"The current household has unsaved changes! Continue without saving?",
-							"Unsaved Changes", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+						var choice = ConfirmBeforeDiscardingChanges();
 						if (choice == DialogResult.Yes)
 						{
 							cancel = false;
@@ -272,6 +301,7 @@ namespace MOM
 
 					if (!cancel)
 					{
+						RevertHouseholds();
 						ChangeCurrent(newSelection);
 					}
 					else FocusCurrent();

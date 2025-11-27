@@ -51,10 +51,6 @@
 			tbName = new TextBox();
 			label4 = new Label();
 			tbCity = new TextBox();
-			tbPhone = new MaskedTextBox();
-			label9 = new Label();
-			label8 = new Label();
-			tbEmail = new TextBox();
 			label5 = new Label();
 			label6 = new Label();
 			tbState = new TextBox();
@@ -199,7 +195,7 @@
 			gbHousehold.Location = new Point(0, 3);
 			gbHousehold.Margin = new Padding(0, 3, 3, 3);
 			gbHousehold.Name = "gbHousehold";
-			gbHousehold.Size = new Size(484, 239);
+			gbHousehold.Size = new Size(484, 186);
 			gbHousehold.TabIndex = 0;
 			gbHousehold.TabStop = false;
 			gbHousehold.Text = "Household";
@@ -268,10 +264,6 @@
 			tableLayoutPanel2.Controls.Add(tbName, 0, 1);
 			tableLayoutPanel2.Controls.Add(label4, 3, 2);
 			tableLayoutPanel2.Controls.Add(tbCity, 3, 3);
-			tableLayoutPanel2.Controls.Add(tbPhone, 0, 7);
-			tableLayoutPanel2.Controls.Add(label9, 0, 6);
-			tableLayoutPanel2.Controls.Add(label8, 2, 6);
-			tableLayoutPanel2.Controls.Add(tbEmail, 2, 7);
 			tableLayoutPanel2.Controls.Add(label5, 0, 4);
 			tableLayoutPanel2.Controls.Add(label6, 2, 4);
 			tableLayoutPanel2.Controls.Add(tbState, 0, 5);
@@ -290,7 +282,7 @@
 			tableLayoutPanel2.RowStyles.Add(new RowStyle());
 			tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
 			tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-			tableLayoutPanel2.Size = new Size(478, 213);
+			tableLayoutPanel2.Size = new Size(478, 160);
 			tableLayoutPanel2.TabIndex = 4;
 			// 
 			// tbCountry
@@ -381,49 +373,6 @@
 			tbCity.Size = new Size(235, 27);
 			tbCity.TabIndex = 30;
 			// 
-			// tbPhone
-			// 
-			tbPhone.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			tableLayoutPanel2.SetColumnSpan(tbPhone, 2);
-			tbPhone.Location = new Point(3, 182);
-			tbPhone.Mask = "(999) 000-0000";
-			tbPhone.Name = "tbPhone";
-			tbPhone.Size = new Size(152, 27);
-			tbPhone.TabIndex = 70;
-			tbPhone.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
-			// 
-			// label9
-			// 
-			label9.AutoSize = true;
-			tableLayoutPanel2.SetColumnSpan(label9, 2);
-			label9.Font = new Font("Segoe UI", 11F);
-			label9.Location = new Point(3, 159);
-			label9.Name = "label9";
-			label9.Size = new Size(50, 20);
-			label9.TabIndex = 14;
-			label9.Text = "Phone";
-			// 
-			// label8
-			// 
-			label8.AutoSize = true;
-			tableLayoutPanel2.SetColumnSpan(label8, 4);
-			label8.Font = new Font("Segoe UI", 11F);
-			label8.Location = new Point(161, 159);
-			label8.Name = "label8";
-			label8.Size = new Size(46, 20);
-			label8.TabIndex = 12;
-			label8.Text = "Email";
-			// 
-			// tbEmail
-			// 
-			tbEmail.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			tableLayoutPanel2.SetColumnSpan(tbEmail, 4);
-			tbEmail.Font = new Font("Segoe UI", 11F);
-			tbEmail.Location = new Point(161, 182);
-			tbEmail.Name = "tbEmail";
-			tbEmail.Size = new Size(314, 27);
-			tbEmail.TabIndex = 80;
-			// 
 			// label5
 			// 
 			label5.AutoSize = true;
@@ -474,10 +423,10 @@
 			gbMembers.Controls.Add(flowLayoutPanel1);
 			gbMembers.Controls.Add(flpMembers);
 			gbMembers.Dock = DockStyle.Fill;
-			gbMembers.Location = new Point(0, 248);
+			gbMembers.Location = new Point(0, 195);
 			gbMembers.Margin = new Padding(0, 3, 3, 3);
 			gbMembers.Name = "gbMembers";
-			gbMembers.Size = new Size(484, 258);
+			gbMembers.Size = new Size(484, 311);
 			gbMembers.TabIndex = 1;
 			gbMembers.TabStop = false;
 			gbMembers.Text = "Members";
@@ -512,7 +461,7 @@
 			flpMembers.FlowDirection = FlowDirection.TopDown;
 			flpMembers.Location = new Point(3, 23);
 			flpMembers.Name = "flpMembers";
-			flpMembers.Size = new Size(478, 232);
+			flpMembers.Size = new Size(478, 285);
 			flpMembers.TabIndex = 0;
 			// 
 			// btnMemberTemplate
@@ -582,10 +531,6 @@
 		private TextBox tbState;
 		private Label label6;
 		private TextBox tbZIP;
-		private MaskedTextBox tbPhone;
-		private Label label8;
-		private Label label9;
-		private TextBox tbEmail;
 		private TableLayoutPanel tableLayoutPanel3;
 		private GroupBox gbMembers;
 		private FlowLayoutPanel flpMembers;

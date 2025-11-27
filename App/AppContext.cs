@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Design;
 using MOM.Helpers;
 using MOM.Models;
@@ -44,23 +45,62 @@ namespace MOM
 			return result;
 		}
 
+		public bool EntityHasChanges(object entity)
+		{
+			var entry = Entry(entity);
+
+			if (entry.State != EntityState.Unchanged)
+			{
+				return true;
+			}
+			else
+			{
+				entry.DetectChanges();
+
+				bool result = false;
+				foreach (var property in entry.OriginalValues.Properties)
+				{
+					var original = entry.OriginalValues[property];
+					var current = entry.CurrentValues[property];
+
+					if (!Equals(original, current))
+					{
+						result = true;
+						break;
+					}
+				}
+				return result;
+			}
+		}
+
 		public void RevertChanges()
 		{
 			foreach (var entry in ChangeTracker.Entries())
 			{
-				if (entry.State == EntityState.Modified)
-				{
-					entry.CurrentValues.SetValues(entry.OriginalValues);
-					entry.State = EntityState.Unchanged;
-				}
-				else if (entry.State == EntityState.Added)
-				{
-					entry.State = EntityState.Detached;
-				}
-				else if (entry.State == EntityState.Deleted)
-				{
-					entry.State = EntityState.Unchanged;
-				}
+				RevertEntry(entry);
+			}
+		}
+
+		public void RevertEntity(object entity)
+		{
+			var entry = Entry(entity);
+			RevertEntry(entry);
+		}
+
+		private static void RevertEntry(EntityEntry entry)
+		{
+			if (entry.State == EntityState.Modified)
+			{
+				entry.CurrentValues.SetValues(entry.OriginalValues);
+				entry.State = EntityState.Unchanged;
+			}
+			else if (entry.State == EntityState.Added)
+			{
+				entry.State = EntityState.Detached;
+			}
+			else if (entry.State == EntityState.Deleted)
+			{
+				entry.State = EntityState.Unchanged;
 			}
 		}
 
