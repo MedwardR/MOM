@@ -1,7 +1,7 @@
-﻿using MOM.Models.Abstractions;
+﻿using DataCommon.Models.Abstractions;
 using System.ComponentModel.DataAnnotations;
 
-namespace MOM.Models
+namespace DataCommon.Models
 {
 	public class User : AuditableEntity
 	{

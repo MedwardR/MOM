@@ -1,8 +1,8 @@
-﻿using MOM.Models.Abstractions;
+﻿using DataCommon.Models.Abstractions;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MOM.Models
+namespace DataCommon.Models
 {
 	public class Individual : AuditableEntity
 	{

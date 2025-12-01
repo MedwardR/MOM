@@ -1,4 +1,6 @@
-﻿namespace MOM
+﻿using DataCommon.Models;
+
+namespace MOM
 {
     partial class frmHouseholds
     {
@@ -168,7 +170,7 @@
 			// bsHouseholds
 			// 
 			bsHouseholds.AllowNew = false;
-			bsHouseholds.DataSource = typeof(Models.Household);
+			bsHouseholds.DataSource = typeof(Household);
 			// 
 			// tableLayoutPanel3
 			// 

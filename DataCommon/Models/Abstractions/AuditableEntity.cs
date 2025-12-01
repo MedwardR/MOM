@@ -1,4 +1,4 @@
-﻿namespace MOM.Models.Abstractions
+﻿namespace DataCommon.Models.Abstractions
 {
 	public abstract class AuditableEntity
 	{

@@ -2,48 +2,15 @@
 using DataCommon.Models.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.Design;
-using MOM.Helpers;
 using Npgsql;
-using System.Security.Authentication;
 
-namespace MOM
+namespace MigrationTool.MOM
 {
-	public class AppContext(UserSettings settings) : DbContext
+	public class MOMContext(string host, int port, string username, string password) : DbContext
 	{
-		public User? AuthenticatedUser { get; private set; }
-		public UserSettings UserSettings { get; } = settings;
-
 		public DbSet<Household> Households { get; set; }
 		public DbSet<Individual> Individuals { get; set; }
 		public DbSet<User> Users { get; set; }
-
-		public void AssignAuthenticatedUser(User user)
-		{
-			if (AuthenticatedUser is null)
-			{
-				AuthenticatedUser = user;
-			}
-			else throw new InvalidOperationException("An authenticated user is already assigned");
-		}
-
-		public override int SaveChanges(bool acceptAllChangesOnSuccess)
-		{
-			var t = UserSettings.SaveAsync();
-			SetAuditFields();
-			int result = base.SaveChanges(acceptAllChangesOnSuccess);
-			t.GetAwaiter().GetResult();
-			return result;
-		}
-
-		public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
-		{
-			var t = UserSettings.SaveAsync(cancellationToken);
-			SetAuditFields();
-			int result = await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
-			await t;
-			return result;
-		}
 
 		public bool EntityHasChanges(object entity)
 		{
@@ -104,41 +71,15 @@ namespace MOM
 			}
 		}
 
-		private void SetAuditFields()
-		{
-			if (AuthenticatedUser is not null)
-			{
-				foreach (var entry in ChangeTracker.Entries<AuditableEntity>())
-				{
-					if (entry.State == EntityState.Added)
-					{
-						entry.Entity.CreatedAt = DateTime.UtcNow;
-						entry.Entity.CreatedBy = AuthenticatedUser.Id;
-					}
-					else if (entry.State == EntityState.Modified)
-					{
-						entry.Entity.ModifiedAt = DateTime.UtcNow;
-						entry.Entity.ModifiedBy = AuthenticatedUser.Id;
-					}
-					else if (entry.State == EntityState.Deleted)
-					{
-						entry.Entity.Active = false;
-						entry.State = EntityState.Modified;
-					}
-				}
-			}
-			else throw new AuthenticationException("Authenticated user is required to set audit fields");
-		}
-
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
 			var connectionStringBuilder = new NpgsqlConnectionStringBuilder
 			{
 				Database = "mom",
-				Host = UserSettings.DatabaseHost,
-				Port = UserSettings.DatabasePort ?? 5432,
-				Username = UserSettings.DatabaseUsername,
-				Password = SecurityHelper.Decrypt(UserSettings.DatabasePassword)
+				Host = host,
+				Port = port,
+				Username = username,
+				Password = password,
 			};
 			string connectionString = connectionStringBuilder.ToString();
 
@@ -167,15 +108,6 @@ namespace MOM
 						.Property<bool>(nameof(AuditableEntity.Active))
 						.HasDefaultValue(true);
 				}
-			}
-		}
-
-		public class AppContextFactory : IDesignTimeDbContextFactory<AppContext>
-		{
-			public AppContext CreateDbContext(string[] args)
-			{
-				var settings = UserSettings.LoadAsync().GetAwaiter().GetResult();
-				return new AppContext(settings);
 			}
 		}
 	}

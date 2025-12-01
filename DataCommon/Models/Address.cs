@@ -1,4 +1,4 @@
-﻿namespace MOM.Models
+﻿namespace DataCommon.Models
 {
 	public class Address
 	{
