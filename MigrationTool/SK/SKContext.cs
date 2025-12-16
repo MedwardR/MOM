@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
 using MigrationTool.SK.Models;
 
 namespace MigrationTool.SK;
 
-internal class SKContext : DbContext
+internal class SKContext(string path) : DbContext
 {
 	public DbSet<Family> Families { get; set; }
 	public DbSet<Individual> Individuals { get; set; }
@@ -18,9 +19,29 @@ internal class SKContext : DbContext
 		throw new InvalidOperationException("Writing back to the SK database is a bad idea");
 	}
 
+	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+	{
+		var connectionStringBuilder = new SqliteConnectionStringBuilder()
+		{
+			DataSource = path,
+		};
+		string connectionString = connectionStringBuilder.ToString();
+
+		optionsBuilder.UseSqlite(connectionString);
+		optionsBuilder.UseLazyLoadingProxies();
+	}
+
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
 	{
-		modelBuilder.Entity<Family>().HasKey(f => f.FAMILY_ID);
-		modelBuilder.Entity<Family>().ToTable("csFAMILY");
+		modelBuilder.Entity<Family>(entity =>
+		{
+			entity.HasKey(f => f.FAMILY_ID);
+			entity.ToTable("csFAMILY");
+		});
+		modelBuilder.Entity<Individual>(entity =>
+		{
+			entity.HasKey(i => i.IND_ID);
+			entity.ToTable("csIND");
+		});
 	}
 }

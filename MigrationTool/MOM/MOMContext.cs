@@ -12,65 +12,6 @@ namespace MigrationTool.MOM
 		public DbSet<Individual> Individuals { get; set; }
 		public DbSet<User> Users { get; set; }
 
-		public bool EntityHasChanges(object entity)
-		{
-			var entry = Entry(entity);
-
-			if (entry.State != EntityState.Unchanged)
-			{
-				return true;
-			}
-			else
-			{
-				entry.DetectChanges();
-
-				bool result = false;
-				foreach (var property in entry.OriginalValues.Properties)
-				{
-					var original = entry.OriginalValues[property];
-					var current = entry.CurrentValues[property];
-
-					if (!Equals(original, current))
-					{
-						result = true;
-						break;
-					}
-				}
-				return result;
-			}
-		}
-
-		public void RevertChanges()
-		{
-			foreach (var entry in ChangeTracker.Entries())
-			{
-				RevertEntry(entry);
-			}
-		}
-
-		public void RevertEntity(object entity)
-		{
-			var entry = Entry(entity);
-			RevertEntry(entry);
-		}
-
-		private static void RevertEntry(EntityEntry entry)
-		{
-			if (entry.State == EntityState.Modified)
-			{
-				entry.CurrentValues.SetValues(entry.OriginalValues);
-				entry.State = EntityState.Unchanged;
-			}
-			else if (entry.State == EntityState.Added)
-			{
-				entry.State = EntityState.Detached;
-			}
-			else if (entry.State == EntityState.Deleted)
-			{
-				entry.State = EntityState.Unchanged;
-			}
-		}
-
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
 			var connectionStringBuilder = new NpgsqlConnectionStringBuilder
