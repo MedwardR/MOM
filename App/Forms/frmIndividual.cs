@@ -18,7 +18,7 @@ namespace MOM.Forms
 			tbMiddleName.Text = Individual.MiddleName;
 			tbLastName.Text = Individual.LastName;
 
-			tbPhone.Text = Individual.Phone;
+			tbPhone.Text = Individual.MobilePhone;
 			tbEmail.Text = Individual.Email;
 			tbCommunicationPreference.Text = Individual.CommunicationPreference;
 
@@ -46,7 +46,7 @@ namespace MOM.Forms
 			Individual.MiddleName = tbMiddleName.Text;
 			Individual.LastName = tbLastName.Text;
 
-			Individual.Phone = tbPhone.Text;
+			Individual.MobilePhone = tbPhone.Text;
 			Individual.Email = tbEmail.Text;
 			Individual.CommunicationPreference = tbCommunicationPreference.Text;
 

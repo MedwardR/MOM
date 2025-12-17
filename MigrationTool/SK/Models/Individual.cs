@@ -67,7 +67,7 @@ internal class Individual
 	public string? URL { get; set; }
 	public string? URL_IND { get; set; }
 	public string? STATUS { get; set; }
-	public string? JOB_CD { get; set; }
+	public string? JOB_CD { get; set; } // Occupation
 	public string? EMPLOYER { get; set; }
 	public string? HOMECHURCH { get; set; }
 	public string? PASTOR_CD { get; set; }
@@ -104,7 +104,7 @@ internal class Individual
 	public string? UDF8 { get; set; }
 	public string? UDF9 { get; set; }
 	public string? UDF10 { get; set; }
-	public string? UDF11 { get; set; }
+	public string? UDF11 { get; set; } // Communication Preference 
 	public string? UDF12 { get; set; }
 	public string? UDF13 { get; set; }
 	public string? UDF14 { get; set; }

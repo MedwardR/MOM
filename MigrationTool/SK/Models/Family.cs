@@ -82,4 +82,9 @@ internal class Family
 	public string? w_unlist { get; set; }
 	public string? PHOTO_IND { get; set; }
 	public string? EST_IND { get; set; }
+	
+	public string GetCombinedStreetAddress()
+	{
+		throw new NotImplementedException();
+	}
 }

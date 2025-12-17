@@ -8,6 +8,7 @@ internal class SKContext(string path) : DbContext
 {
 	public DbSet<Family> Families { get; set; }
 	public DbSet<Individual> Individuals { get; set; }
+	public DbSet<Reference> References { get; set; }
 
 	public override int SaveChanges(bool acceptAllChangesOnSuccess)
 	{

@@ -6,14 +6,15 @@ namespace DataCommon.Models
 {
 	public class Individual : AuditableEntity
 	{
-		public int Id { get; set; }
-		public int HouseholdId { get; set; }
+		public long Id { get; set; }
+		public long HouseholdId { get; set; }
 
 		[Required] public required string FirstName { get; set; }
 		public string? MiddleName { get; set; }
 		[Required] public required string LastName { get; set; }
-
-		public string? Phone { get; set; }
+		
+		public string? MobilePhone { get; set; }
+		public string? HomePhone { get; set; }
 		public string? Email { get; set; }
 		public string? CommunicationPreference { get; set; }
 
@@ -22,12 +23,12 @@ namespace DataCommon.Models
 		public string? Occupation { get; set; }
 		public string? Employer { get; set; }
 
-		public string? JoinedMethod { get; set; }
 		public DateTime? JoinedDate { get; set; }
+		public string? JoinedMethod { get; set; }
 		public DateTime? BaptizedDate { get; set; }
 		public string? BaptizedLocation { get; set; }
-		public string? MaritalStatus { get; set; }
 		public DateTime? MarriedDate { get; set; }
+		public string? MaritalStatus { get; set; }
 
 		[ForeignKey(nameof(HouseholdId))] public virtual required Household Household { get; set; }
 	}
