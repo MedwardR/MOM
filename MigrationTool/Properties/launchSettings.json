@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "MigrationTool": {
+      "commandName": "Project",
+      "commandLineArgs": "--host localhost --user postgres --pass postgres --sk \"C:\\Users\\miles\\Downloads\\SERVANTKEEPERDATA_20250618.db\""
+    }
+  }
+}

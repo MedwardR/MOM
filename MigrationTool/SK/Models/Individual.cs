@@ -2,7 +2,7 @@
 
 namespace MigrationTool.SK.Models;
 
-internal class Individual
+public class Individual
 {
 	public string? LOC_ID { get; set; }
 	public required int REC_ID { get; set; }

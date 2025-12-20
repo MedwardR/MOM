@@ -1,6 +1,5 @@
 ﻿using DataCommon.Models;
 using MigrationTool.MOM;
-using Individual = DataCommon.Models.Individual;
 
 namespace MigrationTool.SK;
 

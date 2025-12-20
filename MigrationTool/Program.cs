@@ -30,11 +30,11 @@ internal class Program
 
 		public static Arguments Parse(string[] args)
 		{
-			var host = new Option<string>("MOM database hostname", "--hostname", "--host", "-h") { Required = true };
-			var port = new Option<int?>("MOM database port", "--port") { Required = false };
-			var user = new Option<string>("MOM database username", "--username", "--user", "-u") { Required = true };
-			var password = new Option<string>("MOM database password", "--password", "--pass", "-p") { Required = true };
-			var sk = new Option<string>("Servant Keeper backup file path", "--sk") { Required = true };
+			var host = new Option<string>("Hostname", "--hostname", "--host", "-h") { Required = true };
+			var port = new Option<int?>("Port", "--port") { Required = false };
+			var user = new Option<string>("Username", "--username", "--user", "-u") { Required = true };
+			var password = new Option<string>("Password", "--password", "--pass", "-p") { Required = true };
+			var sk = new Option<string>("Source", "--sk") { Required = true };
 
 			var command = new RootCommand("MOM Migration Tool")
 			{
