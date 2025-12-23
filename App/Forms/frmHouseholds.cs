@@ -1,18 +1,17 @@
 using DataCommon.Models;
 using Microsoft.EntityFrameworkCore;
-using MOM.Forms;
 using Serilog;
-using System.CodeDom;
 using System.ComponentModel;
+using System.Threading.Tasks;
 
-namespace MOM;
+namespace MOM.Forms;
 
 public partial class frmHouseholds : Form
 {
 	private readonly AppContext _app;
 	private readonly BindingList<Household> _collection = [];
-	private Household? _current = null;
-	private bool _restoring = false;
+	private Household? _current;
+	private bool _restoring;
 
 	public frmHouseholds()
 	{
@@ -35,23 +34,20 @@ public partial class frmHouseholds : Form
 
 	public void LogOut()
 	{
-		if (_app is not null)
+		if (_app.AuthenticatedUser is not null)
 		{
-			if (_app.AuthenticatedUser is not null)
-			{
-				_app.RevertChanges();
-				_app.AuthenticatedUser.IsLoggedIn = false;
-				_app.SaveChanges();
-			}
+			_app.RevertChanges();
+			_app.AuthenticatedUser.IsLoggedIn = false;
+			_app.SaveChanges();
 		}
 	}
 
 	private async Task LoadHouseholdsAsync()
 	{
-		var materialzied = await _app.Households.ToListAsync();
+		var materialized = await _app.Households.ToListAsync();
 
 		_collection.Clear();
-		foreach (var h in materialzied)
+		foreach (var h in materialized)
 		{
 			_collection.Add(h);
 		}
@@ -63,6 +59,7 @@ public partial class frmHouseholds : Form
 		{
 			_current.Name = tbName.Text;
 			_current.Address.Street = tbStreet.Text;
+			_current.Address.Apartment = tbAdditionalInformation.Text;
 			_current.Address.City = tbCity.Text;
 			_current.Address.State = tbState.Text;
 			_current.Address.Zip = tbZIP.Text;
@@ -80,30 +77,27 @@ public partial class frmHouseholds : Form
 
 	private void ChangeCurrent(Household household)
 	{
-		if (household is not null)
+		_current = household;
+		FocusCurrent();
+
+		tbName.Text = household.Name;
+		tbStreet.Text = household.Address.Street;
+		tbAdditionalInformation.Text = household.Address.Apartment;
+		tbCity.Text = household.Address.City;
+		tbState.Text = household.Address.State;
+		tbZIP.Text = household.Address.Zip;
+		tbCountry.Text = household.Address.Country;
+
+		flpMembers.SuspendLayout();
+		flpMembers.Controls.Clear();
+		foreach (var member in household.Individuals)
 		{
-			_current = household;
-			FocusCurrent();
-
-			tbName.Text = household.Name;
-			tbStreet.Text = household.Address.Street;
-			tbCity.Text = household.Address.City;
-			tbState.Text = household.Address.State;
-			tbZIP.Text = household.Address.Zip;
-			tbCountry.Text = household.Address.Country;
-
-			flpMembers.SuspendLayout();
-			flpMembers.Controls.Clear();
-			foreach (var member in household.Individuals)
+			if (member.Active)
 			{
-				if (member.Active)
-				{
-					InitializeMember(member);
-				}
+				InitializeMember(member);
 			}
-			flpMembers.ResumeLayout();
 		}
-		else throw new ArgumentNullException(nameof(household));
+		flpMembers.ResumeLayout();
 	}
 
 	private void FocusCurrent()
@@ -131,22 +125,23 @@ public partial class frmHouseholds : Form
 		{
 			var fields = new (string?, string?)[]
 			{
-				(_current.Name,            tbName.Text),
-				(_current.Address.Street,  tbStreet.Text),
-				(_current.Address.City,    tbCity.Text),
-				(_current.Address.State,   tbState.Text),
-				(_current.Address.Zip,     tbZIP.Text),
-				(_current.Address.Country, tbCountry.Text),
+				(_current.Name,              tbName.Text),
+				(_current.Address.Street,    tbStreet.Text),
+				(_current.Address.Apartment, tbAdditionalInformation.Text),
+				(_current.Address.City,      tbCity.Text),
+				(_current.Address.State,     tbState.Text),
+				(_current.Address.Zip,       tbZIP.Text),
+				(_current.Address.Country,   tbCountry.Text),
 			};
 			bool fieldsChanged = fields.Any(f =>
 			{
-				string? a = f.Item1?.Trim();
-				string? b = f.Item2?.Trim();
+				string? a = f.Item1?.Trim() ?? string.Empty;
+				string? b = f.Item2?.Trim() ?? string.Empty;
 				return !string.Equals(a, b, StringComparison.OrdinalIgnoreCase);
 			});
 			bool membersCountChanged = _current.Individuals.Count != flpMembers.Controls.Count;
 			bool membersChanged = _current.Individuals.Any(_app.EntityHasChanges);
-				
+
 			return fieldsChanged || membersCountChanged || membersChanged;
 		}
 		else return false;
@@ -158,10 +153,10 @@ public partial class frmHouseholds : Form
 		{
 			AutoSize = btnMemberTemplate.AutoSize,
 			AutoSizeMode = btnMemberTemplate.AutoSizeMode,
-			Text = member.FirstName,
+			Text = member.GetDisplayName(),
 			UseVisualStyleBackColor = btnMemberTemplate.UseVisualStyleBackColor,
 		};
-		button.Click += (s, e) =>
+		button.Click += (_, _) =>
 		{
 			using var frm = new frmIndividual(member);
 			frm.ShowDialog();
@@ -173,24 +168,64 @@ public partial class frmHouseholds : Form
 					button.Dispose();
 					flpMembers.Controls.Remove(button);
 				}
-				button.Text = member.FirstName;
+				button.Text = member.GetDisplayName();
 			}
 		};
 		flpMembers.Controls.Add(button);
 	}
 
-	private static DialogResult ConfirmBeforeDiscardingChanges()
+	private static UnsavedChangesDialogResult ConfirmBeforeDiscardingChanges()
 	{
-		const string text = "The current household has unsaved changes! Continue without saving?";
-		return MessageBox.Show(text, "Unsaved Changes", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+		const string text = "The current household has unsaved changes. Save?";
+		var choice = MessageBox.Show(text, "Unsaved Changes", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+		if (choice == DialogResult.Yes)
+		{
+			return UnsavedChangesDialogResult.SaveAndContinue;
+		}
+		else if (choice == DialogResult.No)
+		{
+			return UnsavedChangesDialogResult.DiscardAndContinue;
+		}
+		else return UnsavedChangesDialogResult.Cancel;
 	}
 
 	private async void frmHouseholds_Shown(object sender, EventArgs e)
 	{
-		Enabled = false;
 		try
 		{
+			Enabled = false;
 			await LoadHouseholdsAsync();
+		}
+		catch (Exception ex)
+		{
+			Application.OnThreadException(ex);
+		}
+		finally
+		{
+			Enabled = true;
+		}
+	}
+
+	private async void frmHouseholds_FormClosing(object sender, FormClosingEventArgs e)
+	{
+		try
+		{
+			Enabled = false;
+
+			if (HasChanges())
+			{
+				var choice = ConfirmBeforeDiscardingChanges();
+				if (choice == UnsavedChangesDialogResult.SaveAndContinue)
+				{
+					await SaveHouseholdsAsync();
+					e.Cancel = false;
+				}
+				else if (choice == UnsavedChangesDialogResult.DiscardAndContinue)
+				{
+					e.Cancel = false;
+				}
+				else e.Cancel = true;
+			}
 		}
 		finally
 		{
@@ -219,10 +254,14 @@ public partial class frmHouseholds : Form
 
 	private async void btnSave_Click(object sender, EventArgs e)
 	{
-		Enabled = false;
 		try
 		{
+			Enabled = false;
 			await SaveHouseholdsAsync();
+		}
+		catch (Exception ex)
+		{
+			Application.OnThreadException(ex);
 		}
 		finally
 		{
@@ -230,7 +269,7 @@ public partial class frmHouseholds : Form
 		}
 	}
 
-	private void btnRevert_Click(object sender, EventArgs e)
+	private async void btnRevert_Click(object sender, EventArgs e)
 	{
 		try
 		{
@@ -240,7 +279,12 @@ public partial class frmHouseholds : Form
 			if (HasChanges())
 			{
 				var choice = ConfirmBeforeDiscardingChanges();
-				if (choice == DialogResult.Yes)
+				if (choice == UnsavedChangesDialogResult.SaveAndContinue)
+				{
+					await SaveHouseholdsAsync();
+					cancel = false;
+				}
+				else if (choice == UnsavedChangesDialogResult.DiscardAndContinue)
 				{
 					cancel = false;
 				}
@@ -281,31 +325,75 @@ public partial class frmHouseholds : Form
 		}
 	}
 
-	private void dgvHouseholds_SelectionChanged(object sender, EventArgs e)
+	private async void dgvHouseholds_SelectionChanged(object sender, EventArgs e)
 	{
-		if (!_restoring)
+		try
 		{
-			if (bsHouseholds.Current is Household newSelection)
+			if (!_restoring)
 			{
-				bool cancel;
-				if (HasChanges())
+				if (bsHouseholds.Current is Household newSelection)
 				{
-					var choice = ConfirmBeforeDiscardingChanges();
-					if (choice == DialogResult.Yes)
+					bool cancel;
+					if (HasChanges())
 					{
-						cancel = false;
+						var choice = ConfirmBeforeDiscardingChanges();
+						if (choice == UnsavedChangesDialogResult.SaveAndContinue)
+						{
+							await SaveHouseholdsAsync();
+							cancel = false;
+						}
+						else if (choice == UnsavedChangesDialogResult.DiscardAndContinue)
+						{
+							cancel = false;
+						}
+						else cancel = true;
 					}
-					else cancel = true;
-				}
-				else cancel = false;
+					else cancel = false;
 
-				if (!cancel)
-				{
-					RevertHouseholds();
-					ChangeCurrent(newSelection);
+					if (!cancel)
+					{
+						RevertHouseholds();
+						ChangeCurrent(newSelection);
+					}
+					else FocusCurrent();
 				}
-				else FocusCurrent();
 			}
 		}
+		catch (Exception ex)
+		{
+			Application.OnThreadException(ex);
+		}
+	}
+
+	protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+	{
+		if (keyData == (Keys.Control | Keys.N))
+		{
+			btnNewHousehold.PerformClick();
+			return true;
+		}
+		else if (keyData == (Keys.Control | Keys.S))
+		{
+			btnSave.PerformClick();
+			return true;
+		}
+		else if (keyData == (Keys.Control | Keys.R))
+		{
+			btnRevert.PerformClick();
+			return true;
+		}
+		else if (keyData == (Keys.Control | Keys.M))
+		{
+			btnAddMember.PerformClick();
+			return true;
+		}
+		return base.ProcessCmdKey(ref msg, keyData);
+	}
+
+	private enum UnsavedChangesDialogResult
+	{
+		SaveAndContinue,
+		DiscardAndContinue,
+		Cancel,
 	}
 }

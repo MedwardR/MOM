@@ -4,37 +4,54 @@ namespace MOM.Forms;
 
 public partial class frmIndividual : Form
 {
-	public Individual Individual { get; set; }
+	private readonly Individual _individual;
 
 	public frmIndividual(Individual individual)
 	{
-		Individual = individual;
+		_individual = individual;
 		InitializeComponent();
+	}
+
+	private void tbFirstName_TextChanged(object sender, EventArgs e)
+	{
+		tbPreferredName.PlaceholderText = tbFirstName.Text;
+	}
+
+	private void llPreferFirstName_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+	{
+		tbPreferredName.Text = string.Empty;
+	}
+
+	private void llPreferMiddleName_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+	{
+		tbPreferredName.Text = tbMiddleName.Text;
 	}
 
 	private void frmIndividual_Shown(object sender, EventArgs e)
 	{
-		tbFirstName.Text = Individual.FirstName;
-		tbMiddleName.Text = Individual.MiddleName;
-		tbLastName.Text = Individual.LastName;
+		tbFirstName.Text = _individual.FirstName;
+		tbMiddleName.Text = _individual.MiddleName;
+		tbLastName.Text = _individual.LastName;
+		tbPreferredName.Text = _individual.PreferredName;
 
-		tbPhone.Text = Individual.MobilePhone;
-		tbEmail.Text = Individual.Email;
-		tbCommunicationPreference.Text = Individual.CommunicationPreference;
+		tbMobilePhone.Text = _individual.MobilePhone;
+		tbHomePhone.Text = _individual.HomePhone;
+		tbEmail.Text = _individual.Email;
+		tbCommunicationPreference.Text = _individual.CommunicationPreference;
 
-		tbOccupation.Text = Individual.Occupation;
-		tbEmployer.Text = Individual.Employer;
-		tbBirthDate.Value = Individual.BirthDate;
-		tbGender.Text = Individual.Gender;
+		tbOccupation.Text = _individual.Occupation;
+		tbEmployer.Text = _individual.Employer;
+		tbBirthDate.Value = _individual.BirthDate;
+		tbGender.Text = _individual.Gender;
 
-		tbJoinedMethod.Text = Individual.JoinedMethod;
-		tbJoinedDate.Value = Individual.JoinedDate;
-		tbBaptismLocation.Text = Individual.BaptizedLocation;
-		tbBaptismDate.Value = Individual.BaptizedDate;
-		tbMaritalStatus.Text = Individual.MaritalStatus;
-		tbMarriageDate.Value = Individual.MarriedDate;
+		tbJoinedMethod.Text = _individual.JoinedMethod;
+		tbJoinedDate.Value = _individual.JoinedDate;
+		tbBaptismLocation.Text = _individual.BaptizedLocation;
+		tbBaptismDate.Value = _individual.BaptizedDate;
+		tbMaritalStatus.Text = _individual.MaritalStatus;
+		tbMarriageDate.Value = _individual.MarriedDate;
 
-		cbActive.Checked = Individual.Active;
+		cbActive.Checked = _individual.Active;
 
 		tbFirstName.Focus();
 		tbFirstName.SelectAll();
@@ -42,27 +59,29 @@ public partial class frmIndividual : Form
 
 	private void btnSave_Click(object sender, EventArgs e)
 	{
-		Individual.FirstName = tbFirstName.Text;
-		Individual.MiddleName = tbMiddleName.Text;
-		Individual.LastName = tbLastName.Text;
+		_individual.FirstName = tbFirstName.Text;
+		_individual.MiddleName = tbMiddleName.Text;
+		_individual.LastName = tbLastName.Text;
+		_individual.PreferredName = tbPreferredName.Text;
 
-		Individual.MobilePhone = tbPhone.Text;
-		Individual.Email = tbEmail.Text;
-		Individual.CommunicationPreference = tbCommunicationPreference.Text;
+		_individual.MobilePhone = tbMobilePhone.Text;
+		_individual.HomePhone = tbHomePhone.Text;
+		_individual.Email = tbEmail.Text;
+		_individual.CommunicationPreference = tbCommunicationPreference.Text;
 
-		Individual.Occupation = tbOccupation.Text;
-		Individual.Employer = tbEmployer.Text;
-		Individual.BirthDate = tbBirthDate.Value;
-		Individual.Gender = tbGender.Text;
+		_individual.Occupation = tbOccupation.Text;
+		_individual.Employer = tbEmployer.Text;
+		_individual.BirthDate = tbBirthDate.Value;
+		_individual.Gender = tbGender.Text;
 
-		Individual.JoinedMethod = tbJoinedMethod.Text;
-		Individual.JoinedDate = tbJoinedDate.Value;
-		Individual.BaptizedLocation = tbBaptismLocation.Text;
-		Individual.BaptizedDate = tbBaptismDate.Value;
-		Individual.MaritalStatus = tbMaritalStatus.Text;
-		Individual.MarriedDate = tbMarriageDate.Value;
+		_individual.JoinedMethod = tbJoinedMethod.Text;
+		_individual.JoinedDate = tbJoinedDate.Value;
+		_individual.BaptizedLocation = tbBaptismLocation.Text;
+		_individual.BaptizedDate = tbBaptismDate.Value;
+		_individual.MaritalStatus = tbMaritalStatus.Text;
+		_individual.MarriedDate = tbMarriageDate.Value;
 
-		Individual.Active = cbActive.Checked;
+		_individual.Active = cbActive.Checked;
 
 		DialogResult = DialogResult.OK;
 		Close();

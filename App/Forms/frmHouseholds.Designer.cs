@@ -1,6 +1,6 @@
 ﻿using DataCommon.Models;
 
-namespace MOM
+namespace MOM.Forms
 {
     partial class frmHouseholds
     {
@@ -45,18 +45,20 @@ namespace MOM
 			btnSave = new Button();
 			btnRevert = new Button();
 			tableLayoutPanel2 = new TableLayoutPanel();
-			tbCountry = new TextBox();
-			label7 = new Label();
 			tbStreet = new TextBox();
 			label3 = new Label();
 			label2 = new Label();
 			tbName = new TextBox();
 			label4 = new Label();
 			tbCity = new TextBox();
-			label5 = new Label();
+			tbAdditionalInformation = new TextBox();
+			label8 = new Label();
+			label7 = new Label();
+			tbCountry = new TextBox();
 			label6 = new Label();
-			tbState = new TextBox();
 			tbZIP = new TextBox();
+			label5 = new Label();
+			tbState = new TextBox();
 			gbMembers = new GroupBox();
 			flowLayoutPanel1 = new FlowLayoutPanel();
 			btnAddMember = new Button();
@@ -251,25 +253,29 @@ namespace MOM
 			// 
 			// tableLayoutPanel2
 			// 
-			tableLayoutPanel2.ColumnCount = 6;
-			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666718F));
-			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.666666F));
-			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.666666F));
-			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.666666F));
-			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.666666F));
-			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.666666F));
-			tableLayoutPanel2.Controls.Add(tbCountry, 4, 5);
-			tableLayoutPanel2.Controls.Add(label7, 4, 4);
+			tableLayoutPanel2.ColumnCount = 8;
+			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
+			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
+			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
+			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
+			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
+			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
+			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
+			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
 			tableLayoutPanel2.Controls.Add(tbStreet, 0, 3);
 			tableLayoutPanel2.Controls.Add(label3, 0, 2);
 			tableLayoutPanel2.Controls.Add(label2, 0, 0);
 			tableLayoutPanel2.Controls.Add(tbName, 0, 1);
-			tableLayoutPanel2.Controls.Add(label4, 3, 2);
-			tableLayoutPanel2.Controls.Add(tbCity, 3, 3);
-			tableLayoutPanel2.Controls.Add(label5, 0, 4);
-			tableLayoutPanel2.Controls.Add(label6, 2, 4);
-			tableLayoutPanel2.Controls.Add(tbState, 0, 5);
-			tableLayoutPanel2.Controls.Add(tbZIP, 2, 5);
+			tableLayoutPanel2.Controls.Add(label4, 0, 4);
+			tableLayoutPanel2.Controls.Add(tbCity, 0, 5);
+			tableLayoutPanel2.Controls.Add(tbAdditionalInformation, 5, 3);
+			tableLayoutPanel2.Controls.Add(label8, 5, 2);
+			tableLayoutPanel2.Controls.Add(label7, 6, 4);
+			tableLayoutPanel2.Controls.Add(tbCountry, 6, 5);
+			tableLayoutPanel2.Controls.Add(label6, 4, 4);
+			tableLayoutPanel2.Controls.Add(tbZIP, 4, 5);
+			tableLayoutPanel2.Controls.Add(label5, 2, 4);
+			tableLayoutPanel2.Controls.Add(tbState, 2, 5);
 			tableLayoutPanel2.Dock = DockStyle.Fill;
 			tableLayoutPanel2.Location = new Point(3, 23);
 			tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -283,70 +289,48 @@ namespace MOM
 			tableLayoutPanel2.RowStyles.Add(new RowStyle());
 			tableLayoutPanel2.RowStyles.Add(new RowStyle());
 			tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-			tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
 			tableLayoutPanel2.Size = new Size(478, 160);
 			tableLayoutPanel2.TabIndex = 4;
-			// 
-			// tbCountry
-			// 
-			tbCountry.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			tableLayoutPanel2.SetColumnSpan(tbCountry, 2);
-			tbCountry.Font = new Font("Segoe UI", 11F);
-			tbCountry.Location = new Point(319, 129);
-			tbCountry.Name = "tbCountry";
-			tbCountry.PlaceholderText = "USA";
-			tbCountry.Size = new Size(156, 27);
-			tbCountry.TabIndex = 60;
-			tbCountry.Text = "USA";
-			// 
-			// label7
-			// 
-			label7.AutoSize = true;
-			tableLayoutPanel2.SetColumnSpan(label7, 2);
-			label7.Font = new Font("Segoe UI", 11F);
-			label7.Location = new Point(319, 106);
-			label7.Name = "label7";
-			label7.Size = new Size(60, 20);
-			label7.TabIndex = 10;
-			label7.Text = "Country";
 			// 
 			// tbStreet
 			// 
 			tbStreet.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			tableLayoutPanel2.SetColumnSpan(tbStreet, 3);
+			tableLayoutPanel2.SetColumnSpan(tbStreet, 5);
 			tbStreet.Font = new Font("Segoe UI", 11F);
 			tbStreet.Location = new Point(3, 76);
 			tbStreet.Name = "tbStreet";
 			tbStreet.PlaceholderText = "129 Pleasant Valley Rd.";
-			tbStreet.Size = new Size(231, 27);
+			tbStreet.Size = new Size(289, 27);
 			tbStreet.TabIndex = 20;
 			// 
 			// label3
 			// 
-			label3.AutoSize = true;
-			tableLayoutPanel2.SetColumnSpan(label3, 3);
+			label3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			label3.AutoEllipsis = true;
+			tableLayoutPanel2.SetColumnSpan(label3, 5);
 			label3.Font = new Font("Segoe UI", 11F);
 			label3.Location = new Point(3, 53);
 			label3.Name = "label3";
-			label3.Size = new Size(48, 20);
+			label3.Size = new Size(289, 20);
 			label3.TabIndex = 3;
 			label3.Text = "Street";
 			// 
 			// label2
 			// 
-			label2.AutoSize = true;
-			tableLayoutPanel2.SetColumnSpan(label2, 6);
+			label2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			label2.AutoEllipsis = true;
+			tableLayoutPanel2.SetColumnSpan(label2, 8);
 			label2.Font = new Font("Segoe UI", 11F);
 			label2.Location = new Point(3, 0);
 			label2.Name = "label2";
-			label2.Size = new Size(49, 20);
+			label2.Size = new Size(472, 20);
 			label2.TabIndex = 1;
 			label2.Text = "Name";
 			// 
 			// tbName
 			// 
 			tbName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			tableLayoutPanel2.SetColumnSpan(tbName, 6);
+			tableLayoutPanel2.SetColumnSpan(tbName, 8);
 			tbName.Font = new Font("Segoe UI", 11F);
 			tbName.Location = new Point(3, 23);
 			tbName.Name = "tbName";
@@ -355,70 +339,119 @@ namespace MOM
 			// 
 			// label4
 			// 
-			label4.AutoSize = true;
-			tableLayoutPanel2.SetColumnSpan(label4, 3);
+			label4.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			label4.AutoEllipsis = true;
+			tableLayoutPanel2.SetColumnSpan(label4, 2);
 			label4.Font = new Font("Segoe UI", 11F);
-			label4.Location = new Point(240, 53);
+			label4.Location = new Point(3, 106);
 			label4.Name = "label4";
-			label4.Size = new Size(34, 20);
+			label4.Size = new Size(112, 20);
 			label4.TabIndex = 4;
 			label4.Text = "City";
 			// 
 			// tbCity
 			// 
 			tbCity.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			tableLayoutPanel2.SetColumnSpan(tbCity, 3);
+			tableLayoutPanel2.SetColumnSpan(tbCity, 2);
 			tbCity.Font = new Font("Segoe UI", 11F);
-			tbCity.Location = new Point(240, 76);
+			tbCity.Location = new Point(3, 129);
 			tbCity.Name = "tbCity";
 			tbCity.PlaceholderText = "East Earl";
-			tbCity.Size = new Size(235, 27);
+			tbCity.Size = new Size(112, 27);
 			tbCity.TabIndex = 30;
 			// 
-			// label5
+			// tbAdditionalInformation
 			// 
-			label5.AutoSize = true;
-			tableLayoutPanel2.SetColumnSpan(label5, 2);
-			label5.Font = new Font("Segoe UI", 11F);
-			label5.Location = new Point(3, 106);
-			label5.Name = "label5";
-			label5.Size = new Size(43, 20);
-			label5.TabIndex = 6;
-			label5.Text = "State";
+			tbAdditionalInformation.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tableLayoutPanel2.SetColumnSpan(tbAdditionalInformation, 3);
+			tbAdditionalInformation.Font = new Font("Segoe UI", 11F);
+			tbAdditionalInformation.Location = new Point(298, 76);
+			tbAdditionalInformation.Name = "tbAdditionalInformation";
+			tbAdditionalInformation.Size = new Size(177, 27);
+			tbAdditionalInformation.TabIndex = 62;
+			// 
+			// label8
+			// 
+			label8.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			label8.AutoEllipsis = true;
+			tableLayoutPanel2.SetColumnSpan(label8, 3);
+			label8.Font = new Font("Segoe UI", 11F);
+			label8.Location = new Point(298, 53);
+			label8.Name = "label8";
+			label8.Size = new Size(177, 20);
+			label8.TabIndex = 61;
+			label8.Text = "Additional Information";
+			// 
+			// label7
+			// 
+			label7.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			label7.AutoEllipsis = true;
+			tableLayoutPanel2.SetColumnSpan(label7, 2);
+			label7.Font = new Font("Segoe UI", 11F);
+			label7.Location = new Point(357, 106);
+			label7.Name = "label7";
+			label7.Size = new Size(118, 20);
+			label7.TabIndex = 10;
+			label7.Text = "Country";
+			// 
+			// tbCountry
+			// 
+			tbCountry.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tableLayoutPanel2.SetColumnSpan(tbCountry, 2);
+			tbCountry.Font = new Font("Segoe UI", 11F);
+			tbCountry.Location = new Point(357, 129);
+			tbCountry.Name = "tbCountry";
+			tbCountry.PlaceholderText = "USA";
+			tbCountry.Size = new Size(118, 27);
+			tbCountry.TabIndex = 60;
+			tbCountry.Text = "USA";
 			// 
 			// label6
 			// 
-			label6.AutoSize = true;
+			label6.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			label6.AutoEllipsis = true;
 			tableLayoutPanel2.SetColumnSpan(label6, 2);
 			label6.Font = new Font("Segoe UI", 11F);
-			label6.Location = new Point(161, 106);
+			label6.Location = new Point(239, 106);
 			label6.Name = "label6";
-			label6.Size = new Size(69, 20);
+			label6.Size = new Size(112, 20);
 			label6.TabIndex = 8;
 			label6.Text = "ZIP Code";
-			// 
-			// tbState
-			// 
-			tbState.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			tableLayoutPanel2.SetColumnSpan(tbState, 2);
-			tbState.Font = new Font("Segoe UI", 11F);
-			tbState.Location = new Point(3, 129);
-			tbState.Name = "tbState";
-			tbState.PlaceholderText = "PA";
-			tbState.Size = new Size(152, 27);
-			tbState.TabIndex = 40;
-			tbState.Text = "PA";
 			// 
 			// tbZIP
 			// 
 			tbZIP.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			tableLayoutPanel2.SetColumnSpan(tbZIP, 2);
 			tbZIP.Font = new Font("Segoe UI", 11F);
-			tbZIP.Location = new Point(161, 129);
+			tbZIP.Location = new Point(239, 129);
 			tbZIP.Name = "tbZIP";
 			tbZIP.PlaceholderText = "17519";
-			tbZIP.Size = new Size(152, 27);
+			tbZIP.Size = new Size(112, 27);
 			tbZIP.TabIndex = 50;
+			// 
+			// label5
+			// 
+			label5.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			label5.AutoEllipsis = true;
+			tableLayoutPanel2.SetColumnSpan(label5, 2);
+			label5.Font = new Font("Segoe UI", 11F);
+			label5.Location = new Point(121, 106);
+			label5.Name = "label5";
+			label5.Size = new Size(112, 20);
+			label5.TabIndex = 6;
+			label5.Text = "State";
+			// 
+			// tbState
+			// 
+			tbState.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tableLayoutPanel2.SetColumnSpan(tbState, 2);
+			tbState.Font = new Font("Segoe UI", 11F);
+			tbState.Location = new Point(121, 129);
+			tbState.Name = "tbState";
+			tbState.PlaceholderText = "PA";
+			tbState.Size = new Size(112, 27);
+			tbState.TabIndex = 40;
+			tbState.Text = "PA";
 			// 
 			// gbMembers
 			// 
@@ -490,6 +523,7 @@ namespace MOM
 			Margin = new Padding(4);
 			Name = "frmHouseholds";
 			Text = "Membership Office Manager";
+			FormClosing += frmHouseholds_FormClosing;
 			Shown += frmHouseholds_Shown;
 			splitContainer1.Panel1.ResumeLayout(false);
 			splitContainer1.Panel2.ResumeLayout(false);
@@ -528,8 +562,6 @@ namespace MOM
 		private TextBox tbCity;
 		private Label label4;
 		private Label label5;
-		private TextBox tbCountry;
-		private Label label7;
 		private TextBox tbState;
 		private Label label6;
 		private TextBox tbZIP;
@@ -546,5 +578,9 @@ namespace MOM
 		private Button btnMemberTemplate;
 		private FlowLayoutPanel flowLayoutPanel1;
 		private Button btnAddMember;
+		private Label label7;
+		private TextBox tbCountry;
+		private TextBox tbAdditionalInformation;
+		private Label label8;
 	}
 }

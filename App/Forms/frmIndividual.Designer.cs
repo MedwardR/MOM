@@ -32,23 +32,29 @@ namespace MOM.Forms
 		{
 			gbName = new GroupBox();
 			tableLayoutPanel1 = new TableLayoutPanel();
+			llPreferFirstName = new LinkLabel();
 			tbLastName = new TextBox();
 			tbMiddleName = new TextBox();
 			label3 = new Label();
 			tbFirstName = new TextBox();
 			label1 = new Label();
 			label2 = new Label();
+			tbPreferredName = new TextBox();
+			label18 = new Label();
+			llPreferMiddleName = new LinkLabel();
 			flowLayoutPanel2 = new FlowLayoutPanel();
 			btnSave = new Button();
 			btnCancel = new Button();
 			gbContact = new GroupBox();
 			tableLayoutPanel2 = new TableLayoutPanel();
-			tbCommunicationPreference = new TextBox();
-			label4 = new Label();
+			label17 = new Label();
+			tbHomePhone = new MaskedTextBox();
 			label6 = new Label();
 			label5 = new Label();
 			tbEmail = new TextBox();
-			tbPhone = new MaskedTextBox();
+			tbMobilePhone = new MaskedTextBox();
+			label4 = new Label();
+			tbCommunicationPreference = new TextBox();
 			tableLayoutPanel3 = new TableLayoutPanel();
 			gbLife = new GroupBox();
 			tableLayoutPanel5 = new TableLayoutPanel();
@@ -94,62 +100,74 @@ namespace MOM.Forms
 			gbName.Controls.Add(tableLayoutPanel1);
 			gbName.Location = new Point(3, 3);
 			gbName.Name = "gbName";
-			gbName.Size = new Size(908, 80);
+			gbName.Size = new Size(908, 133);
 			gbName.TabIndex = 0;
 			gbName.TabStop = false;
 			gbName.Text = "Name";
 			// 
 			// tableLayoutPanel1
 			// 
-			tableLayoutPanel1.ColumnCount = 6;
-			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666718F));
-			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666679F));
-			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666679F));
-			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666679F));
-			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666679F));
-			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.6666679F));
+			tableLayoutPanel1.ColumnCount = 5;
+			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
+			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 32F));
+			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
+			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 32F));
+			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 36F));
+			tableLayoutPanel1.Controls.Add(llPreferFirstName, 1, 0);
 			tableLayoutPanel1.Controls.Add(tbLastName, 4, 1);
 			tableLayoutPanel1.Controls.Add(tbMiddleName, 2, 1);
 			tableLayoutPanel1.Controls.Add(label3, 4, 0);
 			tableLayoutPanel1.Controls.Add(tbFirstName, 0, 1);
 			tableLayoutPanel1.Controls.Add(label1, 0, 0);
 			tableLayoutPanel1.Controls.Add(label2, 2, 0);
+			tableLayoutPanel1.Controls.Add(tbPreferredName, 0, 3);
+			tableLayoutPanel1.Controls.Add(label18, 0, 2);
+			tableLayoutPanel1.Controls.Add(llPreferMiddleName, 3, 0);
 			tableLayoutPanel1.Dock = DockStyle.Fill;
 			tableLayoutPanel1.Location = new Point(3, 23);
 			tableLayoutPanel1.Name = "tableLayoutPanel1";
-			tableLayoutPanel1.RowCount = 3;
+			tableLayoutPanel1.RowCount = 5;
+			tableLayoutPanel1.RowStyles.Add(new RowStyle());
+			tableLayoutPanel1.RowStyles.Add(new RowStyle());
 			tableLayoutPanel1.RowStyles.Add(new RowStyle());
 			tableLayoutPanel1.RowStyles.Add(new RowStyle());
 			tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-			tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-			tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-			tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-			tableLayoutPanel1.Size = new Size(902, 54);
+			tableLayoutPanel1.Size = new Size(902, 107);
 			tableLayoutPanel1.TabIndex = 0;
+			// 
+			// llPreferFirstName
+			// 
+			llPreferFirstName.AutoSize = true;
+			llPreferFirstName.Location = new Point(42, 0);
+			llPreferFirstName.Margin = new Padding(0, 0, 3, 0);
+			llPreferFirstName.Name = "llPreferFirstName";
+			llPreferFirstName.Size = new Size(59, 20);
+			llPreferFirstName.TabIndex = 34;
+			llPreferFirstName.TabStop = true;
+			llPreferFirstName.Text = "(prefer)";
+			llPreferFirstName.LinkClicked += llPreferFirstName_LinkClicked;
 			// 
 			// tbLastName
 			// 
 			tbLastName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			tableLayoutPanel1.SetColumnSpan(tbLastName, 2);
-			tbLastName.Location = new Point(603, 23);
+			tbLastName.Location = new Point(617, 23);
 			tbLastName.Name = "tbLastName";
-			tbLastName.Size = new Size(296, 27);
+			tbLastName.Size = new Size(282, 27);
 			tbLastName.TabIndex = 30;
 			// 
 			// tbMiddleName
 			// 
 			tbMiddleName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			tableLayoutPanel1.SetColumnSpan(tbMiddleName, 2);
-			tbMiddleName.Location = new Point(303, 23);
+			tbMiddleName.Location = new Point(300, 23);
 			tbMiddleName.Name = "tbMiddleName";
-			tbMiddleName.Size = new Size(294, 27);
+			tbMiddleName.Size = new Size(311, 27);
 			tbMiddleName.TabIndex = 20;
 			// 
 			// label3
 			// 
 			label3.AutoSize = true;
-			tableLayoutPanel1.SetColumnSpan(label3, 2);
-			label3.Location = new Point(603, 0);
+			label3.Location = new Point(617, 0);
 			label3.Name = "label3";
 			label3.Size = new Size(35, 20);
 			label3.TabIndex = 4;
@@ -161,13 +179,13 @@ namespace MOM.Forms
 			tableLayoutPanel1.SetColumnSpan(tbFirstName, 2);
 			tbFirstName.Location = new Point(3, 23);
 			tbFirstName.Name = "tbFirstName";
-			tbFirstName.Size = new Size(294, 27);
+			tbFirstName.Size = new Size(291, 27);
 			tbFirstName.TabIndex = 10;
+			tbFirstName.TextChanged += tbFirstName_TextChanged;
 			// 
 			// label1
 			// 
 			label1.AutoSize = true;
-			tableLayoutPanel1.SetColumnSpan(label1, 2);
 			label1.Location = new Point(3, 0);
 			label1.Name = "label1";
 			label1.Size = new Size(36, 20);
@@ -177,12 +195,42 @@ namespace MOM.Forms
 			// label2
 			// 
 			label2.AutoSize = true;
-			tableLayoutPanel1.SetColumnSpan(label2, 2);
-			label2.Location = new Point(303, 0);
+			label2.Location = new Point(300, 0);
 			label2.Name = "label2";
 			label2.Size = new Size(56, 20);
 			label2.TabIndex = 3;
 			label2.Text = "Middle";
+			// 
+			// tbPreferredName
+			// 
+			tbPreferredName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tableLayoutPanel1.SetColumnSpan(tbPreferredName, 2);
+			tbPreferredName.Location = new Point(3, 76);
+			tbPreferredName.Name = "tbPreferredName";
+			tbPreferredName.Size = new Size(291, 27);
+			tbPreferredName.TabIndex = 32;
+			// 
+			// label18
+			// 
+			label18.AutoSize = true;
+			tableLayoutPanel1.SetColumnSpan(label18, 2);
+			label18.Location = new Point(3, 53);
+			label18.Name = "label18";
+			label18.Size = new Size(70, 20);
+			label18.TabIndex = 31;
+			label18.Text = "Preferred";
+			// 
+			// llPreferMiddleName
+			// 
+			llPreferMiddleName.AutoSize = true;
+			llPreferMiddleName.Location = new Point(359, 0);
+			llPreferMiddleName.Margin = new Padding(0, 0, 3, 0);
+			llPreferMiddleName.Name = "llPreferMiddleName";
+			llPreferMiddleName.Size = new Size(59, 20);
+			llPreferMiddleName.TabIndex = 33;
+			llPreferMiddleName.TabStop = true;
+			llPreferMiddleName.Text = "(prefer)";
+			llPreferMiddleName.LinkClicked += llPreferMiddleName_LinkClicked;
 			// 
 			// flowLayoutPanel2
 			// 
@@ -223,7 +271,7 @@ namespace MOM.Forms
 			// 
 			gbContact.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			gbContact.Controls.Add(tableLayoutPanel2);
-			gbContact.Location = new Point(3, 89);
+			gbContact.Location = new Point(3, 142);
 			gbContact.Name = "gbContact";
 			gbContact.Size = new Size(451, 133);
 			gbContact.TabIndex = 1;
@@ -236,12 +284,14 @@ namespace MOM.Forms
 			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33333F));
 			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333359F));
 			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333359F));
-			tableLayoutPanel2.Controls.Add(tbCommunicationPreference, 0, 3);
-			tableLayoutPanel2.Controls.Add(label4, 0, 2);
+			tableLayoutPanel2.Controls.Add(label17, 0, 2);
+			tableLayoutPanel2.Controls.Add(tbHomePhone, 0, 3);
 			tableLayoutPanel2.Controls.Add(label6, 1, 0);
 			tableLayoutPanel2.Controls.Add(label5, 0, 0);
 			tableLayoutPanel2.Controls.Add(tbEmail, 1, 1);
-			tableLayoutPanel2.Controls.Add(tbPhone, 0, 1);
+			tableLayoutPanel2.Controls.Add(tbMobilePhone, 0, 1);
+			tableLayoutPanel2.Controls.Add(label4, 1, 2);
+			tableLayoutPanel2.Controls.Add(tbCommunicationPreference, 1, 3);
 			tableLayoutPanel2.Dock = DockStyle.Fill;
 			tableLayoutPanel2.Location = new Point(3, 23);
 			tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -254,24 +304,24 @@ namespace MOM.Forms
 			tableLayoutPanel2.Size = new Size(445, 107);
 			tableLayoutPanel2.TabIndex = 0;
 			// 
-			// tbCommunicationPreference
+			// label17
 			// 
-			tbCommunicationPreference.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			tableLayoutPanel2.SetColumnSpan(tbCommunicationPreference, 3);
-			tbCommunicationPreference.Location = new Point(3, 76);
-			tbCommunicationPreference.Name = "tbCommunicationPreference";
-			tbCommunicationPreference.Size = new Size(439, 27);
-			tbCommunicationPreference.TabIndex = 30;
+			label17.AutoSize = true;
+			label17.Location = new Point(3, 53);
+			label17.Name = "label17";
+			label17.Size = new Size(95, 20);
+			label17.TabIndex = 73;
+			label17.Text = "Home Phone";
 			// 
-			// label4
+			// tbHomePhone
 			// 
-			label4.AutoSize = true;
-			tableLayoutPanel2.SetColumnSpan(label4, 2);
-			label4.Location = new Point(3, 53);
-			label4.Name = "label4";
-			label4.Size = new Size(189, 20);
-			label4.TabIndex = 72;
-			label4.Text = "Communication preference";
+			tbHomePhone.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tbHomePhone.Location = new Point(3, 76);
+			tbHomePhone.Mask = "(999) 000-0000";
+			tbHomePhone.Name = "tbHomePhone";
+			tbHomePhone.Size = new Size(142, 27);
+			tbHomePhone.TabIndex = 74;
+			tbHomePhone.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
 			// 
 			// label6
 			// 
@@ -288,9 +338,9 @@ namespace MOM.Forms
 			label5.AutoSize = true;
 			label5.Location = new Point(3, 0);
 			label5.Name = "label5";
-			label5.Size = new Size(50, 20);
+			label5.Size = new Size(101, 20);
 			label5.TabIndex = 2;
-			label5.Text = "Phone";
+			label5.Text = "Mobile Phone";
 			// 
 			// tbEmail
 			// 
@@ -301,15 +351,34 @@ namespace MOM.Forms
 			tbEmail.Size = new Size(291, 27);
 			tbEmail.TabIndex = 20;
 			// 
-			// tbPhone
+			// tbMobilePhone
 			// 
-			tbPhone.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			tbPhone.Location = new Point(3, 23);
-			tbPhone.Mask = "(999) 000-0000";
-			tbPhone.Name = "tbPhone";
-			tbPhone.Size = new Size(142, 27);
-			tbPhone.TabIndex = 10;
-			tbPhone.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
+			tbMobilePhone.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tbMobilePhone.Location = new Point(3, 23);
+			tbMobilePhone.Mask = "(999) 000-0000";
+			tbMobilePhone.Name = "tbMobilePhone";
+			tbMobilePhone.Size = new Size(142, 27);
+			tbMobilePhone.TabIndex = 10;
+			tbMobilePhone.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
+			// 
+			// label4
+			// 
+			label4.AutoSize = true;
+			tableLayoutPanel2.SetColumnSpan(label4, 2);
+			label4.Location = new Point(151, 53);
+			label4.Name = "label4";
+			label4.Size = new Size(189, 20);
+			label4.TabIndex = 72;
+			label4.Text = "Communication preference";
+			// 
+			// tbCommunicationPreference
+			// 
+			tbCommunicationPreference.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tableLayoutPanel2.SetColumnSpan(tbCommunicationPreference, 2);
+			tbCommunicationPreference.Location = new Point(151, 76);
+			tbCommunicationPreference.Name = "tbCommunicationPreference";
+			tbCommunicationPreference.Size = new Size(291, 27);
+			tbCommunicationPreference.TabIndex = 30;
 			// 
 			// tableLayoutPanel3
 			// 
@@ -329,14 +398,14 @@ namespace MOM.Forms
 			tableLayoutPanel3.RowStyles.Add(new RowStyle());
 			tableLayoutPanel3.RowStyles.Add(new RowStyle());
 			tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-			tableLayoutPanel3.Size = new Size(914, 418);
+			tableLayoutPanel3.Size = new Size(914, 471);
 			tableLayoutPanel3.TabIndex = 2;
 			// 
 			// gbLife
 			// 
 			gbLife.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			gbLife.Controls.Add(tableLayoutPanel5);
-			gbLife.Location = new Point(3, 228);
+			gbLife.Location = new Point(3, 281);
 			gbLife.Name = "gbLife";
 			gbLife.Size = new Size(451, 186);
 			gbLife.TabIndex = 3;
@@ -489,7 +558,7 @@ namespace MOM.Forms
 			// 
 			gbPersonal.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			gbPersonal.Controls.Add(tableLayoutPanel4);
-			gbPersonal.Location = new Point(460, 89);
+			gbPersonal.Location = new Point(460, 142);
 			gbPersonal.Name = "gbPersonal";
 			gbPersonal.Size = new Size(451, 133);
 			gbPersonal.TabIndex = 2;
@@ -597,7 +666,7 @@ namespace MOM.Forms
 			// 
 			cbActive.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 			cbActive.AutoSize = true;
-			cbActive.Location = new Point(842, 390);
+			cbActive.Location = new Point(842, 443);
 			cbActive.Name = "cbActive";
 			cbActive.Size = new Size(69, 24);
 			cbActive.TabIndex = 4;
@@ -609,7 +678,7 @@ namespace MOM.Forms
 			AutoScaleDimensions = new SizeF(8F, 20F);
 			AutoScaleMode = AutoScaleMode.Font;
 			BackColor = Color.FromArgb(243, 243, 243);
-			ClientSize = new Size(914, 418);
+			ClientSize = new Size(914, 471);
 			Controls.Add(flowLayoutPanel2);
 			Controls.Add(tableLayoutPanel3);
 			Font = new Font("Segoe UI", 11F);
@@ -652,7 +721,7 @@ namespace MOM.Forms
 		private Label label5;
 		private Label label6;
 		private TableLayoutPanel tableLayoutPanel3;
-		private MaskedTextBox tbPhone;
+		private MaskedTextBox tbMobilePhone;
 		private TextBox tbCommunicationPreference;
 		private Label label4;
 		private GroupBox gbPersonal;
@@ -683,5 +752,11 @@ namespace MOM.Forms
 		private Button btnSave;
 		private Button btnCancel;
 		private CheckBox cbActive;
+		private Label label17;
+		private MaskedTextBox tbHomePhone;
+		private TextBox tbPreferredName;
+		private Label label18;
+		private LinkLabel llPreferMiddleName;
+		private LinkLabel llPreferFirstName;
 	}
 }

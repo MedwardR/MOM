@@ -33,5 +33,14 @@ namespace DataCommon.Models
 		public string? MaritalStatus { get; set; }
 
 		[ForeignKey(nameof(HouseholdId))] public virtual required Household Household { get; set; }
+
+		public string GetDisplayName()
+		{
+			if (!string.IsNullOrWhiteSpace(PreferredName))
+			{
+				return PreferredName;
+			}
+			else return FirstName;
+		}
 	}
 }

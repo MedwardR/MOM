@@ -5,17 +5,12 @@ namespace DataCommon.Models
 {
 	public class Household : AuditableEntity
 	{
-		public long Id { get; set; }
+		public long Id { get; init; }
 
 		[Required] public required string Name { get; set; }
 
-		public virtual List<Individual> Individuals { get; set; } = [];
-		public Address Address { get; set; }
-
-		public Household()
-		{
-			Address = new();
-		}
+		public virtual List<Individual> Individuals { get; init; } = [];
+		public Address Address { get; init; } = new();
 
 		public Individual GetNewMember() => new()
 		{
