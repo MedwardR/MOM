@@ -1,4 +1,4 @@
-﻿namespace MOM
+﻿namespace MOM.Forms
 {
 	partial class frmLogin
 	{

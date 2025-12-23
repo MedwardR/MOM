@@ -15,7 +15,7 @@ internal class SKImporter
 				Name = family.FAM_NAME ?? "NO NAME",
 				Address = new Address()
 				{
-					Street = family.GetCombinedStreetAddress(),
+					Street = family.ADDR1,
 					City = family.CITY,
 					State = family.STATE,
 					Zip = family.ZIP,

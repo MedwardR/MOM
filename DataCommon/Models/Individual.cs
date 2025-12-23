@@ -6,13 +6,15 @@ namespace DataCommon.Models
 {
 	public class Individual : AuditableEntity
 	{
-		public long Id { get; set; }
-		public long HouseholdId { get; set; }
+		public long Id { get; init; }
+		public long HouseholdId { get; init; }
 
 		[Required] public required string FirstName { get; set; }
 		public string? MiddleName { get; set; }
 		[Required] public required string LastName { get; set; }
 		
+		public string? PreferredName { get; set; }
+
 		public string? MobilePhone { get; set; }
 		public string? HomePhone { get; set; }
 		public string? Email { get; set; }

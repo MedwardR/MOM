@@ -3,22 +3,24 @@ using MOM.Helpers;
 using System.Diagnostics;
 using System.Text.Json;
 
-namespace MOM
+namespace MOM.Forms;
+
+public sealed partial class frmLogin : Form
 {
-	public partial class frmLogin : Form
+	private AppContext? _app;
+	private ListBox? _log;
+
+	public AppContext? AppContext { get; private set; }
+
+	public frmLogin()
 	{
-		private AppContext? _app;
-		private ListBox? _log;
+		InitializeComponent();
+		Text += Program.Version;
+	}
 
-		public AppContext? AppContext { get; private set; }
-
-		public frmLogin()
-		{
-			InitializeComponent();
-			Text += Program.Version;
-		}
-
-		private async void frmLogin_Shown(object sender, EventArgs e)
+	private async void frmLogin_Shown(object sender, EventArgs e)
+	{
+		try
 		{
 			tableLayoutPanel1.Visible = false;
 			_log = new ListBox
@@ -77,99 +79,106 @@ namespace MOM
 			await Task.Delay(100);
 			tbUsername.Focus();
 		}
-
-		private static async Task<(Version version, string downloadUrl)> GetLatestVersionAsync()
+		catch (Exception ex)
 		{
-			using var client = new HttpClient();
-			client.DefaultRequestHeaders.UserAgent.ParseAdd("MOM");
+			Application.OnThreadException(ex);
+		}
+	}
 
-			string response = await client.GetStringAsync("https://api.github.com/repos/MedwardR/MOM/releases/latest");
+	private static async Task<(Version version, string downloadUrl)> GetLatestVersionAsync()
+	{
+		using var client = new HttpClient();
+		client.DefaultRequestHeaders.UserAgent.ParseAdd("MOM");
 
-			using var doc = JsonDocument.Parse(response);
-			string? versionString = doc.RootElement.GetProperty("tag_name").GetString()?.TrimStart('v');
-			if (versionString is not null)
+		string response = await client.GetStringAsync("https://api.github.com/repos/MedwardR/MOM/releases/latest");
+
+		using var doc = JsonDocument.Parse(response);
+		string? versionString = doc.RootElement.GetProperty("tag_name").GetString()?.TrimStart('v');
+		if (versionString is not null)
+		{
+			var version = Version.Parse(versionString);
+			string? downloadUrl = null;
+
+			var assets = doc.RootElement.GetProperty("assets");
+			foreach (var asset in assets.EnumerateArray())
 			{
-				var version = Version.Parse(versionString);
-				string? downloadUrl = null;
-
-				var assets = doc.RootElement.GetProperty("assets");
-				foreach (var asset in assets.EnumerateArray())
+				string name = asset.GetProperty("name").GetString() ?? string.Empty;
+				if (name.EndsWith(".exe"))
 				{
-					string name = asset.GetProperty("name").GetString() ?? string.Empty;
-					if (name.EndsWith(".exe"))
+					string? url = asset.GetProperty("browser_download_url").GetString();
+					if (url is not null)
 					{
-						string? url = asset.GetProperty("browser_download_url").GetString();
-						if (url is not null)
-						{
-							downloadUrl = url;
-							break;
-						}
+						downloadUrl = url;
+						break;
 					}
 				}
-
-				if (downloadUrl is not null)
-				{
-					return (version, downloadUrl);
-				}
-				else throw new Exception("The latest version did not link to an installer");
 			}
-			else throw new Exception("The latest version could not be found");
-		}
 
-		private static async Task UpdateApplicationAsync(string downloadUrl)
+			if (downloadUrl is not null)
+			{
+				return (version, downloadUrl);
+			}
+			else throw new Exception("The latest version did not link to an installer");
+		}
+		else throw new Exception("The latest version could not be found");
+	}
+
+	private static async Task UpdateApplicationAsync(string downloadUrl)
+	{
+		using var client = new HttpClient();
+		byte[] data = await client.GetByteArrayAsync(downloadUrl);
+
+		string filePath = Path.Combine(Path.GetTempPath(), "MOMInstaller.exe");
+		await File.WriteAllBytesAsync(filePath, data);
+
+		Process.Start(new ProcessStartInfo
 		{
-			using var client = new HttpClient();
-			byte[] data = await client.GetByteArrayAsync(downloadUrl);
+			FileName = filePath,
+			Arguments = "/silent",
+			UseShellExecute = true,
+		});
+		Program.CloseLogger();
+		Environment.Exit(0);
+	}
 
-			string filePath = Path.Combine(Path.GetTempPath(), "MOMInstaller.exe");
-			await File.WriteAllBytesAsync(filePath, data);
-
-			Process.Start(new ProcessStartInfo
-			{
-				FileName = filePath,
-				Arguments = "/silent",
-				UseShellExecute = true,
-			});
-			Program.CloseLogger();
-			Environment.Exit(0);
-		}
-
-		private void Log(string message)
+	private void Log(string message)
+	{
+		if (_log is not null)
 		{
-			if (_log is not null)
-			{
-				_log.Items.Add(message);
-				_log.SelectedIndex = _log.Items.Count - 1;
-			}
-			Serilog.Log.Information(message);
+			_log.Items.Add(message);
+			_log.SelectedIndex = _log.Items.Count - 1;
 		}
-		private void Log(Exception ex, string message)
+		Serilog.Log.Information(message);
+	}
+	private void Log(Exception ex, string message)
+	{
+		if (_log is not null)
 		{
-			if (_log is not null)
-			{
-				_log.Items.Add(message);
-				_log.SelectedIndex = _log.Items.Count - 1;
-			}
-			Serilog.Log.Error(ex, message);
+			_log.Items.Add(message);
+			_log.SelectedIndex = _log.Items.Count - 1;
 		}
+		Serilog.Log.Error(ex, message);
+	}
 
-		private void tbUsername_KeyDown(object sender, KeyEventArgs e)
+	private void tbUsername_KeyDown(object sender, KeyEventArgs e)
+	{
+		if (e.KeyCode == Keys.Enter)
 		{
-			if (e.KeyCode == Keys.Enter)
+			if (!string.IsNullOrWhiteSpace(tbUsername.Text))
 			{
-				if (!string.IsNullOrWhiteSpace(tbUsername.Text))
-				{
-					tbPassword.Focus();
-				}
-			}
-			else
-			{
-				lbUsernameNotFound.Visible = false;
-				lbPasswordInvalid.Visible = false;
+				tbPassword.Focus();
 			}
 		}
+		else
+		{
+			lbUsernameNotFound.Visible = false;
+			lbPasswordInvalid.Visible = false;
+		}
+	}
 
-		private async void tbPassword_KeyDown(object sender, KeyEventArgs e)
+	private async void tbPassword_KeyDown(object sender, KeyEventArgs e)
+	{
+		try
 		{
 			if (e.KeyCode == Keys.Enter)
 			{
@@ -184,56 +193,67 @@ namespace MOM
 			}
 			else lbPasswordInvalid.Visible = false;
 		}
+		catch (Exception ex)
+		{
+			Application.OnThreadException(ex);
+		}
+	}
 
-		private async void btnLogin_Click(object sender, EventArgs e)
+	private async void btnLogin_Click(object sender, EventArgs e)
+	{
+		try
 		{
 			await LoginAsync();
 		}
-
-		private async Task LoginAsync()
+		catch (Exception ex)
 		{
-			if (_app is not null)
+			Application.OnThreadException(ex);
+		}
+	}
+
+	private async Task LoginAsync()
+	{
+		if (_app is not null)
+		{
+			btnLogin.Enabled = false;
+
+			string username = tbUsername.Text.Trim();
+			string password = tbPassword.Text;
+
+			var user = await _app.Users.FirstOrDefaultAsync(u => u.Username == username);
+			if (user is not null)
 			{
-				btnLogin.Enabled = false;
+				Log($"Attempting to log in as '{user.Username}' ({user.Id})");
 
-				string username = tbUsername.Text.Trim();
-				string password = tbPassword.Text;
-
-				var user = await _app.Users.FirstOrDefaultAsync(u => u.Username == username);
-				if (user is not null)
+				(byte[] salt, byte[] hash) = SecurityHelper.Decode(user.PasswordHash);
+				if (await SecurityHelper.VerifyPasswordAsync(password, hash, salt))
 				{
-					Log($"Attempting to log in as '{user.Username}' ({user.Id})");
+					_app.AssignAuthenticatedUser(user);
 
-					(byte[] salt, byte[] hash) = SecurityHelper.Decode(user.PasswordHash);
-					if (await SecurityHelper.VerifyPasswordAsync(password, hash, salt))
-					{
-						_app.AssignAuthenticatedUser(user);
+					user.IsLoggedIn = true;
+					await _app.SaveChangesAsync();
 
-						user.IsLoggedIn = true;
-						await _app.SaveChangesAsync();
-
-						AppContext = _app;
-						Log($"Logged in as '{user.Username}' ({user.Id})");
-						Close();
-					}
-					else
-					{
-						Log("Invalid password");
-						lbPasswordInvalid.Visible = true;
-						tbPassword.Text = string.Empty;
-						tbPassword.Focus();
-					}
+					AppContext = _app;
+					Log($"Logged in as '{user.Username}' ({user.Id})");
+					Close();
 				}
 				else
 				{
-					Log($"User does not exist: '{username}'");
-					lbUsernameNotFound.Visible = true;
-					tbUsername.Focus();
+					Log("Invalid password");
+					lbPasswordInvalid.Visible = true;
+					tbPassword.Text = string.Empty;
+					tbPassword.Focus();
 				}
-
-				btnLogin.Enabled = true;
 			}
-			else throw new Exception("Attempted to log in before database was initialized");
+			else
+			{
+				Log($"User does not exist: '{username}'");
+				lbUsernameNotFound.Visible = true;
+				tbUsername.Focus();
+			}
+
+			btnLogin.Enabled = true;
 		}
+		else throw new Exception("Attempted to log in before database was initialized");
 	}
 }

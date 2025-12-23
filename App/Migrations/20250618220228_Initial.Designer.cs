@@ -12,7 +12,7 @@ namespace MOM.Migrations
 {
     [DbContext(typeof(AppContext))]
     [Migration("20250618220228_init")]
-    partial class init
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
