@@ -64,6 +64,7 @@ namespace MOM.Forms
 			btnAddMember = new Button();
 			flpMembers = new FlowLayoutPanel();
 			btnMemberTemplate = new Button();
+			cbActive = new CheckBox();
 			((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
 			splitContainer1.Panel1.SuspendLayout();
 			splitContainer1.Panel2.SuspendLayout();
@@ -180,13 +181,14 @@ namespace MOM.Forms
 			tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
 			tableLayoutPanel3.Controls.Add(gbHousehold, 0, 0);
 			tableLayoutPanel3.Controls.Add(gbMembers, 0, 1);
+			tableLayoutPanel3.Controls.Add(cbActive, 0, 2);
 			tableLayoutPanel3.Dock = DockStyle.Fill;
 			tableLayoutPanel3.Location = new Point(0, 3);
 			tableLayoutPanel3.Name = "tableLayoutPanel3";
-			tableLayoutPanel3.RowCount = 2;
+			tableLayoutPanel3.RowCount = 3;
 			tableLayoutPanel3.RowStyles.Add(new RowStyle());
 			tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-			tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+			tableLayoutPanel3.RowStyles.Add(new RowStyle());
 			tableLayoutPanel3.Size = new Size(487, 509);
 			tableLayoutPanel3.TabIndex = 1;
 			// 
@@ -461,7 +463,7 @@ namespace MOM.Forms
 			gbMembers.Location = new Point(0, 195);
 			gbMembers.Margin = new Padding(0, 3, 3, 3);
 			gbMembers.Name = "gbMembers";
-			gbMembers.Size = new Size(484, 311);
+			gbMembers.Size = new Size(484, 281);
 			gbMembers.TabIndex = 1;
 			gbMembers.TabStop = false;
 			gbMembers.Text = "Members";
@@ -496,7 +498,7 @@ namespace MOM.Forms
 			flpMembers.FlowDirection = FlowDirection.TopDown;
 			flpMembers.Location = new Point(3, 23);
 			flpMembers.Name = "flpMembers";
-			flpMembers.Size = new Size(478, 285);
+			flpMembers.Size = new Size(478, 255);
 			flpMembers.TabIndex = 0;
 			// 
 			// btnMemberTemplate
@@ -511,6 +513,17 @@ namespace MOM.Forms
 			btnMemberTemplate.Text = "Miles";
 			btnMemberTemplate.UseVisualStyleBackColor = true;
 			btnMemberTemplate.Visible = false;
+			// 
+			// cbActive
+			// 
+			cbActive.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+			cbActive.AutoSize = true;
+			cbActive.Location = new Point(415, 482);
+			cbActive.Name = "cbActive";
+			cbActive.Size = new Size(69, 24);
+			cbActive.TabIndex = 2;
+			cbActive.Text = "Active";
+			cbActive.UseVisualStyleBackColor = true;
 			// 
 			// frmHouseholds
 			// 
@@ -534,6 +547,7 @@ namespace MOM.Forms
 			((System.ComponentModel.ISupportInitialize)dgvHouseholds).EndInit();
 			((System.ComponentModel.ISupportInitialize)bsHouseholds).EndInit();
 			tableLayoutPanel3.ResumeLayout(false);
+			tableLayoutPanel3.PerformLayout();
 			gbHousehold.ResumeLayout(false);
 			gbHousehold.PerformLayout();
 			flowLayoutPanel2.ResumeLayout(false);
@@ -582,5 +596,6 @@ namespace MOM.Forms
 		private TextBox tbCountry;
 		private TextBox tbAdditionalInformation;
 		private Label label8;
+		private CheckBox cbActive;
 	}
 }

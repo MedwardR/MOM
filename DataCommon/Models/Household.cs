@@ -9,8 +9,8 @@ namespace DataCommon.Models
 
 		[Required] public required string Name { get; set; }
 
-		public virtual List<Individual> Individuals { get; init; } = [];
 		public Address Address { get; init; } = new();
+		public virtual List<Individual> Individuals { get; init; } = [];
 
 		public Individual GetNewMember() => new()
 		{
@@ -26,7 +26,6 @@ namespace DataCommon.Models
 				.GroupBy(m => m.LastName.Trim(), StringComparer.OrdinalIgnoreCase)
 				.OrderByDescending(g => g.Count())
 				.FirstOrDefault()?.Key;
-
 			return mostCommon ?? Name.Split(' ').LastOrDefault() ?? string.Empty;
 		}
 	}

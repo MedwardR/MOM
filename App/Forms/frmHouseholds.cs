@@ -2,7 +2,6 @@ using DataCommon.Models;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System.ComponentModel;
-using System.Threading.Tasks;
 
 namespace MOM.Forms;
 
@@ -44,7 +43,9 @@ public partial class frmHouseholds : Form
 
 	private async Task LoadHouseholdsAsync()
 	{
-		var materialized = await _app.Households.ToListAsync();
+		var materialized = await _app.Households
+			.Where(h => h.Active)
+			.ToListAsync();
 
 		_collection.Clear();
 		foreach (var h in materialized)
@@ -64,6 +65,7 @@ public partial class frmHouseholds : Form
 			_current.Address.State = tbState.Text;
 			_current.Address.Zip = tbZIP.Text;
 			_current.Address.Country = tbCountry.Text;
+			_current.Active = cbActive.Checked;
 		}
 		await _app.SaveChangesAsync();
 	}
@@ -87,6 +89,7 @@ public partial class frmHouseholds : Form
 		tbState.Text = household.Address.State;
 		tbZIP.Text = household.Address.Zip;
 		tbCountry.Text = household.Address.Country;
+		cbActive.Checked = household.Active;
 
 		flpMembers.SuspendLayout();
 		flpMembers.Controls.Clear();
@@ -141,8 +144,9 @@ public partial class frmHouseholds : Form
 			});
 			bool membersCountChanged = _current.Individuals.Count != flpMembers.Controls.Count;
 			bool membersChanged = _current.Individuals.Any(_app.EntityHasChanges);
+			bool activeChanged = _current.Active != cbActive.Checked;
 
-			return fieldsChanged || membersCountChanged || membersChanged;
+			return fieldsChanged || membersCountChanged || membersChanged || activeChanged;
 		}
 		else return false;
 	}
