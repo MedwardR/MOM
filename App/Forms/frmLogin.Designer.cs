@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmLogin));
 			tableLayoutPanel1 = new TableLayoutPanel();
 			tbUsername = new TextBox();
 			label2 = new Label();
@@ -155,6 +156,7 @@
 			ClientSize = new Size(470, 103);
 			Controls.Add(tableLayoutPanel1);
 			Font = new Font("Segoe UI", 11F);
+			Icon = (Icon)resources.GetObject("$this.Icon");
 			Margin = new Padding(3, 4, 3, 4);
 			MaximizeBox = false;
 			MinimumSize = new Size(440, 142);

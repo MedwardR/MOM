@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmTools));
 			groupBox1 = new GroupBox();
 			btnCopyEncrypted = new Button();
 			btnCopyHash = new Button();
@@ -133,6 +134,7 @@
 			Controls.Add(groupBox2);
 			Controls.Add(groupBox1);
 			Font = new Font("Segoe UI", 11F);
+			Icon = (Icon)resources.GetObject("$this.Icon");
 			Margin = new Padding(3, 4, 3, 4);
 			Name = "frmTools";
 			Text = "Tools";

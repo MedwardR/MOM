@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmError));
 			tbErrorMessage = new TextBox();
 			btnCloseProgram = new Button();
 			llReport = new LinkLabel();
@@ -92,6 +93,7 @@
 			Controls.Add(btnCloseProgram);
 			Controls.Add(tbErrorMessage);
 			Controls.Add(llReport);
+			Icon = (Icon)resources.GetObject("$this.Icon");
 			MinimumSize = new Size(390, 176);
 			Name = "frmError";
 			Text = "Error";

@@ -30,6 +30,8 @@ namespace MOM.Forms
 		/// </summary>
 		private void InitializeComponent()
 		{
+			components = new System.ComponentModel.Container();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmIndividual));
 			gbName = new GroupBox();
 			tableLayoutPanel1 = new TableLayoutPanel();
 			llPreferFirstName = new LinkLabel();
@@ -43,7 +45,7 @@ namespace MOM.Forms
 			label18 = new Label();
 			llPreferMiddleName = new LinkLabel();
 			flowLayoutPanel2 = new FlowLayoutPanel();
-			btnSave = new Button();
+			btnOK = new Button();
 			btnCancel = new Button();
 			gbContact = new GroupBox();
 			tableLayoutPanel2 = new TableLayoutPanel();
@@ -81,6 +83,7 @@ namespace MOM.Forms
 			tbBirthDate = new DateTimeTextBox();
 			tbGender = new TextBox();
 			cbActive = new CheckBox();
+			toolTip1 = new ToolTip(components);
 			gbName.SuspendLayout();
 			tableLayoutPanel1.SuspendLayout();
 			flowLayoutPanel2.SuspendLayout();
@@ -237,7 +240,7 @@ namespace MOM.Forms
 			flowLayoutPanel2.Anchor = AnchorStyles.Top | AnchorStyles.Right;
 			flowLayoutPanel2.AutoSize = true;
 			flowLayoutPanel2.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-			flowLayoutPanel2.Controls.Add(btnSave);
+			flowLayoutPanel2.Controls.Add(btnOK);
 			flowLayoutPanel2.Controls.Add(btnCancel);
 			flowLayoutPanel2.Location = new Point(699, 0);
 			flowLayoutPanel2.Margin = new Padding(3, 3, 0, 3);
@@ -245,16 +248,17 @@ namespace MOM.Forms
 			flowLayoutPanel2.Size = new Size(206, 30);
 			flowLayoutPanel2.TabIndex = 1;
 			// 
-			// btnSave
+			// btnOK
 			// 
-			btnSave.Location = new Point(0, 0);
-			btnSave.Margin = new Padding(0, 0, 3, 0);
-			btnSave.Name = "btnSave";
-			btnSave.Size = new Size(100, 30);
-			btnSave.TabIndex = 20;
-			btnSave.Text = "OK";
-			btnSave.UseVisualStyleBackColor = true;
-			btnSave.Click += btnSave_Click;
+			btnOK.Location = new Point(0, 0);
+			btnOK.Margin = new Padding(0, 0, 3, 0);
+			btnOK.Name = "btnOK";
+			btnOK.Size = new Size(100, 30);
+			btnOK.TabIndex = 20;
+			btnOK.Text = "OK";
+			toolTip1.SetToolTip(btnOK, "Ctrl+Enter");
+			btnOK.UseVisualStyleBackColor = true;
+			btnOK.Click += btnSave_Click;
 			// 
 			// btnCancel
 			// 
@@ -264,6 +268,7 @@ namespace MOM.Forms
 			btnCancel.Size = new Size(100, 30);
 			btnCancel.TabIndex = 30;
 			btnCancel.Text = "Cancel";
+			toolTip1.SetToolTip(btnCancel, "Ctrl+W");
 			btnCancel.UseVisualStyleBackColor = true;
 			btnCancel.Click += btnCancel_Click;
 			// 
@@ -682,6 +687,7 @@ namespace MOM.Forms
 			Controls.Add(flowLayoutPanel2);
 			Controls.Add(tableLayoutPanel3);
 			Font = new Font("Segoe UI", 11F);
+			Icon = (Icon)resources.GetObject("$this.Icon");
 			Margin = new Padding(3, 4, 3, 4);
 			Name = "frmIndividual";
 			Text = "MOM - Individual";
@@ -749,7 +755,7 @@ namespace MOM.Forms
 		private Label label16;
 		private Label label15;
 		private FlowLayoutPanel flowLayoutPanel2;
-		private Button btnSave;
+		private Button btnOK;
 		private Button btnCancel;
 		private CheckBox cbActive;
 		private Label label17;
@@ -758,5 +764,6 @@ namespace MOM.Forms
 		private Label label18;
 		private LinkLabel llPreferMiddleName;
 		private LinkLabel llPreferFirstName;
+		private ToolTip toolTip1;
 	}
 }

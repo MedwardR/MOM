@@ -92,4 +92,19 @@ public partial class frmIndividual : Form
 		DialogResult = DialogResult.Cancel;
 		Close();
 	}
+
+	protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+	{
+		if (keyData == (Keys.Control | Keys.Enter))
+		{
+			btnOK.PerformClick();
+			return true;
+		}
+		else if (keyData == (Keys.Control | Keys.W))
+		{
+			btnCancel.PerformClick();
+			return true;
+		}
+		return base.ProcessCmdKey(ref msg, keyData);
+	}
 }

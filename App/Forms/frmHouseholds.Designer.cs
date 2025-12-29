@@ -31,6 +31,7 @@ namespace MOM.Forms
 		private void InitializeComponent()
 		{
 			components = new System.ComponentModel.Container();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmHouseholds));
 			splitContainer1 = new SplitContainer();
 			tableLayoutPanel1 = new TableLayoutPanel();
 			tbSearch = new TextBox();
@@ -65,6 +66,7 @@ namespace MOM.Forms
 			flpMembers = new FlowLayoutPanel();
 			btnMemberTemplate = new Button();
 			cbActive = new CheckBox();
+			toolTip1 = new ToolTip(components);
 			((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
 			splitContainer1.Panel1.SuspendLayout();
 			splitContainer1.Panel2.SuspendLayout();
@@ -228,6 +230,7 @@ namespace MOM.Forms
 			btnNewHousehold.Size = new Size(100, 30);
 			btnNewHousehold.TabIndex = 10;
 			btnNewHousehold.Text = "New";
+			toolTip1.SetToolTip(btnNewHousehold, "Ctrl+N");
 			btnNewHousehold.UseVisualStyleBackColor = true;
 			btnNewHousehold.Click += btnNewHousehold_Click;
 			// 
@@ -239,6 +242,7 @@ namespace MOM.Forms
 			btnSave.Size = new Size(100, 30);
 			btnSave.TabIndex = 20;
 			btnSave.Text = "Save";
+			toolTip1.SetToolTip(btnSave, "Ctrl+S");
 			btnSave.UseVisualStyleBackColor = true;
 			btnSave.Click += btnSave_Click;
 			// 
@@ -250,6 +254,7 @@ namespace MOM.Forms
 			btnRevert.Size = new Size(100, 30);
 			btnRevert.TabIndex = 30;
 			btnRevert.Text = "Revert";
+			toolTip1.SetToolTip(btnRevert, "Ctrl+R");
 			btnRevert.UseVisualStyleBackColor = true;
 			btnRevert.Click += btnRevert_Click;
 			// 
@@ -488,6 +493,7 @@ namespace MOM.Forms
 			btnAddMember.Size = new Size(100, 30);
 			btnAddMember.TabIndex = 10;
 			btnAddMember.Text = "Add";
+			toolTip1.SetToolTip(btnAddMember, "Ctrl+M");
 			btnAddMember.UseVisualStyleBackColor = true;
 			btnAddMember.Click += btnAddMember_Click;
 			// 
@@ -533,6 +539,7 @@ namespace MOM.Forms
 			ClientSize = new Size(832, 515);
 			Controls.Add(splitContainer1);
 			Font = new Font("Segoe UI", 11F);
+			Icon = (Icon)resources.GetObject("$this.Icon");
 			Margin = new Padding(4);
 			Name = "frmHouseholds";
 			Text = "Membership Office Manager";
@@ -597,5 +604,6 @@ namespace MOM.Forms
 		private TextBox tbAdditionalInformation;
 		private Label label8;
 		private CheckBox cbActive;
+		private ToolTip toolTip1;
 	}
 }
