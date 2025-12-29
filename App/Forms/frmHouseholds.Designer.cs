@@ -132,6 +132,7 @@ namespace MOM.Forms
 			tbSearch.Name = "tbSearch";
 			tbSearch.Size = new Size(271, 27);
 			tbSearch.TabIndex = 10;
+			tbSearch.TextChanged += tbSearch_TextChanged;
 			// 
 			// label1
 			// 

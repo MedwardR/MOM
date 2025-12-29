@@ -11,6 +11,7 @@ public partial class frmHouseholds : Form
 	private readonly BindingList<Household> _collection = [];
 	private Household? _current;
 	private bool _restoring;
+	private CancellationTokenSource? _cts;
 
 	public frmHouseholds()
 	{
@@ -41,16 +42,40 @@ public partial class frmHouseholds : Form
 		}
 	}
 
-	private async Task LoadHouseholdsAsync()
+	private async Task LoadHouseholdsAsync(string search, CancellationToken cancellationToken = default)
 	{
-		var materialized = await _app.Households
-			.Where(h => h.Active)
-			.ToListAsync();
+		cancellationToken.ThrowIfCancellationRequested();
 
-		_collection.Clear();
-		foreach (var h in materialized)
+		IQueryable<Household> query;
+		if (!string.IsNullOrWhiteSpace(search))
 		{
-			_collection.Add(h);
+			string trimmed = search.Trim();
+			query = _app.Households.Where(h => 
+				h.Active && (
+				EF.Functions.ILike(h.Name, $"%{trimmed}%") ||
+				h.Individuals.Any(m =>
+					m.Active && (
+					EF.Functions.ILike(m.PreferredName ?? string.Empty, $"%{trimmed}%") ||
+					EF.Functions.ILike(m.FirstName, $"%{trimmed}%") ||
+					EF.Functions.ILike(m.LastName, $"%{trimmed}%"))
+				))
+			);
+		}
+		else query = _app.Households.Where(h => h.Active);
+
+		var materialized = await query.ToListAsync(cancellationToken);
+		cancellationToken.ThrowIfCancellationRequested();
+
+		var oldIds = _collection.Select(h => h.Id).ToHashSet();
+		var newIds = materialized.Select(h => h.Id).ToHashSet();
+		if (!oldIds.SetEquals(newIds))
+		{
+			_collection.Clear();
+			foreach (var h in materialized)
+			{
+				cancellationToken.ThrowIfCancellationRequested();
+				_collection.Add(h);
+			}
 		}
 	}
 
@@ -198,7 +223,7 @@ public partial class frmHouseholds : Form
 		try
 		{
 			Enabled = false;
-			await LoadHouseholdsAsync();
+			await LoadHouseholdsAsync(string.Empty);
 		}
 		catch (Exception ex)
 		{
@@ -234,6 +259,27 @@ public partial class frmHouseholds : Form
 		finally
 		{
 			Enabled = true;
+		}
+	}
+
+	private async void tbSearch_TextChanged(object sender, EventArgs e)
+	{
+		_cts?.Cancel();
+		_cts?.Dispose();
+		_cts = new();
+		try
+		{
+			var cancellationToken = _cts.Token;
+			await Task.Delay(300, cancellationToken);
+			await LoadHouseholdsAsync(tbSearch.Text, cancellationToken);
+		}
+		catch (OperationCanceledException)
+		{
+			// Ignore
+		}
+		finally
+		{
+			_cts = null;
 		}
 	}
 
