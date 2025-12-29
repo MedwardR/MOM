@@ -1,5 +1,9 @@
-# MOM
+<div align="center">
+<img src="./Icon/icon.png" width="200">
+
+<h1>MOM</h1>
 
 Membership Office Manager
 
-[Latest Release](https://github.com/MedwardR/MOM/releases/latest)
+<a href="https://github.com/MedwardR/MOM/releases/latest">Latest Release</a>
+</div>
