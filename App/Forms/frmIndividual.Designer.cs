@@ -84,6 +84,8 @@ namespace MOM.Forms
 			tbGender = new AutoCompleteTextBox();
 			cbActive = new CheckBox();
 			toolTip1 = new ToolTip(components);
+			flowLayoutPanel1 = new FlowLayoutPanel();
+			cbChild = new CheckBox();
 			gbName.SuspendLayout();
 			tableLayoutPanel1.SuspendLayout();
 			flowLayoutPanel2.SuspendLayout();
@@ -94,6 +96,7 @@ namespace MOM.Forms
 			tableLayoutPanel5.SuspendLayout();
 			gbPersonal.SuspendLayout();
 			tableLayoutPanel4.SuspendLayout();
+			flowLayoutPanel1.SuspendLayout();
 			SuspendLayout();
 			// 
 			// gbName
@@ -243,10 +246,10 @@ namespace MOM.Forms
 			flowLayoutPanel2.AutoSizeMode = AutoSizeMode.GrowAndShrink;
 			flowLayoutPanel2.Controls.Add(btnOK);
 			flowLayoutPanel2.Controls.Add(btnCancel);
-			flowLayoutPanel2.Location = new Point(699, 0);
+			flowLayoutPanel2.Location = new Point(702, 0);
 			flowLayoutPanel2.Margin = new Padding(3, 3, 0, 3);
 			flowLayoutPanel2.Name = "flowLayoutPanel2";
-			flowLayoutPanel2.Size = new Size(206, 30);
+			flowLayoutPanel2.Size = new Size(203, 30);
 			flowLayoutPanel2.TabIndex = 1;
 			// 
 			// btnOK
@@ -264,7 +267,7 @@ namespace MOM.Forms
 			// btnCancel
 			// 
 			btnCancel.Location = new Point(103, 0);
-			btnCancel.Margin = new Padding(0, 0, 3, 0);
+			btnCancel.Margin = new Padding(0);
 			btnCancel.Name = "btnCancel";
 			btnCancel.Size = new Size(100, 30);
 			btnCancel.TabIndex = 30;
@@ -392,11 +395,11 @@ namespace MOM.Forms
 			tableLayoutPanel3.ColumnCount = 2;
 			tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
 			tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+			tableLayoutPanel3.Controls.Add(flowLayoutPanel1, 1, 2);
 			tableLayoutPanel3.Controls.Add(gbName, 0, 0);
 			tableLayoutPanel3.Controls.Add(gbLife, 0, 2);
 			tableLayoutPanel3.Controls.Add(gbPersonal, 1, 1);
 			tableLayoutPanel3.Controls.Add(gbContact, 0, 1);
-			tableLayoutPanel3.Controls.Add(cbActive, 1, 2);
 			tableLayoutPanel3.Dock = DockStyle.Fill;
 			tableLayoutPanel3.Location = new Point(0, 0);
 			tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -677,14 +680,36 @@ namespace MOM.Forms
 			// 
 			// cbActive
 			// 
-			cbActive.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 			cbActive.AutoSize = true;
-			cbActive.Location = new Point(842, 443);
+			cbActive.Location = new Point(3, 33);
 			cbActive.Name = "cbActive";
 			cbActive.Size = new Size(69, 24);
 			cbActive.TabIndex = 4;
 			cbActive.Text = "Active";
 			cbActive.UseVisualStyleBackColor = true;
+			// 
+			// flowLayoutPanel1
+			// 
+			flowLayoutPanel1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+			flowLayoutPanel1.AutoSize = true;
+			flowLayoutPanel1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+			flowLayoutPanel1.Controls.Add(cbChild);
+			flowLayoutPanel1.Controls.Add(cbActive);
+			flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
+			flowLayoutPanel1.Location = new Point(836, 407);
+			flowLayoutPanel1.Name = "flowLayoutPanel1";
+			flowLayoutPanel1.Size = new Size(75, 60);
+			flowLayoutPanel1.TabIndex = 1;
+			// 
+			// cbChild
+			// 
+			cbChild.AutoSize = true;
+			cbChild.Location = new Point(3, 3);
+			cbChild.Name = "cbChild";
+			cbChild.Size = new Size(62, 24);
+			cbChild.TabIndex = 5;
+			cbChild.Text = "Child";
+			cbChild.UseVisualStyleBackColor = true;
 			// 
 			// frmIndividual
 			// 
@@ -715,6 +740,8 @@ namespace MOM.Forms
 			gbPersonal.ResumeLayout(false);
 			tableLayoutPanel4.ResumeLayout(false);
 			tableLayoutPanel4.PerformLayout();
+			flowLayoutPanel1.ResumeLayout(false);
+			flowLayoutPanel1.PerformLayout();
 			ResumeLayout(false);
 			PerformLayout();
 		}
@@ -773,5 +800,7 @@ namespace MOM.Forms
 		private LinkLabel llPreferMiddleName;
 		private LinkLabel llPreferFirstName;
 		private ToolTip toolTip1;
+		private FlowLayoutPanel flowLayoutPanel1;
+		private CheckBox cbChild;
 	}
 }

@@ -6,11 +6,6 @@
 		public int CreatedBy { get; set; }
 		public DateTime ModifiedAt { get; set; }
 		public int ModifiedBy { get; set; }
-		public bool Active { get; set; }
-
-		public AuditableEntity()
-		{
-			Active = true;
-		}
+		public bool Active { get; set; } = true;
 	}
 }

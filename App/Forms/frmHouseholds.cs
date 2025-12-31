@@ -117,7 +117,7 @@ public partial class frmHouseholds : Form
 		ResumeLayout();
 	}
 
-	private void ChangeCurrent(Household household)
+	private async Task ChangeCurrentAsync(Household household)
 	{
 		_current = household;
 		FocusCurrent();
@@ -133,6 +133,10 @@ public partial class frmHouseholds : Form
 
 		flpMembers.SuspendLayout();
 		flpMembers.Controls.Clear();
+
+		await _app.Entry(household)
+			.Collection(h => h.Individuals)
+			.LoadAsync();
 		foreach (var member in household.Individuals)
 		{
 			if (member.Active)
@@ -307,7 +311,7 @@ public partial class frmHouseholds : Form
 		}
 	}
 
-	private void btnNewHousehold_Click(object sender, EventArgs e)
+	private async void btnNewHousehold_Click(object sender, EventArgs e)
 	{
 		Enabled = false;
 		try
@@ -318,7 +322,7 @@ public partial class frmHouseholds : Form
 			};
 			_app.Households.Add(newItem);
 			_collection.Add(newItem);
-			ChangeCurrent(newItem);
+			await ChangeCurrentAsync(newItem);
 		}
 		finally
 		{
@@ -372,7 +376,7 @@ public partial class frmHouseholds : Form
 
 				if (_current is not null)
 				{
-					ChangeCurrent(_current);
+					await ChangeCurrentAsync(_current);
 				}
 			}
 		}
@@ -425,7 +429,7 @@ public partial class frmHouseholds : Form
 					if (!cancel)
 					{
 						RevertHouseholds();
-						ChangeCurrent(newSelection);
+						await ChangeCurrentAsync(newSelection);
 					}
 					else FocusCurrent();
 				}

@@ -143,29 +143,35 @@ namespace MOM
 			string connectionString = connectionStringBuilder.ToString();
 
 			optionsBuilder.UseNpgsql(connectionString);
-			optionsBuilder.UseLazyLoadingProxies();
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			modelBuilder.Entity<User>(entity =>
+			modelBuilder.Entity<User>(user =>
 			{
-				entity.HasIndex(u => u.Username).IsUnique();
-				entity.Property(u => u.IsLoggedIn).HasDefaultValue(false);
+				user.HasIndex(u => u.Username).IsUnique();
+				user.Property(u => u.IsLoggedIn).HasDefaultValue(false);
 			});
-			modelBuilder.Entity<Household>().OwnsOne(h => h.Address);
-
+			modelBuilder.Entity<Household>(household =>
+			{
+				household.OwnsOne(h => h.Address);
+			});
+			modelBuilder.Entity<Individual>(individual =>
+			{
+				individual.Property(i => i.Child).HasDefaultValue(false);
+			});
 			foreach (var type in modelBuilder.Model.GetEntityTypes())
 			{
 				if (typeof(AuditableEntity).IsAssignableFrom(type.ClrType))
 				{
-					modelBuilder.Entity(type.Name)
-						.Property<DateTime>(nameof(AuditableEntity.CreatedAt))
-						.HasDefaultValueSql("CURRENT_TIMESTAMP AT TIME ZONE 'UTC'");
+					modelBuilder.Entity(type.Name, entity =>
+					{
+						entity.Property<DateTime>(nameof(AuditableEntity.CreatedAt))
+							.HasDefaultValueSql("CURRENT_TIMESTAMP AT TIME ZONE 'UTC'");
 
-					modelBuilder.Entity(type.Name)
-						.Property<bool>(nameof(AuditableEntity.Active))
-						.HasDefaultValue(true);
+						entity.Property<bool>(nameof(AuditableEntity.Active))
+							.HasDefaultValue(true);
+					});
 				}
 			}
 		}

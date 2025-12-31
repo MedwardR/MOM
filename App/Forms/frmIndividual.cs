@@ -71,6 +71,7 @@ public partial class frmIndividual : Form
 		tbMaritalStatus.Text = _individual.MaritalStatus;
 		tbMarriageDate.Value = _individual.MarriedDate;
 
+		cbChild.Checked = _individual.Child;
 		cbActive.Checked = _individual.Active;
 
 		tbFirstName.Focus();
@@ -101,6 +102,7 @@ public partial class frmIndividual : Form
 		_individual.MaritalStatus = tbMaritalStatus.Text;
 		_individual.MarriedDate = tbMarriageDate.Value;
 
+		_individual.Child = cbChild.Checked;
 		_individual.Active = cbActive.Checked;
 
 		DialogResult = DialogResult.OK;

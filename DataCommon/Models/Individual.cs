@@ -7,7 +7,9 @@ namespace DataCommon.Models
 	public class Individual : AuditableEntity
 	{
 		public long Id { get; init; }
-		public long HouseholdId { get; init; }
+		public long HouseholdId { get; set; }
+
+		public bool Child { get; set; }
 
 		[Required] public required string FirstName { get; set; }
 		public string? MiddleName { get; set; }
