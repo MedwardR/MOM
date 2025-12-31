@@ -1,4 +1,5 @@
 ﻿using DataCommon.Models;
+using MOM.Controls;
 
 namespace MOM.Forms
 {
@@ -51,15 +52,15 @@ namespace MOM.Forms
 			label2 = new Label();
 			tbName = new TextBox();
 			label4 = new Label();
-			tbCity = new TextBox();
+			tbCity = new AutoCompleteTextBox();
 			tbAdditionalInformation = new TextBox();
 			label8 = new Label();
 			label7 = new Label();
-			tbCountry = new TextBox();
+			tbCountry = new AutoCompleteTextBox();
 			label6 = new Label();
-			tbZIP = new TextBox();
+			tbZIP = new AutoCompleteTextBox();
 			label5 = new Label();
-			tbState = new TextBox();
+			tbState = new AutoCompleteTextBox();
 			gbMembers = new GroupBox();
 			flowLayoutPanel1 = new FlowLayoutPanel();
 			btnAddMember = new Button();
@@ -360,6 +361,7 @@ namespace MOM.Forms
 			// tbCity
 			// 
 			tbCity.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tbCity.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
 			tableLayoutPanel2.SetColumnSpan(tbCity, 2);
 			tbCity.Font = new Font("Segoe UI", 11F);
 			tbCity.Location = new Point(3, 129);
@@ -405,6 +407,7 @@ namespace MOM.Forms
 			// tbCountry
 			// 
 			tbCountry.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tbCountry.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
 			tableLayoutPanel2.SetColumnSpan(tbCountry, 2);
 			tbCountry.Font = new Font("Segoe UI", 11F);
 			tbCountry.Location = new Point(357, 129);
@@ -429,6 +432,7 @@ namespace MOM.Forms
 			// tbZIP
 			// 
 			tbZIP.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tbZIP.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
 			tableLayoutPanel2.SetColumnSpan(tbZIP, 2);
 			tbZIP.Font = new Font("Segoe UI", 11F);
 			tbZIP.Location = new Point(239, 129);
@@ -452,6 +456,7 @@ namespace MOM.Forms
 			// tbState
 			// 
 			tbState.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tbState.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
 			tableLayoutPanel2.SetColumnSpan(tbState, 2);
 			tbState.Font = new Font("Segoe UI", 11F);
 			tbState.Location = new Point(121, 129);
@@ -581,12 +586,12 @@ namespace MOM.Forms
 		private Label label3;
 		private TextBox tbStreet;
 		private TableLayoutPanel tableLayoutPanel2;
-		private TextBox tbCity;
+		private AutoCompleteTextBox tbCity;
 		private Label label4;
 		private Label label5;
-		private TextBox tbState;
+		private AutoCompleteTextBox tbState;
 		private Label label6;
-		private TextBox tbZIP;
+		private AutoCompleteTextBox tbZIP;
 		private TableLayoutPanel tableLayoutPanel3;
 		private GroupBox gbMembers;
 		private FlowLayoutPanel flpMembers;
@@ -601,7 +606,7 @@ namespace MOM.Forms
 		private FlowLayoutPanel flowLayoutPanel1;
 		private Button btnAddMember;
 		private Label label7;
-		private TextBox tbCountry;
+		private AutoCompleteTextBox tbCountry;
 		private TextBox tbAdditionalInformation;
 		private Label label8;
 		private CheckBox cbActive;

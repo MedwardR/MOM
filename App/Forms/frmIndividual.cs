@@ -1,4 +1,5 @@
 ﻿using DataCommon.Models;
+using Serilog;
 
 namespace MOM.Forms;
 
@@ -10,6 +11,25 @@ public partial class frmIndividual : Form
 	{
 		_individual = individual;
 		InitializeComponent();
+	}
+
+	public async Task LoadAutoCompleteAsync(IQueryable<Individual> source)
+	{
+		try
+		{
+			await tbLastName.SetSuggestionsWhereActiveAsync(source, i => i.LastName);
+			await tbCommunicationPreference.SetSuggestionsWhereActiveAsync(source, i => i.CommunicationPreference);
+			await tbOccupation.SetSuggestionsWhereActiveAsync(source, i => i.Occupation);
+			await tbEmployer.SetSuggestionsWhereActiveAsync(source, i => i.Employer);
+			await tbGender.SetSuggestionsWhereActiveAsync(source, i => i.Gender);
+			await tbJoinedMethod.SetSuggestionsWhereActiveAsync(source, i => i.JoinedMethod);
+			await tbBaptismLocation.SetSuggestionsWhereActiveAsync(source, i => i.BaptizedLocation);
+			await tbMaritalStatus.SetSuggestionsWhereActiveAsync(source, i => i.MaritalStatus);
+		}
+		catch (Exception ex)
+		{
+			Log.Error(ex, "Error loading autocomplete");
+		}
 	}
 
 	private void tbFirstName_TextChanged(object sender, EventArgs e)

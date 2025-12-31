@@ -79,6 +79,21 @@ public partial class frmHouseholds : Form
 		}
 	}
 
+	private async Task LoadAutoCompleteAsync()
+	{
+		try
+		{
+			await tbCity.SetSuggestionsWhereActiveAsync(_app.Households, h => h.Address.City);
+			await tbState.SetSuggestionsWhereActiveAsync(_app.Households, h => h.Address.State);
+			await tbZIP.SetSuggestionsWhereActiveAsync(_app.Households, h => h.Address.Zip);
+			await tbCountry.SetSuggestionsWhereActiveAsync(_app.Households, h => h.Address.Country);
+		}
+		catch (Exception ex)
+		{
+			Log.Error(ex, "Error loading autocomplete");
+		}
+	}
+
 	private async Task SaveHouseholdsAsync()
 	{
 		if (_current is not null)
@@ -185,12 +200,11 @@ public partial class frmHouseholds : Form
 			Text = member.GetDisplayName(),
 			UseVisualStyleBackColor = btnMemberTemplate.UseVisualStyleBackColor,
 		};
-		button.Click += (_, _) =>
+		button.Click += async (_, _) =>
 		{
-			using var frm = new frmIndividual(member);
-			frm.ShowDialog();
+			var choice = await EditIndividualAsync(member);
 
-			if (frm.DialogResult != DialogResult.Cancel)
+			if (choice != DialogResult.Cancel)
 			{
 				if (!member.Active)
 				{
@@ -201,6 +215,15 @@ public partial class frmHouseholds : Form
 			}
 		};
 		flpMembers.Controls.Add(button);
+	}
+
+	private async Task<DialogResult> EditIndividualAsync(Individual member)
+	{
+		using var frm = new frmIndividual(member);
+		await frm.LoadAutoCompleteAsync(_app.Individuals);
+		frm.ShowDialog();
+
+		return frm.DialogResult;
 	}
 
 	private static UnsavedChangesDialogResult ConfirmBeforeDiscardingChanges()
@@ -224,6 +247,7 @@ public partial class frmHouseholds : Form
 		{
 			Enabled = false;
 			await LoadHouseholdsAsync(string.Empty);
+			await LoadAutoCompleteAsync();
 		}
 		catch (Exception ex)
 		{
@@ -358,16 +382,14 @@ public partial class frmHouseholds : Form
 		}
 	}
 
-	private void btnAddMember_Click(object sender, EventArgs e)
+	private async void btnAddMember_Click(object sender, EventArgs e)
 	{
 		if (_current is not null)
 		{
 			var member = _current.GetNewMember();
+			var choice = await EditIndividualAsync(member);
 
-			using var frm = new frmIndividual(member);
-			frm.ShowDialog();
-
-			if (frm.DialogResult != DialogResult.Cancel)
+			if (choice != DialogResult.Cancel)
 			{
 				_current.Individuals.Add(member);
 				InitializeMember(member);

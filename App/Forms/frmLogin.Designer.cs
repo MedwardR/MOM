@@ -1,4 +1,6 @@
-﻿namespace MOM.Forms
+﻿using MOM.Controls;
+
+namespace MOM.Forms
 {
 	partial class frmLogin
 	{
@@ -30,7 +32,7 @@
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmLogin));
 			tableLayoutPanel1 = new TableLayoutPanel();
-			tbUsername = new TextBox();
+			tbUsername = new AutoCompleteTextBox();
 			label2 = new Label();
 			label3 = new Label();
 			tbPassword = new TextBox();
@@ -70,6 +72,7 @@
 			// tbUsername
 			// 
 			tbUsername.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tbUsername.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
 			tableLayoutPanel1.SetColumnSpan(tbUsername, 2);
 			tbUsername.Location = new Point(13, 29);
 			tbUsername.Name = "tbUsername";
@@ -172,7 +175,7 @@
 		#endregion
 		private TableLayoutPanel tableLayoutPanel1;
 		private TextBox tbPassword;
-		private TextBox tbUsername;
+		private AutoCompleteTextBox tbUsername;
 		private Label label2;
 		private Label label3;
 		private Label lbUsernameNotFound;

@@ -72,6 +72,8 @@ public sealed partial class frmLogin : Form
 			Log("Updating database");
 			await _app.Database.MigrateAsync();
 
+			await tbUsername.SetSuggestionsWhereActiveAsync(_app.Users, u => u.Username);
+
 			Controls.Remove(_log);
 			_log.Dispose();
 			_log = null;

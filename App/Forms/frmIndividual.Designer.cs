@@ -35,7 +35,7 @@ namespace MOM.Forms
 			gbName = new GroupBox();
 			tableLayoutPanel1 = new TableLayoutPanel();
 			llPreferFirstName = new LinkLabel();
-			tbLastName = new TextBox();
+			tbLastName = new AutoCompleteTextBox();
 			tbMiddleName = new TextBox();
 			label3 = new Label();
 			tbFirstName = new TextBox();
@@ -56,32 +56,32 @@ namespace MOM.Forms
 			tbEmail = new TextBox();
 			tbMobilePhone = new MaskedTextBox();
 			label4 = new Label();
-			tbCommunicationPreference = new TextBox();
+			tbCommunicationPreference = new AutoCompleteTextBox();
 			tableLayoutPanel3 = new TableLayoutPanel();
 			gbLife = new GroupBox();
 			tableLayoutPanel5 = new TableLayoutPanel();
 			tbMarriageDate = new DateTimeTextBox();
-			tbMaritalStatus = new TextBox();
+			tbMaritalStatus = new AutoCompleteTextBox();
 			label16 = new Label();
 			label15 = new Label();
-			tbJoinedMethod = new TextBox();
+			tbJoinedMethod = new AutoCompleteTextBox();
 			label11 = new Label();
 			label12 = new Label();
 			tbJoinedDate = new DateTimeTextBox();
 			label13 = new Label();
 			label14 = new Label();
-			tbBaptismLocation = new TextBox();
+			tbBaptismLocation = new AutoCompleteTextBox();
 			tbBaptismDate = new DateTimeTextBox();
 			gbPersonal = new GroupBox();
 			tableLayoutPanel4 = new TableLayoutPanel();
-			tbOccupation = new TextBox();
+			tbOccupation = new AutoCompleteTextBox();
 			label8 = new Label();
 			label9 = new Label();
-			tbEmployer = new TextBox();
+			tbEmployer = new AutoCompleteTextBox();
 			label7 = new Label();
 			label10 = new Label();
 			tbBirthDate = new DateTimeTextBox();
-			tbGender = new TextBox();
+			tbGender = new AutoCompleteTextBox();
 			cbActive = new CheckBox();
 			toolTip1 = new ToolTip(components);
 			gbName.SuspendLayout();
@@ -153,6 +153,7 @@ namespace MOM.Forms
 			// tbLastName
 			// 
 			tbLastName.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tbLastName.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
 			tbLastName.Location = new Point(617, 23);
 			tbLastName.Name = "tbLastName";
 			tbLastName.Size = new Size(282, 27);
@@ -379,6 +380,7 @@ namespace MOM.Forms
 			// tbCommunicationPreference
 			// 
 			tbCommunicationPreference.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tbCommunicationPreference.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
 			tableLayoutPanel2.SetColumnSpan(tbCommunicationPreference, 2);
 			tbCommunicationPreference.Location = new Point(151, 76);
 			tbCommunicationPreference.Name = "tbCommunicationPreference";
@@ -462,6 +464,7 @@ namespace MOM.Forms
 			// tbMaritalStatus
 			// 
 			tbMaritalStatus.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tbMaritalStatus.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
 			tbMaritalStatus.Location = new Point(3, 129);
 			tbMaritalStatus.Name = "tbMaritalStatus";
 			tbMaritalStatus.Size = new Size(216, 27);
@@ -488,6 +491,7 @@ namespace MOM.Forms
 			// tbJoinedMethod
 			// 
 			tbJoinedMethod.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tbJoinedMethod.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
 			tbJoinedMethod.Location = new Point(3, 23);
 			tbJoinedMethod.Name = "tbJoinedMethod";
 			tbJoinedMethod.Size = new Size(216, 27);
@@ -543,6 +547,7 @@ namespace MOM.Forms
 			// tbBaptismLocation
 			// 
 			tbBaptismLocation.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tbBaptismLocation.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
 			tbBaptismLocation.Location = new Point(3, 76);
 			tbBaptismLocation.Name = "tbBaptismLocation";
 			tbBaptismLocation.Size = new Size(216, 27);
@@ -599,6 +604,7 @@ namespace MOM.Forms
 			// tbOccupation
 			// 
 			tbOccupation.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tbOccupation.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
 			tbOccupation.Location = new Point(3, 23);
 			tbOccupation.Name = "tbOccupation";
 			tbOccupation.Size = new Size(216, 27);
@@ -625,6 +631,7 @@ namespace MOM.Forms
 			// tbEmployer
 			// 
 			tbEmployer.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tbEmployer.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
 			tbEmployer.Location = new Point(225, 23);
 			tbEmployer.Name = "tbEmployer";
 			tbEmployer.Size = new Size(217, 27);
@@ -662,6 +669,7 @@ namespace MOM.Forms
 			// tbGender
 			// 
 			tbGender.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tbGender.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
 			tbGender.Location = new Point(225, 76);
 			tbGender.Name = "tbGender";
 			tbGender.Size = new Size(217, 27);
@@ -715,11 +723,11 @@ namespace MOM.Forms
 
 		private GroupBox gbName;
 		private TableLayoutPanel tableLayoutPanel1;
-		private TextBox tbFirstName;
+		private	TextBox tbFirstName;
 		private Label label1;
 		private Label label2;
 		private Label label3;
-		private TextBox tbLastName;
+		private AutoCompleteTextBox tbLastName;
 		private TextBox tbMiddleName;
 		private GroupBox gbContact;
 		private TableLayoutPanel tableLayoutPanel2;
@@ -728,30 +736,30 @@ namespace MOM.Forms
 		private Label label6;
 		private TableLayoutPanel tableLayoutPanel3;
 		private MaskedTextBox tbMobilePhone;
-		private TextBox tbCommunicationPreference;
+		private AutoCompleteTextBox tbCommunicationPreference;
 		private Label label4;
 		private GroupBox gbPersonal;
 		private TableLayoutPanel tableLayoutPanel4;
 		private Label label8;
 		private Label label9;
-		private TextBox tbEmployer;
-		private TextBox tbGender;
+		private AutoCompleteTextBox tbEmployer;
+		private AutoCompleteTextBox tbGender;
 		private Label label7;
 		private Label label10;
-		private TextBox tbOccupation;
+		private AutoCompleteTextBox tbOccupation;
 		private DateTimeTextBox tbBirthDate;
 		private GroupBox gbLife;
 		private TableLayoutPanel tableLayoutPanel5;
-		private TextBox tbJoinedMethod;
+		private AutoCompleteTextBox tbJoinedMethod;
 		private Label label11;
 		private Label label12;
 		private DateTimeTextBox tbJoinedDate;
 		private Label label13;
 		private Label label14;
-		private TextBox tbBaptismLocation;
+		private AutoCompleteTextBox tbBaptismLocation;
 		private DateTimeTextBox tbBaptismDate;
 		private DateTimeTextBox tbMarriageDate;
-		private TextBox tbMaritalStatus;
+		private AutoCompleteTextBox tbMaritalStatus;
 		private Label label16;
 		private Label label15;
 		private FlowLayoutPanel flowLayoutPanel2;
