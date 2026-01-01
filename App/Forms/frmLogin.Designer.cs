@@ -72,7 +72,7 @@ namespace MOM.Forms
 			// tbUsername
 			// 
 			tbUsername.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			tbUsername.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+			tbUsername.AutoCompleteMode = AutoCompleteMode.Append;
 			tableLayoutPanel1.SetColumnSpan(tbUsername, 2);
 			tbUsername.Location = new Point(13, 29);
 			tbUsername.Name = "tbUsername";

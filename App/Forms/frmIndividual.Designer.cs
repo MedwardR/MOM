@@ -58,6 +58,9 @@ namespace MOM.Forms
 			label4 = new Label();
 			tbCommunicationPreference = new AutoCompleteTextBox();
 			tableLayoutPanel3 = new TableLayoutPanel();
+			flowLayoutPanel1 = new FlowLayoutPanel();
+			cbChild = new CheckBox();
+			cbActive = new CheckBox();
 			gbLife = new GroupBox();
 			tableLayoutPanel5 = new TableLayoutPanel();
 			tbMarriageDate = new DateTimeTextBox();
@@ -82,21 +85,18 @@ namespace MOM.Forms
 			label10 = new Label();
 			tbBirthDate = new DateTimeTextBox();
 			tbGender = new AutoCompleteTextBox();
-			cbActive = new CheckBox();
 			toolTip1 = new ToolTip(components);
-			flowLayoutPanel1 = new FlowLayoutPanel();
-			cbChild = new CheckBox();
 			gbName.SuspendLayout();
 			tableLayoutPanel1.SuspendLayout();
 			flowLayoutPanel2.SuspendLayout();
 			gbContact.SuspendLayout();
 			tableLayoutPanel2.SuspendLayout();
 			tableLayoutPanel3.SuspendLayout();
+			flowLayoutPanel1.SuspendLayout();
 			gbLife.SuspendLayout();
 			tableLayoutPanel5.SuspendLayout();
 			gbPersonal.SuspendLayout();
 			tableLayoutPanel4.SuspendLayout();
-			flowLayoutPanel1.SuspendLayout();
 			SuspendLayout();
 			// 
 			// gbName
@@ -260,7 +260,7 @@ namespace MOM.Forms
 			btnOK.Size = new Size(100, 30);
 			btnOK.TabIndex = 20;
 			btnOK.Text = "OK";
-			toolTip1.SetToolTip(btnOK, "Ctrl+Enter");
+			toolTip1.SetToolTip(btnOK, "Ctrl+Enter\r\nCtrl+Space");
 			btnOK.UseVisualStyleBackColor = true;
 			btnOK.Click += btnSave_Click;
 			// 
@@ -410,6 +410,39 @@ namespace MOM.Forms
 			tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
 			tableLayoutPanel3.Size = new Size(914, 471);
 			tableLayoutPanel3.TabIndex = 2;
+			// 
+			// flowLayoutPanel1
+			// 
+			flowLayoutPanel1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+			flowLayoutPanel1.AutoSize = true;
+			flowLayoutPanel1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+			flowLayoutPanel1.Controls.Add(cbChild);
+			flowLayoutPanel1.Controls.Add(cbActive);
+			flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
+			flowLayoutPanel1.Location = new Point(836, 407);
+			flowLayoutPanel1.Name = "flowLayoutPanel1";
+			flowLayoutPanel1.Size = new Size(75, 60);
+			flowLayoutPanel1.TabIndex = 1;
+			// 
+			// cbChild
+			// 
+			cbChild.AutoSize = true;
+			cbChild.Location = new Point(3, 3);
+			cbChild.Name = "cbChild";
+			cbChild.Size = new Size(62, 24);
+			cbChild.TabIndex = 5;
+			cbChild.Text = "Child";
+			cbChild.UseVisualStyleBackColor = true;
+			// 
+			// cbActive
+			// 
+			cbActive.AutoSize = true;
+			cbActive.Location = new Point(3, 33);
+			cbActive.Name = "cbActive";
+			cbActive.Size = new Size(69, 24);
+			cbActive.TabIndex = 4;
+			cbActive.Text = "Active";
+			cbActive.UseVisualStyleBackColor = true;
 			// 
 			// gbLife
 			// 
@@ -678,39 +711,6 @@ namespace MOM.Forms
 			tbGender.Size = new Size(217, 27);
 			tbGender.TabIndex = 40;
 			// 
-			// cbActive
-			// 
-			cbActive.AutoSize = true;
-			cbActive.Location = new Point(3, 33);
-			cbActive.Name = "cbActive";
-			cbActive.Size = new Size(69, 24);
-			cbActive.TabIndex = 4;
-			cbActive.Text = "Active";
-			cbActive.UseVisualStyleBackColor = true;
-			// 
-			// flowLayoutPanel1
-			// 
-			flowLayoutPanel1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-			flowLayoutPanel1.AutoSize = true;
-			flowLayoutPanel1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-			flowLayoutPanel1.Controls.Add(cbChild);
-			flowLayoutPanel1.Controls.Add(cbActive);
-			flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
-			flowLayoutPanel1.Location = new Point(836, 407);
-			flowLayoutPanel1.Name = "flowLayoutPanel1";
-			flowLayoutPanel1.Size = new Size(75, 60);
-			flowLayoutPanel1.TabIndex = 1;
-			// 
-			// cbChild
-			// 
-			cbChild.AutoSize = true;
-			cbChild.Location = new Point(3, 3);
-			cbChild.Name = "cbChild";
-			cbChild.Size = new Size(62, 24);
-			cbChild.TabIndex = 5;
-			cbChild.Text = "Child";
-			cbChild.UseVisualStyleBackColor = true;
-			// 
 			// frmIndividual
 			// 
 			AutoScaleDimensions = new SizeF(8F, 20F);
@@ -734,14 +734,14 @@ namespace MOM.Forms
 			tableLayoutPanel2.PerformLayout();
 			tableLayoutPanel3.ResumeLayout(false);
 			tableLayoutPanel3.PerformLayout();
+			flowLayoutPanel1.ResumeLayout(false);
+			flowLayoutPanel1.PerformLayout();
 			gbLife.ResumeLayout(false);
 			tableLayoutPanel5.ResumeLayout(false);
 			tableLayoutPanel5.PerformLayout();
 			gbPersonal.ResumeLayout(false);
 			tableLayoutPanel4.ResumeLayout(false);
 			tableLayoutPanel4.PerformLayout();
-			flowLayoutPanel1.ResumeLayout(false);
-			flowLayoutPanel1.PerformLayout();
 			ResumeLayout(false);
 			PerformLayout();
 		}

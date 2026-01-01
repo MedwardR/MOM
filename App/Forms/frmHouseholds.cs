@@ -50,7 +50,7 @@ public partial class frmHouseholds : Form
 		if (!string.IsNullOrWhiteSpace(search))
 		{
 			string trimmed = search.Trim();
-			query = _app.Households.Where(h => 
+			query = _app.Households.Where(h =>
 				h.Active && (
 				EF.Functions.ILike(h.Name, $"%{trimmed}%") ||
 				h.Individuals.Any(m =>
@@ -131,20 +131,90 @@ public partial class frmHouseholds : Form
 		tbCountry.Text = household.Address.Country;
 		cbActive.Checked = household.Active;
 
+		await _app.Entry(household)
+			.Collection(h => h.Individuals)
+			.Query()
+			.Where(m => m.Active)
+			.LoadAsync();
+		PopulateMembers(household.Individuals);
+	}
+
+	private void PopulateMembers(IEnumerable<Individual> source)
+	{
 		flpMembers.SuspendLayout();
 		flpMembers.Controls.Clear();
 
-		await _app.Entry(household)
-			.Collection(h => h.Individuals)
-			.LoadAsync();
-		foreach (var member in household.Individuals)
+		var sorted = SortMembers(source);
+		foreach (var member in sorted)
 		{
-			if (member.Active)
+			var button = new Button
 			{
-				InitializeMember(member);
-			}
+				AutoSize = btnMemberTemplate.AutoSize,
+				AutoSizeMode = btnMemberTemplate.AutoSizeMode,
+				Text = member.GetDisplayName(),
+				UseVisualStyleBackColor = btnMemberTemplate.UseVisualStyleBackColor,
+			};
+			button.Click += async (_, _) =>
+			{
+				var choice = await EditIndividualAsync(member);
+
+				if (choice != DialogResult.Cancel)
+				{
+					if (!member.Active)
+					{
+						button.Dispose();
+						flpMembers.Controls.Remove(button);
+					}
+					if (_current is not null)
+					{
+						PopulateMembers(_current.Individuals);
+					}
+					else button.Text = member.GetDisplayName();
+				}
+			};
+			flpMembers.Controls.Add(button);
 		}
 		flpMembers.ResumeLayout();
+	}
+
+	private static Individual[] SortMembers(IEnumerable<Individual> source)
+	{
+		// Helper: treat null BirthDate as MaxValue so nulls come last (youngest)
+		static DateTime BirthOrMax(Individual i) => i.BirthDate ?? DateTime.MaxValue;
+
+		// Split into non-children and children
+		var nonChildren = source.Where(i => !i.Child).ToList();
+		var children = source.Where(i => i.Child).OrderBy(BirthOrMax).ToList();
+
+		// Oldest male & female among non-children
+		var oldestMale = nonChildren
+			.Where(i => i.Gender?.StartsWith("M", StringComparison.OrdinalIgnoreCase) == true)
+			.OrderBy(BirthOrMax)
+			.FirstOrDefault();
+
+		var oldestFemale = nonChildren
+			.Where(i => i.Gender?.StartsWith("F", StringComparison.OrdinalIgnoreCase) == true)
+			.OrderBy(BirthOrMax)
+			.FirstOrDefault();
+
+		// Exclude oldest male/female from remaining non-children
+		var excludedIds = new HashSet<long>(
+			[oldestMale?.Id ?? -1, oldestFemale?.Id ?? -1]
+		);
+
+		var remainingNonChildren = nonChildren
+			.Where(i => !excludedIds.Contains(i.Id))
+			.OrderBy(BirthOrMax)
+			.ToList();
+
+		// Build final list
+		var result = new List<Individual>();
+		if (oldestMale is not null) result.Add(oldestMale);
+		if (oldestFemale is not null && oldestFemale.Id != oldestMale?.Id) result.Add(oldestFemale);
+		result.AddRange(remainingNonChildren);
+		result.AddRange(children);
+
+		return [.. result];
 	}
 
 	private void FocusCurrent()
@@ -193,32 +263,6 @@ public partial class frmHouseholds : Form
 			return fieldsChanged || membersCountChanged || membersChanged || activeChanged;
 		}
 		else return false;
-	}
-
-	private void InitializeMember(Individual member)
-	{
-		var button = new Button
-		{
-			AutoSize = btnMemberTemplate.AutoSize,
-			AutoSizeMode = btnMemberTemplate.AutoSizeMode,
-			Text = member.GetDisplayName(),
-			UseVisualStyleBackColor = btnMemberTemplate.UseVisualStyleBackColor,
-		};
-		button.Click += async (_, _) =>
-		{
-			var choice = await EditIndividualAsync(member);
-
-			if (choice != DialogResult.Cancel)
-			{
-				if (!member.Active)
-				{
-					button.Dispose();
-					flpMembers.Controls.Remove(button);
-				}
-				button.Text = member.GetDisplayName();
-			}
-		};
-		flpMembers.Controls.Add(button);
 	}
 
 	private async Task<DialogResult> EditIndividualAsync(Individual member)
@@ -395,7 +439,7 @@ public partial class frmHouseholds : Form
 			if (choice != DialogResult.Cancel)
 			{
 				_current.Individuals.Add(member);
-				InitializeMember(member);
+				PopulateMembers(_current.Individuals);
 			}
 		}
 	}
