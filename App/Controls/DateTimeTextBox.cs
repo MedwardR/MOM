@@ -26,6 +26,8 @@ namespace MOM.Controls
 			Mask = DEFAULT_MASK;
 			ValidatingType = typeof(DateTime);
 
+			Enter += (s, e) => BeginInvoke(SelectAll);
+
 			Validating += (s, e) =>
 			{
 				var value = Parse(Text);
