@@ -298,7 +298,6 @@ public partial class frmHouseholds : Form
 		try
 		{
 			var cancellationToken = _cts.Token;
-			await Task.Delay(300, cancellationToken);
 			await LoadHouseholdsAsync(tbSearch.Text, cancellationToken);
 		}
 		catch (OperationCanceledException)
