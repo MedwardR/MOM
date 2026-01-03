@@ -1,5 +1,8 @@
 ﻿using DataCommon.Models;
 using MigrationTool.MOM;
+using MigrationTool.SK.Models;
+using System.Globalization;
+using Individual = DataCommon.Models.Individual;
 
 namespace MigrationTool.SK;
 
@@ -7,78 +10,173 @@ internal class SKImporter
 {
 	public static void Import(MOMContext mom, SKContext sk)
 	{
-		foreach (var family in sk.Families)
+		var households = new List<Household>();
+		var individuals = new List<Individual>();
+
+		var references = sk.References.ToList();
+
+		foreach (var other in sk.Families.ToList())
 		{
-			var household = new Household()
+			long id = long.Parse(other.FAMILY_ID);
+			string name = other.FAM_NAME ?? "NULL";
+			var street = other.ADDR1;
+			var city = other.CITY;
+			var state = other.STATE;
+			var zip = other.ZIP;
+			var country = other.COUNTRY;
+
+			var item = new Household()
 			{
-				Id = long.Parse(family.FAMILY_ID),
-				Name = family.FAM_NAME ?? "NO NAME",
+				Id = id,
+				Name = name,
 				Address = new Address()
 				{
-					Street = family.ADDR1,
-					City = family.CITY,
-					State = family.STATE,
-					Zip = family.ZIP,
-					Country = family.COUNTRY,
+					Street = street,
+					City = city,
+					State = state,
+					Zip = zip,
+					Country = country,
 				}
 			};
-			mom.Households.Add(household);
+			households.Add(item);
+		}
+		foreach (var other in sk.Individuals.ToList())
+		{
+			var household = GetHouseholdFromId(households, other.FAMILY_ID);
+			string firstName = other.FIRST_NAME ?? "NULL";
+			var middleName = other.MID_NAME;
+			string lastName = other.LAST_NAME ?? "NULL";
+			var preferredName = other.PREFERNAME == other.FIRST_NAME ? null : other.PREFERNAME;
+			var mobilePhone = other.C_PHONE;
+			var homePhone = other.H_PHONE;
+			var email = other.EMAIL1 ?? other.EMAIL2 ?? other.EMAIL3;
+			var communicationPreference = GetValueFromReferenceId(references, other.UDF11);
+			var gender = other.SEX switch
+			{
+				"M" => "Male",
+				"F" => "Female",
+				_ => other.SEX
+			};
+			var birthDate = ParseTimestamp(other.BIRTH_DT);
+			var occupation = GetValueFromReferenceId(references, other.JOB_CD);
+			var employer = other.EMPLOYER;
+			var joinedDate = ParseTimestamp(other.JOIN_DT);
+			var joinedMethod = GetValueFromReferenceId(references, other.HOW_JOIN);
+			var baptizedDate = ParseTimestamp(other.BAPTIZE_DT);
+			var baptizedLocation = GetValueFromReferenceId(references, other.UDF9);
+			var marriedDate = ParseTimestamp(other.WEDDING_DT);
+			var maritalStatus = GetValueFromReferenceId(references, other.MARITAL_CD);
+			bool child = IsChild(other);
+
+			var item = new Individual()
+			{
+				Household = household,
+				FirstName = firstName,
+				MiddleName = middleName,
+				LastName = lastName,
+				PreferredName = preferredName,
+				MobilePhone = mobilePhone,
+				HomePhone = homePhone,
+				Email = email,
+				CommunicationPreference = communicationPreference,
+				Gender = gender,
+				BirthDate = birthDate,
+				Occupation = occupation,
+				Employer = employer,
+				JoinedDate = joinedDate,
+				JoinedMethod = joinedMethod,
+				BaptizedDate = baptizedDate,
+				BaptizedLocation = baptizedLocation,
+				MarriedDate = marriedDate,
+				MaritalStatus = maritalStatus,
+				Child = child,
+			};
+			individuals.Add(item);
 		}
 
-		foreach (var other in sk.Individuals)
-		{
-			var individual = new Individual()
-			{
-				Household = GetHouseholdFromId(mom, other.FAMILY_ID),
-				FirstName = other.FIRST_NAME ?? "Unnamed",
-				MiddleName = other.MID_NAME,
-				LastName = other.LAST_NAME ?? string.Empty,
-				MobilePhone = other.C_PHONE,
-				HomePhone = other.H_PHONE,
-				Email = other.EMAIL1 ?? other.EMAIL2 ?? other.EMAIL3,
-				CommunicationPreference = GetValueFromReferenceId(sk, other.UDF11),
-				Gender = other.SEX switch
-				{
-					"M" => "Male",
-					"F" => "Female",
-					_ => other.SEX
-				},
-				BirthDate = ParseTimestamp(other.BIRTH_DT),
-				Occupation = GetValueFromReferenceId(sk, other.JOB_CD),
-				Employer = other.EMPLOYER,
-				JoinedDate = ParseTimestamp(other.JOIN_DT),
-				JoinedMethod = GetValueFromReferenceId(sk, other.HOW_JOIN),
-				BaptizedDate = ParseTimestamp(other.BAPTIZE_DT),
-				BaptizedLocation = GetValueFromReferenceId(sk, other.UDF9),
-				MarriedDate = ParseTimestamp(other.WEDDING_DT),
-				MaritalStatus = GetValueFromReferenceId(sk, other.MARITAL_CD),
-			};
-			mom.Individuals.Add(individual);
-		}
+		mom.Households.AddRange(households);
+		mom.Individuals.AddRange(individuals);
+
+		mom.SaveChanges();
 	}
 
-	private static Household GetHouseholdFromId(MOMContext mom, string id)
+	private static Household GetHouseholdFromId(IEnumerable<Household> households, string id)
 	{
 		var parsed = long.Parse(id);
-		return mom.Households.Single(h => h.Id == parsed);
+		return households.Single(h => h.Id == parsed);
 	}
 
-	private static string? GetValueFromReferenceId(SKContext sk, string? id)
+	private static string? GetValueFromReferenceId(IEnumerable<Reference> references, string? id)
 	{
 		if (!string.IsNullOrWhiteSpace(id))
 		{
-			var reference = sk.References.SingleOrDefault(r => r.TBL_ID == id);
-			return reference?.DESCS;
+			var match = references.SingleOrDefault(r => r.TBL_ID == id);
+			return match?.DESCS;
 		}
 		else return null;
 	}
-	
+
 	private static DateTime? ParseTimestamp(string? timestamp)
 	{
 		if (!string.IsNullOrWhiteSpace(timestamp))
 		{
-			throw new NotImplementedException();
+			const string format = "yyyyMMdd";
+			var provider = CultureInfo.InvariantCulture;
+			var style = DateTimeStyles.AdjustToUniversal;
+
+			string s;
+			if (timestamp.StartsWith('9'))
+			{
+				s = $"1{timestamp}";
+			}
+			else s = timestamp;
+
+			var result = DateTime.ParseExact(s, format, provider, style);
+			return result.ToUniversalTime();
 		}
 		else return null;
+	}
+
+	private static bool IsChild(Models.Individual individual)
+	{
+		return individual.RELAT_CD switch
+		{
+			"0000000000000001" => false, 	// Head of Household
+			"0000000000000002" => false, 	// Spouse
+			"0000000000000003" => true, 	// Son
+			"0000000000000004" => true, 	// Daughter
+			"0000000000000094" => false, 	// Aunt
+			"0000000000000095" => false, 	// Brother
+			"0000000000000096" => false, 	// Brother In-Law
+			"0000000000000097" => true, 	// Child
+			"0000000000000098" => false, 	// Cousin
+			"0000000000000099" => true, 	// Daughter In - Law
+			"0000000000000100" => false, 	// Father
+			"0000000000000101" => false, 	// Father In-Law
+			"0000000000000102" => false, 	// Child's mother/girlfriend
+			"0000000000000103" => true, 	// Granddaughter
+			"0000000000000104" => false, 	// Grandfather
+			"0000000000000105" => false, 	// Grandmother
+			"0000000000000107" => true, 	// Great Granddaughter
+			"0000000000000108" => false, 	// Great Grandfather
+			"0000000000000109" => false, 	// Great Grandmother
+			"0000000000000110" => true, 	// Grandson
+			"0000000000000111" => false, 	// Individual
+			"0000000000000112" => false, 	// Mother
+			"0000000000000113" => false, 	// Mother In-Law
+			"0000000000000114" => false, 	// Neighbor
+			"0000000000000115" => true, 	// Nephew
+			"0000000000000116" => true, 	// Niece
+			"0000000000000117" => false, 	// Relative
+			"0000000000000118" => false, 	// Sister
+			"0000000000000119" => false, 	// Sister In - Law
+			"0000000000000120" => true, 	// Son In-Law
+			"0000000000000121" => true, 	// Step Daughter
+			"0000000000000122" => true, 	// Step Son
+			"0000000000000123" => true, 	// Student
+			"0000000000000124" => false, 	// Uncle
+			"0000000000000400" => false, 	// Organization Record
+			_ => false,
+		};
 	}
 }

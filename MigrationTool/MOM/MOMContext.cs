@@ -23,9 +23,7 @@ namespace MigrationTool.MOM
 				Password = password,
 			};
 			string connectionString = connectionStringBuilder.ToString();
-
 			optionsBuilder.UseNpgsql(connectionString);
-			optionsBuilder.UseLazyLoadingProxies();
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)

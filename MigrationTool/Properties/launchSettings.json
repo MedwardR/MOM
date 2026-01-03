@@ -1,8 +1,12 @@
 {
   "profiles": {
-    "MigrationTool": {
+    "WSL": {
+      "commandName": "WSL2",
+      "distributionName": ""
+    },
+    "192.168.81.151": {
       "commandName": "Project",
-      "commandLineArgs": "--host localhost --user postgres --pass postgres --sk \"C:\\Users\\miles\\Downloads\\SERVANTKEEPERDATA_20250618.db\""
+      "commandLineArgs": "--host 192.168.81.151 --user postgres --pass postgres --sk \"C:\\Users\\miles\\Documents\\SERVANTKEEPERDATA_20250618.S8B\""
     }
   }
 }

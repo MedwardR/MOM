@@ -27,9 +27,7 @@ internal class SKContext(string path) : DbContext
 			DataSource = path,
 		};
 		string connectionString = connectionStringBuilder.ToString();
-
 		optionsBuilder.UseSqlite(connectionString);
-		optionsBuilder.UseLazyLoadingProxies();
 	}
 
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -43,6 +41,11 @@ internal class SKContext(string path) : DbContext
 		{
 			entity.HasKey(i => i.IND_ID);
 			entity.ToTable("csIND");
+		});
+		modelBuilder.Entity<Reference>(entity =>
+		{
+			entity.HasKey(r => r.TBL_ID);
+			entity.ToTable("csREFTBL");
 		});
 	}
 }
