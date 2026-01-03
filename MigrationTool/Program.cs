@@ -17,7 +17,9 @@ internal class Program
 			arguments.DatabasePassword);
 		using var sk = new SKContext(arguments.SKBackupPath);
 
+		Console.WriteLine("Importing data from SK backup...");
 		SKImporter.Import(mom, sk);
+		Console.WriteLine("Success!");
 	}
 
 	private class Arguments
