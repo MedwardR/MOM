@@ -206,7 +206,7 @@ namespace MOM.Forms
 			gbHousehold.Margin = new Padding(0, 3, 3, 3);
 			gbHousehold.Name = "gbHousehold";
 			gbHousehold.Size = new Size(484, 186);
-			gbHousehold.TabIndex = 0;
+			gbHousehold.TabIndex = 10;
 			gbHousehold.TabStop = false;
 			gbHousehold.Text = "Household";
 			// 
@@ -378,7 +378,7 @@ namespace MOM.Forms
 			tbAdditionalInformation.Location = new Point(298, 76);
 			tbAdditionalInformation.Name = "tbAdditionalInformation";
 			tbAdditionalInformation.Size = new Size(177, 27);
-			tbAdditionalInformation.TabIndex = 62;
+			tbAdditionalInformation.TabIndex = 25;
 			// 
 			// label8
 			// 
@@ -475,7 +475,7 @@ namespace MOM.Forms
 			gbMembers.Margin = new Padding(0, 3, 3, 3);
 			gbMembers.Name = "gbMembers";
 			gbMembers.Size = new Size(484, 281);
-			gbMembers.TabIndex = 1;
+			gbMembers.TabIndex = 20;
 			gbMembers.TabStop = false;
 			gbMembers.Text = "Members";
 			// 
@@ -489,7 +489,7 @@ namespace MOM.Forms
 			flowLayoutPanel1.Margin = new Padding(3, 3, 0, 3);
 			flowLayoutPanel1.Name = "flowLayoutPanel1";
 			flowLayoutPanel1.Size = new Size(103, 30);
-			flowLayoutPanel1.TabIndex = 1;
+			flowLayoutPanel1.TabIndex = 10;
 			// 
 			// btnAddMember
 			// 
@@ -511,7 +511,7 @@ namespace MOM.Forms
 			flpMembers.Location = new Point(3, 23);
 			flpMembers.Name = "flpMembers";
 			flpMembers.Size = new Size(478, 255);
-			flpMembers.TabIndex = 0;
+			flpMembers.TabIndex = 20;
 			// 
 			// btnMemberTemplate
 			// 
@@ -533,7 +533,7 @@ namespace MOM.Forms
 			cbActive.Location = new Point(415, 482);
 			cbActive.Name = "cbActive";
 			cbActive.Size = new Size(69, 24);
-			cbActive.TabIndex = 2;
+			cbActive.TabIndex = 30;
 			cbActive.Text = "Active";
 			cbActive.UseVisualStyleBackColor = true;
 			// 

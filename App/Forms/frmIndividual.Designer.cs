@@ -107,7 +107,7 @@ namespace MOM.Forms
 			gbName.Location = new Point(3, 3);
 			gbName.Name = "gbName";
 			gbName.Size = new Size(908, 133);
-			gbName.TabIndex = 0;
+			gbName.TabIndex = 10;
 			gbName.TabStop = false;
 			gbName.Text = "Name";
 			// 
@@ -148,8 +148,7 @@ namespace MOM.Forms
 			llPreferFirstName.Margin = new Padding(0, 0, 3, 0);
 			llPreferFirstName.Name = "llPreferFirstName";
 			llPreferFirstName.Size = new Size(59, 20);
-			llPreferFirstName.TabIndex = 34;
-			llPreferFirstName.TabStop = true;
+			llPreferFirstName.TabIndex = 15;
 			llPreferFirstName.Text = "(prefer)";
 			llPreferFirstName.LinkClicked += llPreferFirstName_LinkClicked;
 			// 
@@ -234,8 +233,7 @@ namespace MOM.Forms
 			llPreferMiddleName.Margin = new Padding(0, 0, 3, 0);
 			llPreferMiddleName.Name = "llPreferMiddleName";
 			llPreferMiddleName.Size = new Size(59, 20);
-			llPreferMiddleName.TabIndex = 33;
-			llPreferMiddleName.TabStop = true;
+			llPreferMiddleName.TabIndex = 25;
 			llPreferMiddleName.Text = "(prefer)";
 			llPreferMiddleName.LinkClicked += llPreferMiddleName_LinkClicked;
 			// 
@@ -250,7 +248,7 @@ namespace MOM.Forms
 			flowLayoutPanel2.Margin = new Padding(3, 3, 0, 3);
 			flowLayoutPanel2.Name = "flowLayoutPanel2";
 			flowLayoutPanel2.Size = new Size(203, 30);
-			flowLayoutPanel2.TabIndex = 1;
+			flowLayoutPanel2.TabIndex = 100;
 			// 
 			// btnOK
 			// 
@@ -283,7 +281,7 @@ namespace MOM.Forms
 			gbContact.Location = new Point(3, 142);
 			gbContact.Name = "gbContact";
 			gbContact.Size = new Size(451, 133);
-			gbContact.TabIndex = 1;
+			gbContact.TabIndex = 20;
 			gbContact.TabStop = false;
 			gbContact.Text = "Contact";
 			// 
@@ -329,7 +327,7 @@ namespace MOM.Forms
 			tbHomePhone.Mask = "(999) 000-0000";
 			tbHomePhone.Name = "tbHomePhone";
 			tbHomePhone.Size = new Size(142, 27);
-			tbHomePhone.TabIndex = 74;
+			tbHomePhone.TabIndex = 30;
 			tbHomePhone.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
 			// 
 			// label6
@@ -388,7 +386,7 @@ namespace MOM.Forms
 			tbCommunicationPreference.Location = new Point(151, 76);
 			tbCommunicationPreference.Name = "tbCommunicationPreference";
 			tbCommunicationPreference.Size = new Size(291, 27);
-			tbCommunicationPreference.TabIndex = 30;
+			tbCommunicationPreference.TabIndex = 40;
 			// 
 			// tableLayoutPanel3
 			// 
@@ -422,7 +420,7 @@ namespace MOM.Forms
 			flowLayoutPanel1.Location = new Point(836, 407);
 			flowLayoutPanel1.Name = "flowLayoutPanel1";
 			flowLayoutPanel1.Size = new Size(75, 60);
-			flowLayoutPanel1.TabIndex = 1;
+			flowLayoutPanel1.TabIndex = 50;
 			// 
 			// cbChild
 			// 
@@ -430,7 +428,7 @@ namespace MOM.Forms
 			cbChild.Location = new Point(3, 3);
 			cbChild.Name = "cbChild";
 			cbChild.Size = new Size(62, 24);
-			cbChild.TabIndex = 5;
+			cbChild.TabIndex = 10;
 			cbChild.Text = "Child";
 			cbChild.UseVisualStyleBackColor = true;
 			// 
@@ -440,7 +438,7 @@ namespace MOM.Forms
 			cbActive.Location = new Point(3, 33);
 			cbActive.Name = "cbActive";
 			cbActive.Size = new Size(69, 24);
-			cbActive.TabIndex = 4;
+			cbActive.TabIndex = 20;
 			cbActive.Text = "Active";
 			cbActive.UseVisualStyleBackColor = true;
 			// 
@@ -451,7 +449,7 @@ namespace MOM.Forms
 			gbLife.Location = new Point(3, 281);
 			gbLife.Name = "gbLife";
 			gbLife.Size = new Size(451, 186);
-			gbLife.TabIndex = 3;
+			gbLife.TabIndex = 40;
 			gbLife.TabStop = false;
 			gbLife.Text = "Life";
 			// 
@@ -607,7 +605,7 @@ namespace MOM.Forms
 			gbPersonal.Location = new Point(460, 142);
 			gbPersonal.Name = "gbPersonal";
 			gbPersonal.Size = new Size(451, 133);
-			gbPersonal.TabIndex = 2;
+			gbPersonal.TabIndex = 30;
 			gbPersonal.TabStop = false;
 			gbPersonal.Text = "Personal";
 			// 

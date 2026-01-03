@@ -121,9 +121,9 @@ namespace MOM.Forms
 			lbUsernameNotFound.Location = new Point(94, 3);
 			lbUsernameNotFound.Margin = new Padding(3);
 			lbUsernameNotFound.Name = "lbUsernameNotFound";
-			lbUsernameNotFound.Size = new Size(125, 20);
+			lbUsernameNotFound.Size = new Size(94, 20);
 			lbUsernameNotFound.TabIndex = 4;
-			lbUsernameNotFound.Text = "<user not found>";
+			lbUsernameNotFound.Text = "<not found>";
 			lbUsernameNotFound.Visible = false;
 			// 
 			// lbPasswordInvalid
@@ -134,9 +134,9 @@ namespace MOM.Forms
 			lbPasswordInvalid.Location = new Point(316, 3);
 			lbPasswordInvalid.Margin = new Padding(3);
 			lbPasswordInvalid.Name = "lbPasswordInvalid";
-			lbPasswordInvalid.Size = new Size(73, 20);
+			lbPasswordInvalid.Size = new Size(71, 20);
 			lbPasswordInvalid.TabIndex = 5;
-			lbPasswordInvalid.Text = "<invalid>";
+			lbPasswordInvalid.Text = "<wrong>";
 			lbPasswordInvalid.Visible = false;
 			// 
 			// btnLogin
