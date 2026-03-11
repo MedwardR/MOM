@@ -550,6 +550,7 @@ namespace MOM.Forms
 			Name = "frmHouseholds";
 			Text = "Membership Office Manager";
 			FormClosing += frmHouseholds_FormClosing;
+			FormClosed += frmHouseholds_FormClosed;
 			Shown += frmHouseholds_Shown;
 			splitContainer1.Panel1.ResumeLayout(false);
 			splitContainer1.Panel2.ResumeLayout(false);

@@ -14,6 +14,8 @@ namespace MOM
 		[PasswordPropertyText(true)]
 		public string? DatabasePassword { get; set; }
 
+		public string? BackupDirectory { get; set; }
+
 		private static readonly JsonSerializerOptions _serializerOptions = new()
 		{
 			WriteIndented = true,

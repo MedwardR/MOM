@@ -1,5 +1,6 @@
 using DataCommon.Models;
 using Microsoft.EntityFrameworkCore;
+using MOM.Services;
 using Serilog;
 using System.ComponentModel;
 
@@ -7,9 +8,10 @@ namespace MOM.Forms;
 
 public partial class frmHouseholds : Form
 {
-	private readonly AppContext _app;
+	private readonly AppContextFactory _factory;
 	private readonly BindingList<Household> _collection = [];
 	private Household? _current;
+	private Household? _original;
 	private bool _restoring;
 	private CancellationTokenSource? _cts;
 
@@ -18,9 +20,9 @@ public partial class frmHouseholds : Form
 		var frm = new frmLogin();
 		frm.ShowDialog();
 
-		if (frm.AppContext is not null)
+		if (frm.ContextFactory is not null)
 		{
-			_app = frm.AppContext;
+			_factory = frm.ContextFactory;
 			InitializeComponent();
 			bsHouseholds.DataSource = _collection;
 		}
@@ -34,47 +36,66 @@ public partial class frmHouseholds : Form
 
 	public void LogOut()
 	{
-		if (_app.AuthenticatedUser is not null)
+		if (_factory.AuthenticatedUser is not null)
 		{
-			_app.RevertChanges();
-			_app.AuthenticatedUser.IsLoggedIn = false;
-			_app.SaveChanges();
+			using var context = _factory.CreateDbContext();
+			var user = context.Users.Find(_factory.AuthenticatedUser.Id)!;
+			user.IsLoggedIn = false;
+			context.SaveChanges();
 		}
 	}
 
 	private async Task LoadHouseholdsAsync(string search, CancellationToken cancellationToken = default)
 	{
 		cancellationToken.ThrowIfCancellationRequested();
-
-		IQueryable<Household> query;
-		if (!string.IsNullOrWhiteSpace(search))
+		if (!_restoring)
 		{
-			string trimmed = search.Trim();
-			query = _app.Households.Where(h =>
-				h.Active && (
-				EF.Functions.ILike(h.Name, $"%{trimmed}%") ||
-				h.Individuals.Any(m =>
-					m.Active && (
-					EF.Functions.ILike(m.PreferredName ?? string.Empty, $"%{trimmed}%") ||
-					EF.Functions.ILike(m.FirstName, $"%{trimmed}%") ||
-					EF.Functions.ILike(m.LastName, $"%{trimmed}%"))
-				))
-			);
-		}
-		else query = _app.Households.Where(h => h.Active);
-
-		var materialized = await query.ToListAsync(cancellationToken);
-		cancellationToken.ThrowIfCancellationRequested();
-
-		var oldIds = _collection.Select(h => h.Id).ToHashSet();
-		var newIds = materialized.Select(h => h.Id).ToHashSet();
-		if (!oldIds.SetEquals(newIds))
-		{
-			_collection.Clear();
-			foreach (var h in materialized)
+			try
 			{
+				_restoring = true;
+				using var context = _factory.CreateDbContext();
+
+				IQueryable<Household> query;
+				if (!string.IsNullOrWhiteSpace(search))
+				{
+					string trimmed = search.Trim();
+					query = context.Households.Where(h =>
+						h.Active && (
+						EF.Functions.ILike(h.Name, $"%{trimmed}%") ||
+						h.Individuals.Any(m =>
+							m.Active && (
+							EF.Functions.ILike(m.PreferredName ?? string.Empty, $"%{trimmed}%") ||
+							EF.Functions.ILike(m.FirstName, $"%{trimmed}%") ||
+							EF.Functions.ILike(m.LastName, $"%{trimmed}%"))
+						))
+					);
+				}
+				else query = context.Households.Where(h => h.Active);
+
+				var materialized = await query.ToListAsync(cancellationToken);
 				cancellationToken.ThrowIfCancellationRequested();
-				_collection.Add(h);
+
+				var oldIds = _collection.Select(h => h.Id).ToHashSet();
+				var newIds = materialized.Select(h => h.Id).ToHashSet();
+				if (!oldIds.SetEquals(newIds))
+				{
+					_collection.Clear();
+					foreach (var h in materialized)
+					{
+						cancellationToken.ThrowIfCancellationRequested();
+						_collection.Add(h);
+					}
+				}
+
+				var first = _collection.FirstOrDefault();
+				if (first is not null)
+				{
+					await ChangeCurrentAsync(first);
+				}
+			}
+			finally
+			{
+				_restoring = false;
 			}
 		}
 	}
@@ -83,10 +104,12 @@ public partial class frmHouseholds : Form
 	{
 		try
 		{
-			await tbCity.SetSuggestionsWhereActiveAsync(_app.Households, h => h.Address.City);
-			await tbState.SetSuggestionsWhereActiveAsync(_app.Households, h => h.Address.State);
-			await tbZIP.SetSuggestionsWhereActiveAsync(_app.Households, h => h.Address.Zip);
-			await tbCountry.SetSuggestionsWhereActiveAsync(_app.Households, h => h.Address.Country);
+			using var context = _factory.CreateDbContext();
+
+			await tbCity.SetSuggestionsWhereActiveAsync(context.Households, h => h.Address.City);
+			await tbState.SetSuggestionsWhereActiveAsync(context.Households, h => h.Address.State);
+			await tbZIP.SetSuggestionsWhereActiveAsync(context.Households, h => h.Address.Zip);
+			await tbCountry.SetSuggestionsWhereActiveAsync(context.Households, h => h.Address.Country);
 		}
 		catch (Exception ex)
 		{
@@ -106,20 +129,32 @@ public partial class frmHouseholds : Form
 			_current.Address.Zip = tbZIP.Text;
 			_current.Address.Country = tbCountry.Text;
 			_current.Active = cbActive.Checked;
+
+			using var context = _factory.CreateDbContext();
+
+			context.Attach(_current);
+			context.Entry(_current).State = _current.Id == 0 ? EntityState.Added : EntityState.Modified;
+			foreach (var member in _current.Individuals)
+			{
+				context.Entry(member).State = member.Id == 0 ? EntityState.Added : EntityState.Modified;
+			}
+			await context.SaveChangesAsync();
+
+			_original = _current.Clone();
 		}
-		await _app.SaveChangesAsync();
 	}
 
-	private void RevertHouseholds()
+	private async Task RevertHouseholdsAsync()
 	{
 		SuspendLayout();
-		_app.RevertChanges();
+		await LoadHouseholdsAsync(string.Empty);
 		ResumeLayout();
 	}
 
 	private async Task ChangeCurrentAsync(Household household)
 	{
 		_current = household;
+
 		FocusCurrent();
 
 		tbName.Text = household.Name;
@@ -131,12 +166,17 @@ public partial class frmHouseholds : Form
 		tbCountry.Text = household.Address.Country;
 		cbActive.Checked = household.Active;
 
-		await _app.Entry(household)
+		using var context = _factory.CreateDbContext();
+		context.Attach(household);
+
+		await context.Entry(household)
 			.Collection(h => h.Individuals)
 			.Query()
 			.Where(m => m.Active)
 			.LoadAsync();
 		PopulateMembers(household.Individuals);
+
+		_original = household.Clone();
 	}
 
 	private void PopulateMembers(IEnumerable<Individual> source)
@@ -224,10 +264,17 @@ public partial class frmHouseholds : Form
 			try
 			{
 				_restoring = true;
-
 				int index = _collection.IndexOf(_current);
+
 				dgvHouseholds.ClearSelection();
-				dgvHouseholds.Rows[index].Selected = true;
+				if (index > 0 && index < dgvHouseholds.RowCount)
+				{
+					dgvHouseholds.Rows[index].Selected = true;
+				}
+				else
+				{
+					dgvHouseholds.Rows[0].Selected = true;
+				}
 			}
 			finally
 			{
@@ -238,37 +285,71 @@ public partial class frmHouseholds : Form
 
 	private bool HasChanges()
 	{
-		if (_current is not null)
+		try
 		{
-			var fields = new (string?, string?)[]
+			if (_current is not null)
 			{
-				(_current.Name,              tbName.Text),
-				(_current.Address.Street,    tbStreet.Text),
-				(_current.Address.Apartment, tbAdditionalInformation.Text),
-				(_current.Address.City,      tbCity.Text),
-				(_current.Address.State,     tbState.Text),
-				(_current.Address.Zip,       tbZIP.Text),
-				(_current.Address.Country,   tbCountry.Text),
-			};
-			bool fieldsChanged = fields.Any(f =>
-			{
-				string? a = f.Item1?.Trim() ?? string.Empty;
-				string? b = f.Item2?.Trim() ?? string.Empty;
-				return !string.Equals(a, b, StringComparison.OrdinalIgnoreCase);
-			});
-			bool membersCountChanged = _current.Individuals.Count != flpMembers.Controls.Count;
-			bool membersChanged = _current.Individuals.Any(_app.EntityHasChanges);
-			bool activeChanged = _current.Active != cbActive.Checked;
+				var fields = new (string?, string?)[]
+				{
+					(_current.Name,              tbName.Text),
+					(_current.Address.Street,    tbStreet.Text),
+					(_current.Address.Apartment, tbAdditionalInformation.Text),
+					(_current.Address.City,      tbCity.Text),
+					(_current.Address.State,     tbState.Text),
+					(_current.Address.Zip,       tbZIP.Text),
+					(_current.Address.Country,   tbCountry.Text),
+				};
+				bool fieldsChanged = fields.Any(f =>
+				{
+					string? a = f.Item1?.Trim() ?? string.Empty;
+					string? b = f.Item2?.Trim() ?? string.Empty;
+					return !string.Equals(a, b, StringComparison.OrdinalIgnoreCase);
+				});
+				bool activeChanged = _current.Active != cbActive.Checked;
 
-			return fieldsChanged || membersCountChanged || membersChanged || activeChanged;
+				if (fieldsChanged || activeChanged)
+				{
+					return true;
+				}
+				else
+				{
+					if (_current.Individuals.Count != _original!.Individuals.Count)
+					{
+						return true;
+					}
+					else
+					{
+						bool result = false;
+
+						for (int index = 0; index < _current.Individuals.Count; index++)
+						{
+							var member = _current.Individuals[index];
+							var original = _original!.Individuals[index];
+
+							if (!member.Equals(original))
+							{
+								result = true;
+								break;
+							}
+						}
+						return result;
+					}
+				}
+			}
+			else return false;
 		}
-		else return false;
+		catch (Exception ex)
+		{
+			Log.Error(ex, "Error checking for changes");
+			return true;
+		}
 	}
 
 	private async Task<DialogResult> EditIndividualAsync(Individual member)
 	{
+		using var context = _factory.CreateDbContext();
 		using var frm = new frmIndividual(member);
-		await frm.LoadAutoCompleteAsync(_app.Individuals);
+		await frm.LoadAutoCompleteAsync(context.Individuals);
 		frm.ShowDialog();
 
 		return frm.DialogResult;
@@ -334,6 +415,19 @@ public partial class frmHouseholds : Form
 		}
 	}
 
+	private void frmHouseholds_FormClosed(object sender, FormClosedEventArgs e)
+	{
+		Hide();
+		using var frm = new frmBackup(_factory.UserSettings);
+
+		bool configured = frm.IsConfiguredAsync().GetAwaiter().GetResult();
+		if (configured)
+		{
+			frm.ShowDialog(this);
+		}
+		else Log.Information("Backup not configured");
+	}
+
 	private async void tbSearch_TextChanged(object sender, EventArgs e)
 	{
 		_cts?.Cancel();
@@ -363,7 +457,6 @@ public partial class frmHouseholds : Form
 			{
 				Name = "(New Household)"
 			};
-			_app.Households.Add(newItem);
 			_collection.Add(newItem);
 			await ChangeCurrentAsync(newItem);
 		}
@@ -415,7 +508,7 @@ public partial class frmHouseholds : Form
 
 			if (!cancel)
 			{
-				RevertHouseholds();
+				await RevertHouseholdsAsync();
 
 				if (_current is not null)
 				{
@@ -471,7 +564,6 @@ public partial class frmHouseholds : Form
 
 					if (!cancel)
 					{
-						RevertHouseholds();
 						await ChangeCurrentAsync(newSelection);
 					}
 					else FocusCurrent();

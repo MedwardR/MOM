@@ -2,7 +2,6 @@
 using DataCommon.Models.Abstractions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.Design;
 using MOM.Helpers;
 using Npgsql;
 using System.Security.Authentication;
@@ -11,8 +10,7 @@ namespace MOM
 {
 	public class AppContext(UserSettings settings) : DbContext
 	{
-		public User? AuthenticatedUser { get; private set; }
-		public UserSettings UserSettings { get; } = settings;
+		public User? _user;
 
 		public DbSet<Household> Households { get; set; }
 		public DbSet<Individual> Individuals { get; set; }
@@ -20,29 +18,23 @@ namespace MOM
 
 		public void AssignAuthenticatedUser(User user)
 		{
-			if (AuthenticatedUser is null)
+			if (_user is null)
 			{
-				AuthenticatedUser = user;
+				_user = user;
 			}
 			else throw new InvalidOperationException("An authenticated user is already assigned");
 		}
 
 		public override int SaveChanges(bool acceptAllChangesOnSuccess)
 		{
-			var t = UserSettings.SaveAsync();
 			SetAuditFields();
-			int result = base.SaveChanges(acceptAllChangesOnSuccess);
-			t.GetAwaiter().GetResult();
-			return result;
+			return base.SaveChanges(acceptAllChangesOnSuccess);
 		}
 
 		public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
 		{
-			var t = UserSettings.SaveAsync(cancellationToken);
 			SetAuditFields();
-			int result = await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
-			await t;
-			return result;
+			return await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
 		}
 
 		public bool EntityHasChanges(object entity)
@@ -106,19 +98,19 @@ namespace MOM
 
 		private void SetAuditFields()
 		{
-			if (AuthenticatedUser is not null)
+			if (_user is not null)
 			{
 				foreach (var entry in ChangeTracker.Entries<AuditableEntity>())
 				{
 					if (entry.State == EntityState.Added)
 					{
 						entry.Entity.CreatedAt = DateTime.UtcNow;
-						entry.Entity.CreatedBy = AuthenticatedUser.Id;
+						entry.Entity.CreatedBy = _user.Id;
 					}
 					else if (entry.State == EntityState.Modified)
 					{
 						entry.Entity.ModifiedAt = DateTime.UtcNow;
-						entry.Entity.ModifiedBy = AuthenticatedUser.Id;
+						entry.Entity.ModifiedBy = _user.Id;
 					}
 					else if (entry.State == EntityState.Deleted)
 					{
@@ -135,10 +127,10 @@ namespace MOM
 			var connectionStringBuilder = new NpgsqlConnectionStringBuilder
 			{
 				Database = "mom",
-				Host = UserSettings.DatabaseHost,
-				Port = UserSettings.DatabasePort ?? 5432,
-				Username = UserSettings.DatabaseUsername,
-				Password = SecurityHelper.Decrypt(UserSettings.DatabasePassword)
+				Host = settings.DatabaseHost,
+				Port = settings.DatabasePort ?? 5432,
+				Username = settings.DatabaseUsername,
+				Password = SecurityHelper.Decrypt(settings.DatabasePassword),
 			};
 			string connectionString = connectionStringBuilder.ToString();
 
@@ -173,15 +165,6 @@ namespace MOM
 							.HasDefaultValue(true);
 					});
 				}
-			}
-		}
-
-		public class AppContextFactory : IDesignTimeDbContextFactory<AppContext>
-		{
-			public AppContext CreateDbContext(string[] args)
-			{
-				var settings = UserSettings.LoadAsync().GetAwaiter().GetResult();
-				return new AppContext(settings);
 			}
 		}
 	}

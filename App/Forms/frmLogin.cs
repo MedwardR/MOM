@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MOM.Helpers;
+using MOM.Services;
 using System.Diagnostics;
 using System.Text.Json;
 
@@ -7,10 +8,10 @@ namespace MOM.Forms;
 
 public sealed partial class frmLogin : Form
 {
-	private AppContext? _app;
+	private AppContextFactory? _factory;
 	private ListBox? _log;
 
-	public AppContext? AppContext { get; private set; }
+	public AppContextFactory? ContextFactory { get; private set; }
 
 	public frmLogin()
 	{
@@ -37,7 +38,7 @@ public sealed partial class frmLogin : Form
 			var settings = await UserSettings.LoadAsync();
 
 			Log("Configuring database connection");
-			_app = new AppContext(settings);
+			_factory = new AppContextFactory(settings);
 
 			Log("Checking for updates");
 			Version? latestVersion = null;
@@ -70,9 +71,10 @@ public sealed partial class frmLogin : Form
 			}
 
 			Log("Updating database");
-			await _app.Database.MigrateAsync();
+			using var context = _factory.CreateAnonymousContext();
+			await context.Database.MigrateAsync();
 
-			await tbUsername.SetSuggestionsWhereActiveAsync(_app.Users, u => u.Username);
+			await tbUsername.SetSuggestionsWhereActiveAsync(context.Users, u => u.Username);
 
 			Controls.Remove(_log);
 			_log.Dispose();
@@ -215,14 +217,15 @@ public sealed partial class frmLogin : Form
 
 	private async Task LoginAsync()
 	{
-		if (_app is not null)
+		if (_factory is not null)
 		{
 			btnLogin.Enabled = false;
 
 			string username = tbUsername.Text.Trim();
 			string password = tbPassword.Text;
 
-			var user = await _app.Users.FirstOrDefaultAsync(u => u.Username == username);
+			using var context = _factory.CreateAnonymousContext();
+			var user = await context.Users.FirstOrDefaultAsync(u => u.Username == username);
 			if (user is not null)
 			{
 				Log($"Attempting to log in as '{user.Username}' ({user.Id})");
@@ -230,12 +233,13 @@ public sealed partial class frmLogin : Form
 				(byte[] salt, byte[] hash) = SecurityHelper.Decode(user.PasswordHash);
 				if (await SecurityHelper.VerifyPasswordAsync(password, hash, salt))
 				{
-					_app.AssignAuthenticatedUser(user);
+					_factory.AssignAuthenticatedUser(user);
+					context.AssignAuthenticatedUser(user);
 
 					user.IsLoggedIn = true;
-					await _app.SaveChangesAsync();
+					await context.SaveChangesAsync();
 
-					AppContext = _app;
+					ContextFactory = _factory;
 					Log($"Logged in as '{user.Username}' ({user.Id})");
 					Close();
 				}

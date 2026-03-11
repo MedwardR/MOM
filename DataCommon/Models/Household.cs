@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DataCommon.Models
 {
-	public class Household : AuditableEntity
+	public class Household : AuditableEntity, ICloneable<Household>
 	{
 		public long Id { get; init; }
 
@@ -11,6 +11,16 @@ namespace DataCommon.Models
 
 		public Address Address { get; init; } = new();
 		public virtual List<Individual> Individuals { get; init; } = [];
+
+		public Household Clone()
+		{
+			return new()
+			{
+				Name = Name,
+				Address = Address.Clone(),
+				Individuals = [.. Individuals.Select(m => m.Clone())],
+			};
+		}
 
 		public Individual GetNewMember() => new()
 		{
