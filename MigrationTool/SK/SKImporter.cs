@@ -19,24 +19,13 @@ internal class SKImporter
 		{
 			long id = long.Parse(other.FAMILY_ID);
 			string name = other.FAM_NAME ?? "NULL";
-			var street = other.ADDR1;
-			var city = other.CITY;
-			var state = other.STATE;
-			var zip = other.ZIP;
-			var country = other.COUNTRY;
+			var address = AddressHelper.GetAddress(other);
 
 			var item = new Household()
 			{
 				Id = id,
 				Name = name,
-				Address = new Address()
-				{
-					Street = street,
-					City = city,
-					State = state,
-					Zip = zip,
-					Country = country,
-				}
+				Address = address,
 			};
 			households.Add(item);
 		}
