@@ -4,9 +4,9 @@
       "commandName": "WSL2",
       "distributionName": ""
     },
-    "192.168.81.151": {
+    "192.168.81.153": {
       "commandName": "Project",
-      "commandLineArgs": "--host 192.168.81.151 --user postgres --pass postgres --sk \"C:\\Users\\miles\\Documents\\SERVANTKEEPERDATA_20250618.S8B\""
+      "commandLineArgs": "--host 192.168.81.153 --user postgres --pass postgres --sk \"C:\\Users\\miles\\Documents\\SERVANTKEEPERDATA_20250618.S8B\""
     }
   }
 }

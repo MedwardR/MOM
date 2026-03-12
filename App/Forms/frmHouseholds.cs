@@ -72,7 +72,7 @@ public partial class frmHouseholds : Form
 				}
 				else query = context.Households.Where(h => h.Active);
 
-				var materialized = await query.ToListAsync(cancellationToken);
+				var materialized = await query.OrderBy(h => h.Name).ToListAsync(cancellationToken);
 				cancellationToken.ThrowIfCancellationRequested();
 
 				var oldIds = _collection.Select(h => h.Id).ToHashSet();
