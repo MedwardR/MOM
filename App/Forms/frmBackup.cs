@@ -1,6 +1,7 @@
 ﻿using MOM.Helpers;
 using Serilog;
 using System.Diagnostics;
+using System.Text;
 
 namespace MOM.Forms;
 
@@ -22,40 +23,48 @@ public partial class frmBackup : Form
 		{
 			Log.Information("Checking if backup is configured...");
 
-			if (Directory.Exists(_settings.BackupDirectory))
+			if (!string.IsNullOrWhiteSpace(_settings.BackupDirectory))
 			{
-				using var process = new Process();
-				process.StartInfo.FileName = "pg_dump";
-				process.StartInfo.Arguments = "--version";
-				process.StartInfo.CreateNoWindow = true;
-				process.StartInfo.UseShellExecute = false;
-				process.StartInfo.RedirectStandardOutput = false;
-				process.StartInfo.RedirectStandardError = false;
-				process.EnableRaisingEvents = false;
-
-				process.Start();
-				process.WaitForExit(5000);
-
-				if (process.HasExited)
+				if (!string.IsNullOrWhiteSpace(_settings.BackupPassword))
 				{
-					return process.ExitCode == 0;
+					using var process = new Process();
+					process.StartInfo.FileName = "pg_dump";
+					process.StartInfo.Arguments = "--version";
+					process.StartInfo.CreateNoWindow = true;
+					process.StartInfo.UseShellExecute = false;
+					process.StartInfo.RedirectStandardOutput = false;
+					process.StartInfo.RedirectStandardError = false;
+					process.EnableRaisingEvents = false;
+
+					process.Start();
+					process.WaitForExit(5000);
+
+					if (process.HasExited)
+					{
+						return process.ExitCode == 0;
+					}
+					else
+					{
+						try
+						{
+							if (!process.HasExited)
+							{
+								process.Kill(true);
+							}
+						}
+						catch { }
+						throw new TimeoutException("Process took too long to complete: pg_dump --version");
+					}
 				}
 				else
 				{
-					try
-					{
-						if (!process.HasExited)
-						{
-							process.Kill(true);
-						}
-					}
-					catch { }
-					throw new TimeoutException("Process took too long to complete: pg_dump --version");
+					Log.Information("No backup password configured");
+					return false;
 				}
 			}
 			else
 			{
-				Log.Information($"Backup directory does not exist: {_settings.BackupDirectory}");
+				Log.Information("No backup directory configured");
 				return false;
 			}
 		}
@@ -69,67 +78,56 @@ public partial class frmBackup : Form
 	private async void frmBackup_Load(object sender, EventArgs e)
 	{
 		string timestamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
-		string path = Path.Combine(_settings.BackupDirectory!, $"{timestamp}.backup");
-
-		Log.Information($"Backing up database to: {path}");
-
-		using var process = new Process();
-		process.StartInfo.FileName = "pg_dump";
-		process.StartInfo.Arguments = string.Join(' ', [
-			"-h", _settings.DatabaseHost,
-			"-U", _settings.DatabaseUsername,
-			"-d", "mom",
-			"-F", "c",
-			"-v",
-			"-f", path,
-		]);
-		process.StartInfo.Environment["PGPASSWORD"] = SecurityHelper.Decrypt(_settings.DatabasePassword);
-		process.StartInfo.CreateNoWindow = true;
-		process.StartInfo.UseShellExecute = false;
-		process.StartInfo.RedirectStandardOutput = true;
-		process.StartInfo.RedirectStandardError = true;
-		process.EnableRaisingEvents = true;
-
-		const int timeout = 60000; // 60 seconds
-
-		var tcs = new TaskCompletionSource();
-		process.Exited += (s, e) => tcs.TrySetResult();
-		process.Start();
-
-		var progressTask = InterpolateProgressBarAsync(progressBar1, timeout, _cts.Token);
-
-		var timeoutTask = Task.Delay(timeout, _cts.Token);
-		using var completedTask = await Task.WhenAny(tcs.Task, timeoutTask);
-
-		if (completedTask != timeoutTask)
+		string destination = Path.Combine(_settings.BackupDirectory!, $"{timestamp}.dump.encrypted");
+		string temp = Path.GetTempFileName();
+		try
 		{
-			if (process.ExitCode == 0)
-			{
-				Close();
-			}
-			else
-			{
-				string stdout = await process.StandardOutput.ReadToEndAsync(_cts.Token);
-				string stderr = await process.StandardError.ReadToEndAsync(_cts.Token);
-				var innerException = new Exception($"stdout: {stdout}{Environment.NewLine}stderr: {stderr}");
-				throw new Exception("The backup process failed", innerException);
-			}
+			const int timeout = 60000;
+			if (!Debugger.IsAttached) _cts.CancelAfter(timeout);
+
+			var timeoutTask = InterpolateProgressBarAsync(progressBar1, timeout, _cts.Token);
+			await BackupHelper.BackupAsync(_settings, temp, _cts.Token);
+
+			string password = SecurityHelper.Decrypt(_settings.BackupPassword);
+			await BackupHelper.EncryptAsync(temp, destination, password);
 		}
-		else
+		catch (Exception ex)
 		{
 			try
 			{
-				if (!process.HasExited)
+				if (File.Exists(destination))
 				{
-					process.Kill(true);
+					File.Delete(destination);
 				}
 			}
-			catch { }
-
-			string stdout = await process.StandardOutput.ReadToEndAsync(_cts.Token);
-			string stderr = await process.StandardError.ReadToEndAsync(_cts.Token);
-			var innerException = new Exception($"stdout: {stdout}{Environment.NewLine}stderr: {stderr}");
-			throw new Exception("The backup process timed out", innerException);
+			catch (Exception inner)
+			{
+				Log.Error(inner, "Error deleting files from unsuccessful backup");
+			}
+			if (ex is not OperationCanceledException)
+			{
+				Log.Error(ex, "Error occurred during backup");
+				var message = new StringBuilder();
+				message.AppendLine("Warning: backup not created due to the following error:");
+				message.AppendLine();
+				message.Append(ex.Message);
+				MessageBox.Show(message.ToString(), "Backup Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+			}
+		}
+		finally
+		{
+			try
+			{
+				if (File.Exists(temp))
+				{
+					File.Delete(temp);
+				}
+			}
+			catch (Exception ex)
+			{
+				Log.Error(ex, "Error deleting backup temp files");
+			}
+			Close();
 		}
 	}
 
@@ -149,7 +147,6 @@ public partial class frmBackup : Form
 				progress.Value = (int)sw.ElapsedMilliseconds;
 				await Task.Delay(100, cancellationToken);
 			}
-
 			progress.Value = duration;
 		}
 		catch

@@ -1,4 +1,5 @@
 ﻿using MOM.Helpers;
+using System.Threading.Tasks;
 
 namespace MOM.Forms;
 
@@ -21,6 +22,20 @@ public partial class frmTools : Form
 	{
 		string encrypted = SecurityHelper.Encrypt(tbPassword.Text);
 		Clipboard.SetText(encrypted);
+	}
+
+	private async btnCreateBackup_Click(object sender, EventArgs e)
+	{
+		btnCreateBackup.Enabled = false;
+		try
+		{
+
+			await BackupHelper.DumpAsync();
+		}
+		finally
+		{
+			btnCreateBackup.Enabled = true;
+		}
 	}
 
 	private async void btnLoadSettings_Click(object sender, EventArgs e)

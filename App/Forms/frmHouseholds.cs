@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using MOM.Services;
 using Serilog;
 using System.ComponentModel;
+using System.Text;
 
 namespace MOM.Forms;
 
@@ -425,7 +426,20 @@ public partial class frmHouseholds : Form
 			bool configured = frm.IsConfigured();
 			if (configured)
 			{
-				frm.ShowDialog(this);
+				string directory = _factory.UserSettings.BackupDirectory ?? string.Empty;
+
+				if (Directory.Exists(directory))
+				{
+					frm.ShowDialog(this);
+				}
+				else
+				{
+					var message = new StringBuilder();
+					message.AppendLine("Warning: backup not created. The configured backup folder does not exist:");
+					message.AppendLine();
+					message.Append(directory);
+					MessageBox.Show(message.ToString(), "Backup Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				}
 			}
 			else Log.Information("Backup not configured");
 		}

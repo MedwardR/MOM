@@ -37,8 +37,16 @@
 			btnLoadSettings = new Button();
 			btnSaveSettings = new Button();
 			pgSettings = new PropertyGrid();
+			groupBox3 = new GroupBox();
+			btnDecryptBackup = new Button();
+			btnCreateBackup = new Button();
+			tbBackupPath = new TextBox();
+			label1 = new Label();
+			label2 = new Label();
+			tbDecryptDestination = new TextBox();
 			groupBox1.SuspendLayout();
 			groupBox2.SuspendLayout();
+			groupBox3.SuspendLayout();
 			SuspendLayout();
 			// 
 			// groupBox1
@@ -126,11 +134,81 @@
 			pgSettings.Size = new Size(408, 305);
 			pgSettings.TabIndex = 0;
 			// 
+			// groupBox3
+			// 
+			groupBox3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+			groupBox3.Controls.Add(tbDecryptDestination);
+			groupBox3.Controls.Add(label2);
+			groupBox3.Controls.Add(label1);
+			groupBox3.Controls.Add(btnDecryptBackup);
+			groupBox3.Controls.Add(btnCreateBackup);
+			groupBox3.Controls.Add(tbBackupPath);
+			groupBox3.Location = new Point(12, 113);
+			groupBox3.Name = "groupBox3";
+			groupBox3.Size = new Size(228, 272);
+			groupBox3.TabIndex = 2;
+			groupBox3.TabStop = false;
+			groupBox3.Text = "Backup tools";
+			// 
+			// btnDecryptBackup
+			// 
+			btnDecryptBackup.Location = new Point(6, 178);
+			btnDecryptBackup.Name = "btnDecryptBackup";
+			btnDecryptBackup.Size = new Size(216, 30);
+			btnDecryptBackup.TabIndex = 1;
+			btnDecryptBackup.Text = "Decrypt backup";
+			btnDecryptBackup.UseVisualStyleBackColor = true;
+			// 
+			// btnCreateBackup
+			// 
+			btnCreateBackup.Location = new Point(6, 24);
+			btnCreateBackup.Name = "btnCreateBackup";
+			btnCreateBackup.Size = new Size(216, 30);
+			btnCreateBackup.TabIndex = 1;
+			btnCreateBackup.Text = "Create backup";
+			btnCreateBackup.UseVisualStyleBackColor = true;
+			btnCreateBackup.Click += btnCreateBackup_Click;
+			// 
+			// tbBackupPath
+			// 
+			tbBackupPath.Location = new Point(6, 92);
+			tbBackupPath.Name = "tbBackupPath";
+			tbBackupPath.PasswordChar = '*';
+			tbBackupPath.Size = new Size(216, 27);
+			tbBackupPath.TabIndex = 0;
+			// 
+			// label1
+			// 
+			label1.AutoSize = true;
+			label1.Location = new Point(6, 69);
+			label1.Name = "label1";
+			label1.Size = new Size(91, 20);
+			label1.TabIndex = 2;
+			label1.Text = "Backup path";
+			// 
+			// label2
+			// 
+			label2.AutoSize = true;
+			label2.Location = new Point(6, 122);
+			label2.Name = "label2";
+			label2.Size = new Size(85, 20);
+			label2.TabIndex = 3;
+			label2.Text = "Destination";
+			// 
+			// tbDecryptDestination
+			// 
+			tbDecryptDestination.Location = new Point(6, 145);
+			tbDecryptDestination.Name = "tbDecryptDestination";
+			tbDecryptDestination.PasswordChar = '*';
+			tbDecryptDestination.Size = new Size(216, 27);
+			tbDecryptDestination.TabIndex = 4;
+			// 
 			// frmTools
 			// 
 			AutoScaleDimensions = new SizeF(8F, 20F);
 			AutoScaleMode = AutoScaleMode.Font;
 			ClientSize = new Size(678, 397);
+			Controls.Add(groupBox3);
 			Controls.Add(groupBox2);
 			Controls.Add(groupBox1);
 			Font = new Font("Segoe UI", 11F);
@@ -141,6 +219,8 @@
 			groupBox1.ResumeLayout(false);
 			groupBox1.PerformLayout();
 			groupBox2.ResumeLayout(false);
+			groupBox3.ResumeLayout(false);
+			groupBox3.PerformLayout();
 			ResumeLayout(false);
 		}
 
@@ -154,5 +234,12 @@
 		private Button btnSaveSettings;
 		private PropertyGrid pgSettings;
 		private Button btnLoadSettings;
+		private GroupBox groupBox3;
+		private Button btnDecryptBackup;
+		private Button btnCreateBackup;
+		private TextBox tbBackupPath;
+		private Label label1;
+		private Label label2;
+		private TextBox tbDecryptDestination;
 	}
 }
