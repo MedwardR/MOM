@@ -417,15 +417,22 @@ public partial class frmHouseholds : Form
 
 	private void frmHouseholds_FormClosed(object sender, FormClosedEventArgs e)
 	{
-		Hide();
-		using var frm = new frmBackup(_factory.UserSettings);
-
-		bool configured = frm.IsConfiguredAsync().GetAwaiter().GetResult();
-		if (configured)
+		try
 		{
-			frm.ShowDialog(this);
+			Hide();
+			using var frm = new frmBackup(_factory.UserSettings);
+
+			bool configured = frm.IsConfigured();
+			if (configured)
+			{
+				frm.ShowDialog(this);
+			}
+			else Log.Information("Backup not configured");
 		}
-		else Log.Information("Backup not configured");
+		catch (Exception ex)
+		{
+			Log.Error(ex, "Error occurred during backup process");
+		}
 	}
 
 	private async void tbSearch_TextChanged(object sender, EventArgs e)
