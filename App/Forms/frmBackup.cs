@@ -77,8 +77,7 @@ public partial class frmBackup : Form
 
 	private async void frmBackup_Load(object sender, EventArgs e)
 	{
-		string timestamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
-		string destination = Path.Combine(_settings.BackupDirectory!, $"{timestamp}.dump.encrypted");
+		string destination = BackupHelper.GetBackupDestination(_settings);
 		string temp = Path.GetTempFileName();
 		try
 		{

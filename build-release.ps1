@@ -6,7 +6,7 @@ $exitCode = 0
 # Adjust 'App' if your application folder has a different name
 $appDirectory = "App" 
 
-Write-Host "Publishing .NET application..." -ForegroundColor Green
+Write-Host "Releasing .NET application..." -ForegroundColor Green
 
 # Save current directory
 $currentDir = Get-Location
@@ -17,11 +17,11 @@ Set-Location $appDirectory
 dotnet build -c Release
 
 if ($LASTEXITCODE -ne 0) {
-    Write-Host "Failed to publish .NET application. Exit code: $LASTEXITCODE" -ForegroundColor Red
+    Write-Host "Failed to release .NET application. Exit code: $LASTEXITCODE" -ForegroundColor Red
     $exitCode = $LASTEXITCODE
 }
 else {
-    Write-Host "Publish completed successfully!" -ForegroundColor Green
+    Write-Host "Release completed successfully!" -ForegroundColor Green
 
     # Change back to the script's original directory before running Inno Setup
     Set-Location $currentDir

@@ -38,12 +38,10 @@
 			btnSaveSettings = new Button();
 			pgSettings = new PropertyGrid();
 			groupBox3 = new GroupBox();
+			label1 = new Label();
 			btnDecryptBackup = new Button();
 			btnCreateBackup = new Button();
 			tbBackupPath = new TextBox();
-			label1 = new Label();
-			label2 = new Label();
-			tbDecryptDestination = new TextBox();
 			groupBox1.SuspendLayout();
 			groupBox2.SuspendLayout();
 			groupBox3.SuspendLayout();
@@ -137,8 +135,6 @@
 			// groupBox3
 			// 
 			groupBox3.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-			groupBox3.Controls.Add(tbDecryptDestination);
-			groupBox3.Controls.Add(label2);
 			groupBox3.Controls.Add(label1);
 			groupBox3.Controls.Add(btnDecryptBackup);
 			groupBox3.Controls.Add(btnCreateBackup);
@@ -150,14 +146,24 @@
 			groupBox3.TabStop = false;
 			groupBox3.Text = "Backup tools";
 			// 
+			// label1
+			// 
+			label1.AutoSize = true;
+			label1.Location = new Point(6, 69);
+			label1.Name = "label1";
+			label1.Size = new Size(91, 20);
+			label1.TabIndex = 2;
+			label1.Text = "Backup path";
+			// 
 			// btnDecryptBackup
 			// 
-			btnDecryptBackup.Location = new Point(6, 178);
+			btnDecryptBackup.Location = new Point(6, 125);
 			btnDecryptBackup.Name = "btnDecryptBackup";
 			btnDecryptBackup.Size = new Size(216, 30);
 			btnDecryptBackup.TabIndex = 1;
 			btnDecryptBackup.Text = "Decrypt backup";
 			btnDecryptBackup.UseVisualStyleBackColor = true;
+			btnDecryptBackup.Click += btnDecryptBackup_Click;
 			// 
 			// btnCreateBackup
 			// 
@@ -173,35 +179,8 @@
 			// 
 			tbBackupPath.Location = new Point(6, 92);
 			tbBackupPath.Name = "tbBackupPath";
-			tbBackupPath.PasswordChar = '*';
 			tbBackupPath.Size = new Size(216, 27);
 			tbBackupPath.TabIndex = 0;
-			// 
-			// label1
-			// 
-			label1.AutoSize = true;
-			label1.Location = new Point(6, 69);
-			label1.Name = "label1";
-			label1.Size = new Size(91, 20);
-			label1.TabIndex = 2;
-			label1.Text = "Backup path";
-			// 
-			// label2
-			// 
-			label2.AutoSize = true;
-			label2.Location = new Point(6, 122);
-			label2.Name = "label2";
-			label2.Size = new Size(85, 20);
-			label2.TabIndex = 3;
-			label2.Text = "Destination";
-			// 
-			// tbDecryptDestination
-			// 
-			tbDecryptDestination.Location = new Point(6, 145);
-			tbDecryptDestination.Name = "tbDecryptDestination";
-			tbDecryptDestination.PasswordChar = '*';
-			tbDecryptDestination.Size = new Size(216, 27);
-			tbDecryptDestination.TabIndex = 4;
 			// 
 			// frmTools
 			// 
@@ -239,7 +218,5 @@
 		private Button btnCreateBackup;
 		private TextBox tbBackupPath;
 		private Label label1;
-		private Label label2;
-		private TextBox tbDecryptDestination;
 	}
 }

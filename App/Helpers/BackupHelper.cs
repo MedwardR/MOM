@@ -6,6 +6,12 @@ namespace MOM.Helpers;
 
 internal class BackupHelper
 {
+	public static string GetBackupDestination(UserSettings settings)
+	{
+		string timestamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
+		return Path.Combine(settings.BackupDirectory!, $"{timestamp}.dump.encrypted");
+	}
+
 	public static async Task BackupAsync(UserSettings settings, string path, CancellationToken cancellationToken)
 	{
 		cancellationToken.ThrowIfCancellationRequested();
@@ -68,11 +74,12 @@ internal class BackupHelper
 		using var input = File.OpenRead(inputPath);
 		using var output = File.Create(outputPath);
 
-		output.Write(salt);
-		output.Write(aes.IV);
+		await output.WriteAsync(salt);
+		await output.WriteAsync(aes.IV);
 
 		using var crypto = new CryptoStream(output, aes.CreateEncryptor(), CryptoStreamMode.Write);
 		await input.CopyToAsync(crypto);
+		await crypto.FlushFinalBlockAsync();
 	}
 
 	public static async Task DecryptAsync(string inputPath, string outputPath, string password)
