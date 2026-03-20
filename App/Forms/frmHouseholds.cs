@@ -192,7 +192,7 @@ public partial class frmHouseholds : Form
 			{
 				AutoSize = btnMemberTemplate.AutoSize,
 				AutoSizeMode = btnMemberTemplate.AutoSizeMode,
-				Text = member.GetDisplayName(),
+				Text = member.GetDisplayName(false),
 				UseVisualStyleBackColor = btnMemberTemplate.UseVisualStyleBackColor,
 			};
 			button.Click += async (_, _) =>
@@ -210,7 +210,7 @@ public partial class frmHouseholds : Form
 					{
 						PopulateMembers(_current.Individuals);
 					}
-					else button.Text = member.GetDisplayName();
+					else button.Text = member.GetDisplayName(false);
 				}
 			};
 			flpMembers.Controls.Add(button);

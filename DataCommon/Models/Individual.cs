@@ -2,6 +2,7 @@
 using DataCommon.Models.Abstractions;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text;
 
 namespace DataCommon.Models
 {
@@ -66,13 +67,21 @@ namespace DataCommon.Models
 			};
 		}
 
-		public string GetDisplayName()
+		public string GetDisplayName(bool includeLastName)
 		{
+			var parts = new List<string>();
+			
 			if (!string.IsNullOrWhiteSpace(PreferredName))
 			{
-				return PreferredName;
+				parts.Add(PreferredName);
 			}
-			else return FirstName;
+			else parts.Add(FirstName);
+
+			if (includeLastName && !string.IsNullOrWhiteSpace(LastName))
+			{
+				parts.Add(LastName);
+			}
+			return string.Join(" ", parts);
 		}
 
 		public bool Equals(Individual? other)
