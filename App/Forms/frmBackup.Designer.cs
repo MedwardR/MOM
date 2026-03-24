@@ -46,9 +46,9 @@
 			label1.Location = new Point(9, 9);
 			label1.Margin = new Padding(0);
 			label1.Name = "label1";
-			label1.Size = new Size(191, 20);
+			label1.Size = new Size(156, 20);
 			label1.TabIndex = 2;
-			label1.Text = "Creating database backup...";
+			label1.Text = "Backing up database...";
 			// 
 			// frmBackup
 			// 

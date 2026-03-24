@@ -35,6 +35,8 @@ public partial class frmHouseholds : Form
 		}
 	}
 
+	public UserSettings? GetSettings() => _factory.UserSettings;
+
 	public void LogOut()
 	{
 		if (_factory.AuthenticatedUser is not null)
@@ -389,66 +391,6 @@ public partial class frmHouseholds : Form
 		}
 	}
 
-	private async void frmHouseholds_FormClosing(object sender, FormClosingEventArgs e)
-	{
-		try
-		{
-			Enabled = false;
-
-			if (HasChanges())
-			{
-				var choice = ConfirmBeforeDiscardingChanges();
-				if (choice == UnsavedChangesDialogResult.SaveAndContinue)
-				{
-					await SaveHouseholdsAsync();
-					e.Cancel = false;
-				}
-				else if (choice == UnsavedChangesDialogResult.DiscardAndContinue)
-				{
-					e.Cancel = false;
-				}
-				else e.Cancel = true;
-			}
-		}
-		finally
-		{
-			Enabled = true;
-		}
-	}
-
-	private void frmHouseholds_FormClosed(object sender, FormClosedEventArgs e)
-	{
-		try
-		{
-			Hide();
-			using var frm = new frmBackup(_factory.UserSettings);
-
-			bool configured = frm.IsConfigured();
-			if (configured)
-			{
-				string directory = _factory.UserSettings.BackupDirectory ?? string.Empty;
-
-				if (Directory.Exists(directory))
-				{
-					frm.ShowDialog(this);
-				}
-				else
-				{
-					var message = new StringBuilder();
-					message.AppendLine("Warning: backup not created. The configured backup folder does not exist:");
-					message.AppendLine();
-					message.Append(directory);
-					MessageBox.Show(message.ToString(), "Backup Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-				}
-			}
-			else Log.Information("Backup not configured");
-		}
-		catch (Exception ex)
-		{
-			Log.Error(ex, "Error occurred during backup process");
-		}
-	}
-
 	private async void tbSearch_TextChanged(object sender, EventArgs e)
 	{
 		_cts?.Cancel();
@@ -594,6 +536,87 @@ public partial class frmHouseholds : Form
 		catch (Exception ex)
 		{
 			Application.OnThreadException(ex);
+		}
+	}
+
+	private void llReports_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+	{
+		var context = _factory.CreateDbContext();
+		var frm = new frmReports(context);
+		frm.Show();
+	}
+
+	private async void frmHouseholds_FormClosing(object sender, FormClosingEventArgs e)
+	{
+		try
+		{
+			Enabled = false;
+
+			if (Application.OpenForms.Count > 1)
+			{
+				string message = "Closing the main window will exit the program, disposing any other open forms. Continue anyway?";
+				var choice = MessageBox.Show(message, "Open Forms Remaining", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+
+				if (choice == DialogResult.OK)
+				{
+					e.Cancel = false;
+				}
+				else e.Cancel = true;
+			}
+			if (!e.Cancel && HasChanges())
+			{
+				var choice = ConfirmBeforeDiscardingChanges();
+				if (choice == UnsavedChangesDialogResult.SaveAndContinue)
+				{
+					await SaveHouseholdsAsync();
+					e.Cancel = false;
+				}
+				else if (choice == UnsavedChangesDialogResult.DiscardAndContinue)
+				{
+					e.Cancel = false;
+				}
+				else e.Cancel = true;
+			}
+		}
+		finally
+		{
+			Enabled = true;
+		}
+	}
+
+	private void frmHouseholds_FormClosed(object sender, FormClosedEventArgs e)
+	{
+		try
+		{
+			foreach (object other in Application.OpenForms)
+			{
+				if (other is Form frm) frm.Hide();
+			}
+			using var backup = new frmBackup(_factory.UserSettings);
+
+			bool configured = backup.IsConfigured();
+			if (configured)
+			{
+				string directory = _factory.UserSettings.BackupDirectory ?? string.Empty;
+
+				if (Directory.Exists(directory))
+				{
+					backup.ShowDialog(this);
+				}
+				else
+				{
+					var message = new StringBuilder();
+					message.AppendLine("Warning: backup not created. The configured backup folder does not exist:");
+					message.AppendLine();
+					message.Append(directory);
+					MessageBox.Show(message.ToString(), "Backup Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				}
+			}
+			else Log.Information("Backup not configured");
+		}
+		catch (Exception ex)
+		{
+			Log.Error(ex, "Error occurred during backup process");
 		}
 	}
 

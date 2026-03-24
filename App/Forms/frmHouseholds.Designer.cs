@@ -66,6 +66,7 @@ namespace MOM.Forms
 			btnAddMember = new Button();
 			flpMembers = new FlowLayoutPanel();
 			btnMemberTemplate = new Button();
+			llReports = new LinkLabel();
 			cbActive = new CheckBox();
 			toolTip1 = new ToolTip(components);
 			((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
@@ -110,7 +111,6 @@ namespace MOM.Forms
 			tableLayoutPanel1.ColumnCount = 2;
 			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
 			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
 			tableLayoutPanel1.Controls.Add(tbSearch, 1, 0);
 			tableLayoutPanel1.Controls.Add(label1, 0, 0);
 			tableLayoutPanel1.Controls.Add(dgvHouseholds, 0, 1);
@@ -121,6 +121,7 @@ namespace MOM.Forms
 			tableLayoutPanel1.RowCount = 2;
 			tableLayoutPanel1.RowStyles.Add(new RowStyle());
 			tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+			tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
 			tableLayoutPanel1.Size = new Size(333, 509);
 			tableLayoutPanel1.TabIndex = 0;
 			// 
@@ -181,11 +182,14 @@ namespace MOM.Forms
 			// 
 			// tableLayoutPanel3
 			// 
-			tableLayoutPanel3.ColumnCount = 1;
+			tableLayoutPanel3.ColumnCount = 3;
+			tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle());
 			tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+			tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle());
 			tableLayoutPanel3.Controls.Add(gbHousehold, 0, 0);
 			tableLayoutPanel3.Controls.Add(gbMembers, 0, 1);
-			tableLayoutPanel3.Controls.Add(cbActive, 0, 2);
+			tableLayoutPanel3.Controls.Add(llReports, 0, 2);
+			tableLayoutPanel3.Controls.Add(cbActive, 2, 2);
 			tableLayoutPanel3.Dock = DockStyle.Fill;
 			tableLayoutPanel3.Location = new Point(0, 3);
 			tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -199,6 +203,7 @@ namespace MOM.Forms
 			// gbHousehold
 			// 
 			gbHousehold.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tableLayoutPanel3.SetColumnSpan(gbHousehold, 3);
 			gbHousehold.Controls.Add(flowLayoutPanel2);
 			gbHousehold.Controls.Add(tableLayoutPanel2);
 			gbHousehold.Font = new Font("Segoe UI", 11F);
@@ -468,6 +473,7 @@ namespace MOM.Forms
 			// 
 			// gbMembers
 			// 
+			tableLayoutPanel3.SetColumnSpan(gbMembers, 3);
 			gbMembers.Controls.Add(flowLayoutPanel1);
 			gbMembers.Controls.Add(flpMembers);
 			gbMembers.Dock = DockStyle.Fill;
@@ -526,9 +532,22 @@ namespace MOM.Forms
 			btnMemberTemplate.UseVisualStyleBackColor = true;
 			btnMemberTemplate.Visible = false;
 			// 
+			// llReports
+			// 
+			llReports.Anchor = AnchorStyles.Left;
+			llReports.AutoSize = true;
+			llReports.Location = new Point(0, 483);
+			llReports.Margin = new Padding(0, 0, 3, 0);
+			llReports.Name = "llReports";
+			llReports.Padding = new Padding(0, 0, 0, 2);
+			llReports.Size = new Size(60, 22);
+			llReports.TabIndex = 12;
+			llReports.TabStop = true;
+			llReports.Text = "Reports";
+			llReports.LinkClicked += llReports_LinkClicked;
+			// 
 			// cbActive
 			// 
-			cbActive.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 			cbActive.AutoSize = true;
 			cbActive.Location = new Point(415, 482);
 			cbActive.Name = "cbActive";
@@ -612,5 +631,6 @@ namespace MOM.Forms
 		private Label label8;
 		private CheckBox cbActive;
 		private ToolTip toolTip1;
+		private LinkLabel llReports;
 	}
 }
