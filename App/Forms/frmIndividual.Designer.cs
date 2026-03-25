@@ -58,9 +58,10 @@ namespace MOM.Forms
 			label4 = new Label();
 			tbCommunicationPreference = new AutoCompleteTextBox();
 			tableLayoutPanel3 = new TableLayoutPanel();
-			flowLayoutPanel1 = new FlowLayoutPanel();
-			cbChild = new CheckBox();
-			cbActive = new CheckBox();
+			groupBox1 = new GroupBox();
+			tableLayoutPanel6 = new TableLayoutPanel();
+			tbMemberStatus = new AutoCompleteTextBox();
+			label20 = new Label();
 			gbLife = new GroupBox();
 			tableLayoutPanel5 = new TableLayoutPanel();
 			tbMarriageDate = new DateTimeTextBox();
@@ -85,6 +86,9 @@ namespace MOM.Forms
 			label10 = new Label();
 			tbBirthDate = new DateTimeTextBox();
 			tbGender = new AutoCompleteTextBox();
+			flowLayoutPanel1 = new FlowLayoutPanel();
+			cbChild = new CheckBox();
+			cbActive = new CheckBox();
 			toolTip1 = new ToolTip(components);
 			gbName.SuspendLayout();
 			tableLayoutPanel1.SuspendLayout();
@@ -92,11 +96,13 @@ namespace MOM.Forms
 			gbContact.SuspendLayout();
 			tableLayoutPanel2.SuspendLayout();
 			tableLayoutPanel3.SuspendLayout();
-			flowLayoutPanel1.SuspendLayout();
+			groupBox1.SuspendLayout();
+			tableLayoutPanel6.SuspendLayout();
 			gbLife.SuspendLayout();
 			tableLayoutPanel5.SuspendLayout();
 			gbPersonal.SuspendLayout();
 			tableLayoutPanel4.SuspendLayout();
+			flowLayoutPanel1.SuspendLayout();
 			SuspendLayout();
 			// 
 			// gbName
@@ -149,6 +155,7 @@ namespace MOM.Forms
 			llPreferFirstName.Name = "llPreferFirstName";
 			llPreferFirstName.Size = new Size(59, 20);
 			llPreferFirstName.TabIndex = 15;
+			llPreferFirstName.TabStop = true;
 			llPreferFirstName.Text = "(prefer)";
 			llPreferFirstName.LinkClicked += llPreferFirstName_LinkClicked;
 			// 
@@ -234,6 +241,7 @@ namespace MOM.Forms
 			llPreferMiddleName.Name = "llPreferMiddleName";
 			llPreferMiddleName.Size = new Size(59, 20);
 			llPreferMiddleName.TabIndex = 25;
+			llPreferMiddleName.TabStop = true;
 			llPreferMiddleName.Text = "(prefer)";
 			llPreferMiddleName.LinkClicked += llPreferMiddleName_LinkClicked;
 			// 
@@ -287,10 +295,9 @@ namespace MOM.Forms
 			// 
 			// tableLayoutPanel2
 			// 
-			tableLayoutPanel2.ColumnCount = 3;
-			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33333F));
-			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333359F));
-			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333359F));
+			tableLayoutPanel2.ColumnCount = 2;
+			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30F));
+			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 70F));
 			tableLayoutPanel2.Controls.Add(label17, 0, 2);
 			tableLayoutPanel2.Controls.Add(tbHomePhone, 0, 3);
 			tableLayoutPanel2.Controls.Add(label6, 1, 0);
@@ -326,15 +333,14 @@ namespace MOM.Forms
 			tbHomePhone.Location = new Point(3, 76);
 			tbHomePhone.Mask = "(999) 000-0000";
 			tbHomePhone.Name = "tbHomePhone";
-			tbHomePhone.Size = new Size(142, 27);
+			tbHomePhone.Size = new Size(127, 27);
 			tbHomePhone.TabIndex = 30;
 			tbHomePhone.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
 			// 
 			// label6
 			// 
 			label6.AutoSize = true;
-			tableLayoutPanel2.SetColumnSpan(label6, 2);
-			label6.Location = new Point(151, 0);
+			label6.Location = new Point(136, 0);
 			label6.Name = "label6";
 			label6.Size = new Size(46, 20);
 			label6.TabIndex = 3;
@@ -352,10 +358,9 @@ namespace MOM.Forms
 			// tbEmail
 			// 
 			tbEmail.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			tableLayoutPanel2.SetColumnSpan(tbEmail, 2);
-			tbEmail.Location = new Point(151, 23);
+			tbEmail.Location = new Point(136, 23);
 			tbEmail.Name = "tbEmail";
-			tbEmail.Size = new Size(291, 27);
+			tbEmail.Size = new Size(306, 27);
 			tbEmail.TabIndex = 20;
 			// 
 			// tbMobilePhone
@@ -364,15 +369,14 @@ namespace MOM.Forms
 			tbMobilePhone.Location = new Point(3, 23);
 			tbMobilePhone.Mask = "(999) 000-0000";
 			tbMobilePhone.Name = "tbMobilePhone";
-			tbMobilePhone.Size = new Size(142, 27);
+			tbMobilePhone.Size = new Size(127, 27);
 			tbMobilePhone.TabIndex = 10;
 			tbMobilePhone.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
 			// 
 			// label4
 			// 
 			label4.AutoSize = true;
-			tableLayoutPanel2.SetColumnSpan(label4, 2);
-			label4.Location = new Point(151, 53);
+			label4.Location = new Point(136, 53);
 			label4.Name = "label4";
 			label4.Size = new Size(189, 20);
 			label4.TabIndex = 72;
@@ -382,10 +386,9 @@ namespace MOM.Forms
 			// 
 			tbCommunicationPreference.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 			tbCommunicationPreference.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-			tableLayoutPanel2.SetColumnSpan(tbCommunicationPreference, 2);
-			tbCommunicationPreference.Location = new Point(151, 76);
+			tbCommunicationPreference.Location = new Point(136, 76);
 			tbCommunicationPreference.Name = "tbCommunicationPreference";
-			tbCommunicationPreference.Size = new Size(291, 27);
+			tbCommunicationPreference.Size = new Size(306, 27);
 			tbCommunicationPreference.TabIndex = 40;
 			// 
 			// tableLayoutPanel3
@@ -393,15 +396,17 @@ namespace MOM.Forms
 			tableLayoutPanel3.ColumnCount = 2;
 			tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
 			tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-			tableLayoutPanel3.Controls.Add(flowLayoutPanel1, 1, 2);
+			tableLayoutPanel3.Controls.Add(groupBox1, 1, 2);
 			tableLayoutPanel3.Controls.Add(gbName, 0, 0);
 			tableLayoutPanel3.Controls.Add(gbLife, 0, 2);
 			tableLayoutPanel3.Controls.Add(gbPersonal, 1, 1);
 			tableLayoutPanel3.Controls.Add(gbContact, 0, 1);
+			tableLayoutPanel3.Controls.Add(flowLayoutPanel1, 1, 3);
 			tableLayoutPanel3.Dock = DockStyle.Fill;
 			tableLayoutPanel3.Location = new Point(0, 0);
 			tableLayoutPanel3.Name = "tableLayoutPanel3";
-			tableLayoutPanel3.RowCount = 4;
+			tableLayoutPanel3.RowCount = 5;
+			tableLayoutPanel3.RowStyles.Add(new RowStyle());
 			tableLayoutPanel3.RowStyles.Add(new RowStyle());
 			tableLayoutPanel3.RowStyles.Add(new RowStyle());
 			tableLayoutPanel3.RowStyles.Add(new RowStyle());
@@ -409,38 +414,53 @@ namespace MOM.Forms
 			tableLayoutPanel3.Size = new Size(914, 471);
 			tableLayoutPanel3.TabIndex = 2;
 			// 
-			// flowLayoutPanel1
+			// groupBox1
 			// 
-			flowLayoutPanel1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-			flowLayoutPanel1.AutoSize = true;
-			flowLayoutPanel1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-			flowLayoutPanel1.Controls.Add(cbChild);
-			flowLayoutPanel1.Controls.Add(cbActive);
-			flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
-			flowLayoutPanel1.Location = new Point(836, 407);
-			flowLayoutPanel1.Name = "flowLayoutPanel1";
-			flowLayoutPanel1.Size = new Size(75, 60);
-			flowLayoutPanel1.TabIndex = 50;
+			groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			groupBox1.Controls.Add(tableLayoutPanel6);
+			groupBox1.Location = new Point(460, 281);
+			groupBox1.Name = "groupBox1";
+			groupBox1.Size = new Size(451, 80);
+			groupBox1.TabIndex = 51;
+			groupBox1.TabStop = false;
+			groupBox1.Text = "Membership";
 			// 
-			// cbChild
+			// tableLayoutPanel6
 			// 
-			cbChild.AutoSize = true;
-			cbChild.Location = new Point(3, 3);
-			cbChild.Name = "cbChild";
-			cbChild.Size = new Size(62, 24);
-			cbChild.TabIndex = 10;
-			cbChild.Text = "Child";
-			cbChild.UseVisualStyleBackColor = true;
+			tableLayoutPanel6.ColumnCount = 1;
+			tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+			tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+			tableLayoutPanel6.Controls.Add(tbMemberStatus, 0, 1);
+			tableLayoutPanel6.Controls.Add(label20, 0, 0);
+			tableLayoutPanel6.Dock = DockStyle.Fill;
+			tableLayoutPanel6.Location = new Point(3, 23);
+			tableLayoutPanel6.Name = "tableLayoutPanel6";
+			tableLayoutPanel6.RowCount = 3;
+			tableLayoutPanel6.RowStyles.Add(new RowStyle());
+			tableLayoutPanel6.RowStyles.Add(new RowStyle());
+			tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+			tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+			tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+			tableLayoutPanel6.Size = new Size(445, 54);
+			tableLayoutPanel6.TabIndex = 0;
 			// 
-			// cbActive
+			// tbMemberStatus
 			// 
-			cbActive.AutoSize = true;
-			cbActive.Location = new Point(3, 33);
-			cbActive.Name = "cbActive";
-			cbActive.Size = new Size(69, 24);
-			cbActive.TabIndex = 20;
-			cbActive.Text = "Active";
-			cbActive.UseVisualStyleBackColor = true;
+			tbMemberStatus.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tbMemberStatus.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+			tbMemberStatus.Location = new Point(3, 23);
+			tbMemberStatus.Name = "tbMemberStatus";
+			tbMemberStatus.Size = new Size(439, 27);
+			tbMemberStatus.TabIndex = 10;
+			// 
+			// label20
+			// 
+			label20.AutoSize = true;
+			label20.Location = new Point(3, 0);
+			label20.Name = "label20";
+			label20.Size = new Size(107, 20);
+			label20.TabIndex = 2;
+			label20.Text = "Member status";
 			// 
 			// gbLife
 			// 
@@ -448,6 +468,7 @@ namespace MOM.Forms
 			gbLife.Controls.Add(tableLayoutPanel5);
 			gbLife.Location = new Point(3, 281);
 			gbLife.Name = "gbLife";
+			tableLayoutPanel3.SetRowSpan(gbLife, 2);
 			gbLife.Size = new Size(451, 186);
 			gbLife.TabIndex = 40;
 			gbLife.TabStop = false;
@@ -456,8 +477,8 @@ namespace MOM.Forms
 			// tableLayoutPanel5
 			// 
 			tableLayoutPanel5.ColumnCount = 2;
-			tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 49.99999F));
-			tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50.0000076F));
+			tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 70F));
+			tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30F));
 			tableLayoutPanel5.Controls.Add(tbMarriageDate, 1, 5);
 			tableLayoutPanel5.Controls.Add(tbMaritalStatus, 0, 5);
 			tableLayoutPanel5.Controls.Add(label16, 1, 4);
@@ -487,10 +508,10 @@ namespace MOM.Forms
 			// tbMarriageDate
 			// 
 			tbMarriageDate.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			tbMarriageDate.Location = new Point(225, 129);
+			tbMarriageDate.Location = new Point(314, 129);
 			tbMarriageDate.Mask = "90/90/9900";
 			tbMarriageDate.Name = "tbMarriageDate";
-			tbMarriageDate.Size = new Size(217, 27);
+			tbMarriageDate.Size = new Size(128, 27);
 			tbMarriageDate.TabIndex = 60;
 			tbMarriageDate.ValidatingType = typeof(DateTime);
 			tbMarriageDate.Value = null;
@@ -501,13 +522,13 @@ namespace MOM.Forms
 			tbMaritalStatus.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
 			tbMaritalStatus.Location = new Point(3, 129);
 			tbMaritalStatus.Name = "tbMaritalStatus";
-			tbMaritalStatus.Size = new Size(216, 27);
+			tbMaritalStatus.Size = new Size(305, 27);
 			tbMaritalStatus.TabIndex = 50;
 			// 
 			// label16
 			// 
 			label16.AutoSize = true;
-			label16.Location = new Point(225, 106);
+			label16.Location = new Point(314, 106);
 			label16.Name = "label16";
 			label16.Size = new Size(103, 20);
 			label16.TabIndex = 78;
@@ -528,13 +549,13 @@ namespace MOM.Forms
 			tbJoinedMethod.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
 			tbJoinedMethod.Location = new Point(3, 23);
 			tbJoinedMethod.Name = "tbJoinedMethod";
-			tbJoinedMethod.Size = new Size(216, 27);
+			tbJoinedMethod.Size = new Size(305, 27);
 			tbJoinedMethod.TabIndex = 10;
 			// 
 			// label11
 			// 
 			label11.AutoSize = true;
-			label11.Location = new Point(225, 0);
+			label11.Location = new Point(314, 0);
 			label11.Name = "label11";
 			label11.Size = new Size(86, 20);
 			label11.TabIndex = 3;
@@ -552,10 +573,10 @@ namespace MOM.Forms
 			// tbJoinedDate
 			// 
 			tbJoinedDate.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			tbJoinedDate.Location = new Point(225, 23);
+			tbJoinedDate.Location = new Point(314, 23);
 			tbJoinedDate.Mask = "90/90/9900";
 			tbJoinedDate.Name = "tbJoinedDate";
-			tbJoinedDate.Size = new Size(217, 27);
+			tbJoinedDate.Size = new Size(128, 27);
 			tbJoinedDate.TabIndex = 20;
 			tbJoinedDate.ValidatingType = typeof(DateTime);
 			tbJoinedDate.Value = null;
@@ -563,7 +584,7 @@ namespace MOM.Forms
 			// label13
 			// 
 			label13.AutoSize = true;
-			label13.Location = new Point(225, 53);
+			label13.Location = new Point(314, 53);
 			label13.Name = "label13";
 			label13.Size = new Size(97, 20);
 			label13.TabIndex = 72;
@@ -584,16 +605,16 @@ namespace MOM.Forms
 			tbBaptismLocation.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
 			tbBaptismLocation.Location = new Point(3, 76);
 			tbBaptismLocation.Name = "tbBaptismLocation";
-			tbBaptismLocation.Size = new Size(216, 27);
+			tbBaptismLocation.Size = new Size(305, 27);
 			tbBaptismLocation.TabIndex = 30;
 			// 
 			// tbBaptismDate
 			// 
 			tbBaptismDate.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			tbBaptismDate.Location = new Point(225, 76);
+			tbBaptismDate.Location = new Point(314, 76);
 			tbBaptismDate.Mask = "90/90/9900";
 			tbBaptismDate.Name = "tbBaptismDate";
-			tbBaptismDate.Size = new Size(217, 27);
+			tbBaptismDate.Size = new Size(128, 27);
 			tbBaptismDate.TabIndex = 40;
 			tbBaptismDate.ValidatingType = typeof(DateTime);
 			tbBaptismDate.Value = null;
@@ -709,6 +730,39 @@ namespace MOM.Forms
 			tbGender.Size = new Size(217, 27);
 			tbGender.TabIndex = 40;
 			// 
+			// flowLayoutPanel1
+			// 
+			flowLayoutPanel1.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+			flowLayoutPanel1.AutoSize = true;
+			flowLayoutPanel1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+			flowLayoutPanel1.Controls.Add(cbChild);
+			flowLayoutPanel1.Controls.Add(cbActive);
+			flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
+			flowLayoutPanel1.Location = new Point(836, 407);
+			flowLayoutPanel1.Name = "flowLayoutPanel1";
+			flowLayoutPanel1.Size = new Size(75, 60);
+			flowLayoutPanel1.TabIndex = 50;
+			// 
+			// cbChild
+			// 
+			cbChild.AutoSize = true;
+			cbChild.Location = new Point(3, 3);
+			cbChild.Name = "cbChild";
+			cbChild.Size = new Size(62, 24);
+			cbChild.TabIndex = 10;
+			cbChild.Text = "Child";
+			cbChild.UseVisualStyleBackColor = true;
+			// 
+			// cbActive
+			// 
+			cbActive.AutoSize = true;
+			cbActive.Location = new Point(3, 33);
+			cbActive.Name = "cbActive";
+			cbActive.Size = new Size(69, 24);
+			cbActive.TabIndex = 20;
+			cbActive.Text = "Active";
+			cbActive.UseVisualStyleBackColor = true;
+			// 
 			// frmIndividual
 			// 
 			AutoScaleDimensions = new SizeF(8F, 20F);
@@ -721,6 +775,7 @@ namespace MOM.Forms
 			Icon = (Icon)resources.GetObject("$this.Icon");
 			Margin = new Padding(3, 4, 3, 4);
 			Name = "frmIndividual";
+			StartPosition = FormStartPosition.CenterScreen;
 			Text = "MOM - Individual";
 			Shown += frmIndividual_Shown;
 			gbName.ResumeLayout(false);
@@ -732,14 +787,17 @@ namespace MOM.Forms
 			tableLayoutPanel2.PerformLayout();
 			tableLayoutPanel3.ResumeLayout(false);
 			tableLayoutPanel3.PerformLayout();
-			flowLayoutPanel1.ResumeLayout(false);
-			flowLayoutPanel1.PerformLayout();
+			groupBox1.ResumeLayout(false);
+			tableLayoutPanel6.ResumeLayout(false);
+			tableLayoutPanel6.PerformLayout();
 			gbLife.ResumeLayout(false);
 			tableLayoutPanel5.ResumeLayout(false);
 			tableLayoutPanel5.PerformLayout();
 			gbPersonal.ResumeLayout(false);
 			tableLayoutPanel4.ResumeLayout(false);
 			tableLayoutPanel4.PerformLayout();
+			flowLayoutPanel1.ResumeLayout(false);
+			flowLayoutPanel1.PerformLayout();
 			ResumeLayout(false);
 			PerformLayout();
 		}
@@ -800,5 +858,9 @@ namespace MOM.Forms
 		private ToolTip toolTip1;
 		private FlowLayoutPanel flowLayoutPanel1;
 		private CheckBox cbChild;
+		private GroupBox groupBox1;
+		private TableLayoutPanel tableLayoutPanel6;
+		private AutoCompleteTextBox tbMemberStatus;
+		private Label label20;
 	}
 }

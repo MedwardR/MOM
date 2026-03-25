@@ -96,6 +96,7 @@
 			Icon = (Icon)resources.GetObject("$this.Icon");
 			MinimumSize = new Size(390, 176);
 			Name = "frmError";
+			StartPosition = FormStartPosition.CenterScreen;
 			Text = "Error";
 			Shown += frmError_Shown;
 			ResumeLayout(false);

@@ -48,7 +48,7 @@ internal abstract class Report
 		}
 		if (builder.Length > 0)
 		{
-			string value = builder.ToString();
+			string value = builder.ToString().ToLowerInvariant();
 			tokens.Add(value);
 		}
 		string path = GetDocumentPath(directory, tokens);
@@ -94,7 +94,7 @@ internal abstract class Report
 		builder.AppendLine(Indent + "</style>");
 
 		builder.AppendLine("</head>");
-		builder.AppendLine("<body onload=\"window.print()\">");
+		builder.AppendLine("<body>");
 
 		builder.AppendLine(Indent + "<div class=\"header\">");
 		builder.AppendLine(Indent + Indent + organization);
@@ -121,8 +121,12 @@ internal abstract class Report
 		:root {
 			font-family: Calibri, sans-serif;
 		}
-		html, body {
+		html {
 			margin: 0;
+			padding: 0;
+		}
+		body {
+			margin: 1rem;
 			padding: 0;
 		}
 		.header {
@@ -133,6 +137,11 @@ internal abstract class Report
 			height: 1px;
 			margin: 1rem 0 1rem 0;
 			background-color: #000;
+		}
+		@media print {
+			body {
+				margin: 0;
+			}
 		}
 	";
 

@@ -131,6 +131,7 @@ public partial class frmHouseholds : Form
 			_current.Address.State = tbState.Text;
 			_current.Address.Zip = tbZIP.Text;
 			_current.Address.Country = tbCountry.Text;
+			_current.IncludeInDirectory = cbIncludeInDirectory.Checked;
 			_current.Active = cbActive.Checked;
 
 			using var context = _factory.CreateDbContext();
@@ -167,6 +168,7 @@ public partial class frmHouseholds : Form
 		tbState.Text = household.Address.State;
 		tbZIP.Text = household.Address.Zip;
 		tbCountry.Text = household.Address.Country;
+		cbIncludeInDirectory.Checked = household.IncludeInDirectory;
 		cbActive.Checked = household.Active;
 
 		using var context = _factory.CreateDbContext();
@@ -308,9 +310,10 @@ public partial class frmHouseholds : Form
 					string? b = f.Item2?.Trim() ?? string.Empty;
 					return !string.Equals(a, b, StringComparison.OrdinalIgnoreCase);
 				});
+				bool includeInDirectoryChanged = _current.IncludeInDirectory != cbIncludeInDirectory.Checked;
 				bool activeChanged = _current.Active != cbActive.Checked;
 
-				if (fieldsChanged || activeChanged)
+				if (fieldsChanged || includeInDirectoryChanged || activeChanged)
 				{
 					return true;
 				}

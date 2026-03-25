@@ -68,6 +68,7 @@ namespace MOM.Forms
 			btnMemberTemplate = new Button();
 			llReports = new LinkLabel();
 			cbActive = new CheckBox();
+			cbIncludeInDirectory = new CheckBox();
 			toolTip1 = new ToolTip(components);
 			((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
 			splitContainer1.Panel1.SuspendLayout();
@@ -182,14 +183,16 @@ namespace MOM.Forms
 			// 
 			// tableLayoutPanel3
 			// 
-			tableLayoutPanel3.ColumnCount = 3;
+			tableLayoutPanel3.ColumnCount = 4;
 			tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle());
 			tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+			tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle());
 			tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle());
 			tableLayoutPanel3.Controls.Add(gbHousehold, 0, 0);
 			tableLayoutPanel3.Controls.Add(gbMembers, 0, 1);
 			tableLayoutPanel3.Controls.Add(llReports, 0, 2);
-			tableLayoutPanel3.Controls.Add(cbActive, 2, 2);
+			tableLayoutPanel3.Controls.Add(cbActive, 3, 2);
+			tableLayoutPanel3.Controls.Add(cbIncludeInDirectory, 2, 2);
 			tableLayoutPanel3.Dock = DockStyle.Fill;
 			tableLayoutPanel3.Location = new Point(0, 3);
 			tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -203,7 +206,7 @@ namespace MOM.Forms
 			// gbHousehold
 			// 
 			gbHousehold.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			tableLayoutPanel3.SetColumnSpan(gbHousehold, 3);
+			tableLayoutPanel3.SetColumnSpan(gbHousehold, 4);
 			gbHousehold.Controls.Add(flowLayoutPanel2);
 			gbHousehold.Controls.Add(tableLayoutPanel2);
 			gbHousehold.Font = new Font("Segoe UI", 11F);
@@ -473,7 +476,7 @@ namespace MOM.Forms
 			// 
 			// gbMembers
 			// 
-			tableLayoutPanel3.SetColumnSpan(gbMembers, 3);
+			tableLayoutPanel3.SetColumnSpan(gbMembers, 4);
 			gbMembers.Controls.Add(flowLayoutPanel1);
 			gbMembers.Controls.Add(flpMembers);
 			gbMembers.Dock = DockStyle.Fill;
@@ -556,6 +559,16 @@ namespace MOM.Forms
 			cbActive.Text = "Active";
 			cbActive.UseVisualStyleBackColor = true;
 			// 
+			// cbIncludeInDirectory
+			// 
+			cbIncludeInDirectory.AutoSize = true;
+			cbIncludeInDirectory.Location = new Point(254, 482);
+			cbIncludeInDirectory.Name = "cbIncludeInDirectory";
+			cbIncludeInDirectory.Size = new Size(155, 24);
+			cbIncludeInDirectory.TabIndex = 31;
+			cbIncludeInDirectory.Text = "Include in directory";
+			cbIncludeInDirectory.UseVisualStyleBackColor = true;
+			// 
 			// frmHouseholds
 			// 
 			AutoScaleDimensions = new SizeF(8F, 20F);
@@ -567,6 +580,7 @@ namespace MOM.Forms
 			Icon = (Icon)resources.GetObject("$this.Icon");
 			Margin = new Padding(4);
 			Name = "frmHouseholds";
+			StartPosition = FormStartPosition.CenterScreen;
 			Text = "Membership Office Manager";
 			FormClosing += frmHouseholds_FormClosing;
 			FormClosed += frmHouseholds_FormClosed;
@@ -632,5 +646,6 @@ namespace MOM.Forms
 		private CheckBox cbActive;
 		private ToolTip toolTip1;
 		private LinkLabel llReports;
+		private CheckBox cbIncludeInDirectory;
 	}
 }

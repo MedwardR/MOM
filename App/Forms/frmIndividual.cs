@@ -25,6 +25,7 @@ public partial class frmIndividual : Form
 			await tbJoinedMethod.SetSuggestionsWhereActiveAsync(source, i => i.JoinedMethod);
 			await tbBaptismLocation.SetSuggestionsWhereActiveAsync(source, i => i.BaptizedLocation);
 			await tbMaritalStatus.SetSuggestionsWhereActiveAsync(source, i => i.MaritalStatus);
+			await tbMemberStatus.SetSuggestionsWhereActiveAsync(source, i => i.MemberStatus);
 		}
 		catch (Exception ex)
 		{
@@ -71,6 +72,8 @@ public partial class frmIndividual : Form
 		tbMaritalStatus.Text = _individual.MaritalStatus;
 		tbMarriageDate.Value = _individual.MarriedDate;
 
+		tbMemberStatus.Text = _individual.MemberStatus;
+
 		cbChild.Checked = _individual.Child;
 		cbActive.Checked = _individual.Active;
 
@@ -101,6 +104,8 @@ public partial class frmIndividual : Form
 		_individual.BaptizedDate = tbBaptismDate.Value;
 		_individual.MaritalStatus = tbMaritalStatus.Text;
 		_individual.MarriedDate = tbMarriageDate.Value;
+
+		_individual.MemberStatus = tbMemberStatus.Text;
 
 		_individual.Child = cbChild.Checked;
 		_individual.Active = cbActive.Checked;

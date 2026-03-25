@@ -9,6 +9,8 @@ namespace DataCommon.Models
 
 		[Required] public required string Name { get; set; }
 
+		public bool IncludeInDirectory { get; set; }
+
 		public Address Address { get; init; } = new();
 		public virtual List<Individual> Individuals { get; init; } = [];
 
@@ -22,21 +24,34 @@ namespace DataCommon.Models
 			};
 		}
 
+		public DateTime? GetMarriedDateOrDefault()
+		{
+			var couple = Individuals
+				.Where(member => member.MarriedDate.HasValue)
+				.GroupBy(member => member.MarriedDate!.Value.Date)
+				.FirstOrDefault();
+			if (couple is not null && couple.Count() == 2)
+			{
+				return couple.Key;
+			}
+			else return null;
+		}
+
 		public Individual GetNewMember() => new()
 		{
 			FirstName = "(New Individual)",
-			LastName = GetDefaultLastName(),
+			LastName = GetDefaultLastName() ?? string.Empty,
 			Household = this,
 		};
 
-		private string GetDefaultLastName()
+		private string? GetDefaultLastName()
 		{
 			var mostCommon = Individuals
 				.Where(m => !string.IsNullOrWhiteSpace(m.LastName))
 				.GroupBy(m => m.LastName.Trim(), StringComparer.OrdinalIgnoreCase)
 				.OrderByDescending(g => g.Count())
-				.FirstOrDefault()?.Key;
-			return mostCommon ?? Name.Split(' ').LastOrDefault() ?? string.Empty;
+				.FirstOrDefault();
+			return mostCommon is not null ? mostCommon.Key : Name.Split(' ').LastOrDefault();
 		}
 	}
 }

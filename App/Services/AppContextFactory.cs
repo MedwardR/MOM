@@ -1,13 +1,24 @@
 ﻿using DataCommon.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using System.Security.Authentication;
 
 namespace MOM.Services;
 
-public class AppContextFactory(UserSettings settings) : IDbContextFactory<AppContext>
+public class AppContextFactory : IDbContextFactory<AppContext>, IDesignTimeDbContextFactory<AppContext>
 {
 	public User? AuthenticatedUser { get; private set; }
-	public UserSettings UserSettings { get; private set; } = settings;
+	public UserSettings UserSettings { get; private set; }
+
+	public AppContextFactory()
+	{
+		UserSettings = UserSettings.Load();
+	}
+
+	public AppContextFactory(UserSettings settings)
+	{
+		UserSettings = settings;
+	}
 
 	public AppContext CreateAnonymousContext() => new(UserSettings);
 
@@ -21,6 +32,8 @@ public class AppContextFactory(UserSettings settings) : IDbContextFactory<AppCon
 		}
 		else throw new AuthenticationException("No authorized user has been provided");
 	}
+
+	public AppContext CreateDbContext(string[] args) => CreateAnonymousContext();
 
 	public void AssignAuthenticatedUser(User user)
 	{

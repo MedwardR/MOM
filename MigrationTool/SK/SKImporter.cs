@@ -2,7 +2,6 @@
 using MigrationTool.MOM;
 using MigrationTool.SK.Models;
 using System.Globalization;
-using Individual = DataCommon.Models.Individual;
 
 namespace MigrationTool.SK;
 
@@ -11,9 +10,9 @@ internal class SKImporter
 	public static void Import(MOMContext mom, SKContext sk)
 	{
 		var households = new List<Household>();
-		var individuals = new List<Individual>();
-
+		var individuals = new List<DataCommon.Models.Individual>();
 		var references = sk.References.ToList();
+		var map = new Dictionary<long, List<Models.Individual>>();
 
 		foreach (var other in sk.Families.ToList())
 		{
@@ -28,6 +27,7 @@ internal class SKImporter
 				Address = address,
 			};
 			households.Add(item);
+			map.Add(id, []);
 		}
 		foreach (var other in sk.Individuals.ToList())
 		{
@@ -55,9 +55,10 @@ internal class SKImporter
 			var baptizedLocation = GetValueFromReferenceId(references, other.UDF9);
 			var marriedDate = ParseTimestamp(other.WEDDING_DT);
 			var maritalStatus = GetValueFromReferenceId(references, other.MARITAL_CD);
+			var memberStatus = GetValueFromReferenceId(references, other.MEM_STATUS);
 			bool child = IsChild(other);
 
-			var item = new Individual()
+			var item = new DataCommon.Models.Individual()
 			{
 				Household = household,
 				FirstName = firstName,
@@ -78,11 +79,19 @@ internal class SKImporter
 				BaptizedLocation = baptizedLocation,
 				MarriedDate = marriedDate,
 				MaritalStatus = maritalStatus,
+				MemberStatus = memberStatus,
 				Child = child,
 			};
 			individuals.Add(item);
+			map[household.Id].Add(other);
 		}
-
+		foreach (var h in households)
+		{
+			h.IncludeInDirectory = map[h.Id].Any(m =>
+			{
+				return int.TryParse(m.INCLD_DIR, out int value) && value == 0;
+			});
+		}
 		mom.Households.AddRange(households);
 		mom.Individuals.AddRange(individuals);
 
@@ -91,7 +100,7 @@ internal class SKImporter
 
 	private static Household GetHouseholdFromId(IEnumerable<Household> households, string id)
 	{
-		var parsed = long.Parse(id);
+		long parsed = long.Parse(id);
 		return households.Single(h => h.Id == parsed);
 	}
 

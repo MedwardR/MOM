@@ -1,58 +1,69 @@
 ﻿using System.ComponentModel;
 using System.Text.Json;
+using System.Threading;
 
-namespace MOM
+namespace MOM;
+
+public class UserSettings
 {
-	public class UserSettings
+	public string? DatabaseHost { get; set; }
+
+	public int? DatabasePort { get; set; }
+
+	public string? DatabaseUsername { get; set; }
+
+	[PasswordPropertyText(true)]
+	public string? DatabasePassword { get; set; }
+
+	public string? BackupDirectory { get; set; }
+
+	[PasswordPropertyText(true)]
+	public string? BackupPassword { get; set; }
+
+	private static readonly JsonSerializerOptions _serializerOptions = new()
 	{
-		public string? DatabaseHost { get; set; }
+		WriteIndented = true,
+	};
 
-		public int? DatabasePort { get; set; }
-
-		public string? DatabaseUsername { get; set; }
-
-		[PasswordPropertyText(true)]
-		public string? DatabasePassword { get; set; }
-
-		public string? BackupDirectory { get; set; }
-
-		[PasswordPropertyText(true)]
-		public string? BackupPassword { get; set; }
-
-		private static readonly JsonSerializerOptions _serializerOptions = new()
+	public static UserSettings Load()
+	{
+		string path = GetFilePath();
+		if (File.Exists(path))
 		{
-			WriteIndented = true,
-		};
-
-		public static async Task<UserSettings> LoadAsync(CancellationToken cancellationToken = default)
-		{
-			cancellationToken.ThrowIfCancellationRequested();
-
-			string path = GetFilePath();
-			if (File.Exists(path))
-			{
-				string json = await File.ReadAllTextAsync(path, cancellationToken);
-				return JsonSerializer.Deserialize<UserSettings>(json) ?? new();
-			}
-			else return new();
+			string json = File.ReadAllText(path);
+			return JsonSerializer.Deserialize<UserSettings>(json) ?? new();
 		}
+		else return new();
+	}
 
-		public async Task SaveAsync(CancellationToken cancellationToken = default)
+	public static async Task<UserSettings> LoadAsync(CancellationToken cancellationToken = default)
+	{
+		cancellationToken.ThrowIfCancellationRequested();
+
+		string path = GetFilePath();
+		if (File.Exists(path))
 		{
-			cancellationToken.ThrowIfCancellationRequested();
-
-			string json = JsonSerializer.Serialize(this, _serializerOptions);
-			string path = GetFilePath();
-			if (Path.GetDirectoryName(path) is string directory)
-			{
-				Directory.CreateDirectory(directory);
-			}
-			await File.WriteAllTextAsync(path, json, cancellationToken);
+			string json = await File.ReadAllTextAsync(path, cancellationToken);
+			return JsonSerializer.Deserialize<UserSettings>(json) ?? new();
 		}
+		else return new();
+	}
 
-		private static string GetFilePath()
+	public async Task SaveAsync(CancellationToken cancellationToken = default)
+	{
+		cancellationToken.ThrowIfCancellationRequested();
+
+		string json = JsonSerializer.Serialize(this, _serializerOptions);
+		string path = GetFilePath();
+		if (Path.GetDirectoryName(path) is string directory)
 		{
-			return Program.GetSavedFile("settings.json");
+			Directory.CreateDirectory(directory);
 		}
+		await File.WriteAllTextAsync(path, json, cancellationToken);
+	}
+
+	private static string GetFilePath()
+	{
+		return Program.GetSavedFile("settings.json");
 	}
 }

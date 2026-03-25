@@ -6,22 +6,22 @@ using System.Text;
 
 namespace MOM.Reports;
 
-internal class BirthdayReport(AppContext context, int startMonth, int endMonth) : Report
+internal class AnniversaryReport(AppContext context, int startMonth, int endMonth) : Report
 {
-	private Func<Individual, object>? _keySelector = null;
+	private Func<Household, object>? _keySelector = null;
 	private bool _descending = false;
 
-	protected override string GetTitle() => "Birthday Report";
+	protected override string GetTitle() => "Anniversary Report";
 
 	protected override async Task<string> GetBodyAsync()
 	{
-		var individuals = await context.Individuals
-			.Include(member => member.Household)
-			.Where(member => member.Household.IncludeInDirectory && member.Active)
+		var households = await context.Households
+			.Include(h => h.Individuals)
+			.Where(h => h.IncludeInDirectory)
 			.ToListAsync();
-		var groups = individuals
-			.Where(member => member.BirthDate.HasValue)
-			.GroupBy(member => member.BirthDate!.Value.Month)
+		var groups = households
+			.Where(h => h.GetMarriedDateOrDefault().HasValue)
+			.GroupBy(h => h.GetMarriedDateOrDefault()!.Value.Month)
 			.OrderBy(g => g.Key);
 
 		var builder = new StringBuilder();
@@ -39,10 +39,10 @@ internal class BirthdayReport(AppContext context, int startMonth, int endMonth) 
 				builder.AppendLine(Indent + Indent + $"<div>{month}</div>");
 				builder.AppendLine(Indent + Indent + "<div>Day</div>");
 				builder.AppendLine(Indent + Indent + "<div>Year</div>");
-				builder.AppendLine(Indent + Indent + "<div>Age</div>");
+				builder.AppendLine(Indent + Indent + "<div>Years married</div>");
 				builder.AppendLine(Indent + "</div>");
 
-				IOrderedEnumerable<Individual> ordered;
+				IOrderedEnumerable<Household> ordered;
 				if (_keySelector is not null)
 				{
 					if (_descending)
@@ -51,13 +51,13 @@ internal class BirthdayReport(AppContext context, int startMonth, int endMonth) 
 					}
 					else ordered = g.OrderBy(_keySelector);
 				}
-				else ordered = g.OrderBy(member => member.BirthDate.GetValueOrDefault().Day);
+				else ordered = g.OrderBy(member => member.GetMarriedDateOrDefault().GetValueOrDefault().Day);
 
 				foreach (var member in ordered)
 				{
-					string name = member.GetDisplayName(true);
-					string day = member.BirthDate.GetValueOrDefault().ToString("MMMM d");
-					int year = member.BirthDate.GetValueOrDefault().Year;
+					string name = member.Name;
+					string day = member.GetMarriedDateOrDefault().GetValueOrDefault().ToString("MMMM d");
+					int year = member.GetMarriedDateOrDefault().GetValueOrDefault().Year;
 					int age = DateTime.Today.Year - year;
 
 					builder.AppendLine(Indent + "<div class=\"row\">");
@@ -76,7 +76,7 @@ internal class BirthdayReport(AppContext context, int startMonth, int endMonth) 
 	protected override string GetStyle() => @"
 		.month-content {
 			display: grid;
-			grid-template-columns: 37% 28% 22% 13%;
+			grid-template-columns: 40% 23% 17% 20%;
 			row-gap: 0.4rem;
 			margin-bottom: 1rem;
 			break-inside: avoid;
@@ -98,13 +98,13 @@ internal class BirthdayReport(AppContext context, int startMonth, int endMonth) 
 		}
 	";
 
-	public void OrderBy<T>(Func<Individual, T> keySelector) where T : notnull
+	public void OrderBy<T>(Func<Household, T> keySelector) where T : notnull
 	{
 		_keySelector = member => keySelector(member);
 		_descending = false;
 	}
 
-	public void OrderByDescending<T>(Func<Individual, T> keySelector) where T : notnull
+	public void OrderByDescending<T>(Func<Household, T> keySelector) where T : notnull
 	{
 		_keySelector = member => keySelector(member);
 		_descending = true;

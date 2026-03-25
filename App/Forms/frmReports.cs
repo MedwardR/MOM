@@ -13,6 +13,13 @@ public partial class frmReports : Form
 		_context = context;
 
 		var months = GetMonths();
+		var dateSortOptions = new[]
+		{
+			DateSort.DayAscending,
+			DateSort.DayDescending,
+			DateSort.YearAscending,
+			DateSort.YearDescending,
+		};
 		InitializeComponent();
 
 		cmbBirthdayFrom.DataSource = months.ToArray();
@@ -23,16 +30,21 @@ public partial class frmReports : Form
 		cmbBirthdayTo.ValueMember = nameof(Month.Value);
 		cmbBirthdayTo.DisplayMember = nameof(Month.Name);
 
-		var birthdaySortOptions = new[]
-		{
-			BirthdaySort.DayAscending,
-			BirthdaySort.DayDescending,
-			BirthdaySort.YearAscending,
-			BirthdaySort.YearDescending,
-		};
-		cmbBirthdayOrderBy.DataSource = birthdaySortOptions;
-		cmbBirthdayOrderBy.ValueMember = nameof(BirthdaySort.Value);
-		cmbBirthdayOrderBy.DisplayMember = nameof(BirthdaySort.Name);
+		cmbBirthdayOrderBy.DataSource = dateSortOptions.ToArray();
+		cmbBirthdayOrderBy.ValueMember = nameof(DateSort.Value);
+		cmbBirthdayOrderBy.DisplayMember = nameof(DateSort.Name);
+
+		cmbAnniversaryFrom.DataSource = months.ToArray();
+		cmbAnniversaryFrom.ValueMember = nameof(Month.Value);
+		cmbAnniversaryFrom.DisplayMember = nameof(Month.Name);
+
+		cmbAnniversaryTo.DataSource = months.ToArray();
+		cmbAnniversaryTo.ValueMember = nameof(Month.Value);
+		cmbAnniversaryTo.DisplayMember = nameof(Month.Name);
+
+		cmbAnniversaryOrderBy.DataSource = dateSortOptions.ToArray();
+		cmbAnniversaryOrderBy.ValueMember = nameof(DateSort.Value);
+		cmbAnniversaryOrderBy.DisplayMember = nameof(DateSort.Name);
 	}
 
 	private void cmbBirthdayFrom_SelectedIndexChanged(object sender, EventArgs e)
@@ -62,24 +74,75 @@ public partial class frmReports : Form
 		if (cmbBirthdayFrom.SelectedItem is Month from && cmbBirthdayTo.SelectedItem is Month to)
 		{
 			var report = new BirthdayReport(_context, from.Value, to.Value);
-			
-			if (cmbBirthdayOrderBy.SelectedItem is BirthdaySort sort)
+
+			if (cmbBirthdayOrderBy.SelectedItem is DateSort sort)
 			{
-				if (sort.Value == BirthdaySort.DayAscending.Value)
+				if (sort.Value == DateSort.DayAscending.Value)
 				{
 					report.OrderBy(member => member.BirthDate.GetValueOrDefault().Day);
 				}
-				else if (sort.Value == BirthdaySort.DayDescending.Value)
+				else if (sort.Value == DateSort.DayDescending.Value)
 				{
 					report.OrderByDescending(member => member.BirthDate.GetValueOrDefault().Day);
 				}
-				else if (sort.Value == BirthdaySort.YearAscending.Value)
+				else if (sort.Value == DateSort.YearAscending.Value)
 				{
 					report.OrderBy(member => member.BirthDate.GetValueOrDefault().Year);
 				}
-				else if (sort.Value == BirthdaySort.YearDescending.Value)
+				else if (sort.Value == DateSort.YearDescending.Value)
 				{
 					report.OrderByDescending(member => member.BirthDate.GetValueOrDefault().Year);
+				}
+			}
+			await RunReportAsync(report);
+		}
+	}
+
+	private void cmbAnniversaryFrom_SelectedIndexChanged(object sender, EventArgs e)
+	{
+		if (cmbAnniversaryFrom.SelectedItem is Month from && cmbAnniversaryTo.SelectedItem is Month to)
+		{
+			if (from.Value > to.Value)
+			{
+				cmbAnniversaryTo.SelectedItem = from;
+			}
+		}
+	}
+
+	private void cmbAnniversaryTo_SelectedIndexChanged(object sender, EventArgs e)
+	{
+		if (cmbAnniversaryFrom.SelectedItem is Month from && cmbAnniversaryTo.SelectedItem is Month to)
+		{
+			if (from.Value > to.Value)
+			{
+				cmbAnniversaryFrom.SelectedItem = to;
+			}
+		}
+	}
+
+	private async void btnAnniversaryGenerate_Click(object sender, EventArgs e)
+	{
+		if (cmbAnniversaryFrom.SelectedItem is Month from && cmbAnniversaryTo.SelectedItem is Month to)
+		{
+			var report = new AnniversaryReport(_context, from.Value, to.Value);
+
+			if (cmbAnniversaryOrderBy.SelectedItem is DateSort sort)
+			{
+				if (sort.Value == DateSort.DayAscending.Value)
+				{
+					report.OrderBy(member => member.GetMarriedDateOrDefault().GetValueOrDefault().Day);
+				}
+				else if (sort.Value == DateSort.DayDescending.Value)
+				{
+					report.OrderByDescending(member => member.GetMarriedDateOrDefault().GetValueOrDefault().Day);
+				}
+				else if (sort.Value == DateSort.YearAscending.Value)
+				{
+					report.OrderBy(member => member.GetMarriedDateOrDefault().GetValueOrDefault().Year);
+				}
+				else if (sort.Value == DateSort.YearDescending.Value)
+				{
+					report.OrderByDescending(member => member.GetMarriedDateOrDefault().GetValueOrDefault().Year);
 				}
 			}
 			await RunReportAsync(report);
@@ -119,14 +182,14 @@ public partial class frmReports : Form
 		public string Name { get; } = name;
 	}
 
-	private class BirthdaySort(int value, string name)
+	private class DateSort(int value, string name)
 	{
 		public int Value { get; } = value;
 		public string Name { get; } = name;
 
-		public static BirthdaySort DayAscending => new(0, "Day (soonest first)");
-		public static BirthdaySort DayDescending => new(1, "Day (farthest first)");
-		public static BirthdaySort YearAscending => new(2, "Year (oldest first)");
-		public static BirthdaySort YearDescending => new(3, "Year (youngest first)");
+		public static DateSort DayAscending => new(0, "Day (soonest first)");
+		public static DateSort DayDescending => new(1, "Day (farthest first)");
+		public static DateSort YearAscending => new(2, "Year (oldest first)");
+		public static DateSort YearDescending => new(3, "Year (youngest first)");
 	}
 }

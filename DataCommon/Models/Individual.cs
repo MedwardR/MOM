@@ -2,7 +2,6 @@
 using DataCommon.Models.Abstractions;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace DataCommon.Models
 {
@@ -34,6 +33,8 @@ namespace DataCommon.Models
 		public DateTime? MarriedDate { get; set; }
 		public string? MaritalStatus { get; set; }
 
+		public string? MemberStatus { get; set; }
+
 		public bool Child { get; set; }
 
 		[ForeignKey(nameof(HouseholdId))] public virtual required Household Household { get; set; }
@@ -62,6 +63,7 @@ namespace DataCommon.Models
 				BaptizedLocation = BaptizedLocation,
 				MarriedDate = MarriedDate,
 				MaritalStatus = MaritalStatus,
+				MemberStatus = MemberStatus,
 				Child = Child,
 				Household = Household,
 			};
@@ -102,6 +104,7 @@ namespace DataCommon.Models
 					(JoinedMethod, other.JoinedMethod),
 					(BaptizedLocation, other.BaptizedLocation),
 					(MaritalStatus, other.MaritalStatus),
+					(MemberStatus, other.MemberStatus),
 				};
 				bool stringsEqual = strings.All(pair =>
 				{

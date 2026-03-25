@@ -41,10 +41,22 @@
 			cmbBirthdayTo = new ComboBox();
 			label2 = new Label();
 			tabPage2 = new TabPage();
+			tableLayoutPanel2 = new TableLayoutPanel();
+			panel2 = new Panel();
+			label4 = new Label();
+			cmbAnniversaryOrderBy = new ComboBox();
+			cmbAnniversaryFrom = new ComboBox();
+			label5 = new Label();
+			btnAnniversaryGenerate = new Button();
+			cmbAnniversaryTo = new ComboBox();
+			label6 = new Label();
 			tabControl1.SuspendLayout();
 			tabPage1.SuspendLayout();
 			tableLayoutPanel1.SuspendLayout();
 			panel1.SuspendLayout();
+			tabPage2.SuspendLayout();
+			tableLayoutPanel2.SuspendLayout();
+			panel2.SuspendLayout();
 			SuspendLayout();
 			// 
 			// tabControl1
@@ -174,13 +186,117 @@
 			// 
 			// tabPage2
 			// 
-			tabPage2.Location = new Point(4, 24);
+			tabPage2.Controls.Add(tableLayoutPanel2);
+			tabPage2.Location = new Point(4, 29);
 			tabPage2.Margin = new Padding(3, 4, 3, 4);
 			tabPage2.Name = "tabPage2";
-			tabPage2.Size = new Size(630, 256);
+			tabPage2.Size = new Size(630, 251);
 			tabPage2.TabIndex = 1;
-			tabPage2.Text = "Aniversaries";
+			tabPage2.Text = "Anniversaries";
 			tabPage2.UseVisualStyleBackColor = true;
+			// 
+			// tableLayoutPanel2
+			// 
+			tableLayoutPanel2.ColumnCount = 3;
+			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle());
+			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+			tableLayoutPanel2.Controls.Add(panel2, 1, 1);
+			tableLayoutPanel2.Dock = DockStyle.Fill;
+			tableLayoutPanel2.Location = new Point(0, 0);
+			tableLayoutPanel2.Name = "tableLayoutPanel2";
+			tableLayoutPanel2.RowCount = 3;
+			tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+			tableLayoutPanel2.RowStyles.Add(new RowStyle());
+			tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+			tableLayoutPanel2.Size = new Size(630, 251);
+			tableLayoutPanel2.TabIndex = 6;
+			// 
+			// panel2
+			// 
+			panel2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			panel2.Controls.Add(label4);
+			panel2.Controls.Add(cmbAnniversaryOrderBy);
+			panel2.Controls.Add(cmbAnniversaryFrom);
+			panel2.Controls.Add(label5);
+			panel2.Controls.Add(btnAnniversaryGenerate);
+			panel2.Controls.Add(cmbAnniversaryTo);
+			panel2.Controls.Add(label6);
+			panel2.Location = new Point(126, 40);
+			panel2.Name = "panel2";
+			panel2.Size = new Size(378, 170);
+			panel2.TabIndex = 5;
+			// 
+			// label4
+			// 
+			label4.AutoEllipsis = true;
+			label4.AutoSize = true;
+			label4.Location = new Point(3, 114);
+			label4.Name = "label4";
+			label4.Size = new Size(67, 20);
+			label4.TabIndex = 6;
+			label4.Text = "Order by";
+			// 
+			// cmbAnniversaryOrderBy
+			// 
+			cmbAnniversaryOrderBy.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			cmbAnniversaryOrderBy.FormattingEnabled = true;
+			cmbAnniversaryOrderBy.Location = new Point(3, 137);
+			cmbAnniversaryOrderBy.MaxDropDownItems = 12;
+			cmbAnniversaryOrderBy.Name = "cmbAnniversaryOrderBy";
+			cmbAnniversaryOrderBy.Size = new Size(245, 28);
+			cmbAnniversaryOrderBy.TabIndex = 5;
+			// 
+			// cmbAnniversaryFrom
+			// 
+			cmbAnniversaryFrom.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			cmbAnniversaryFrom.FormattingEnabled = true;
+			cmbAnniversaryFrom.Location = new Point(3, 29);
+			cmbAnniversaryFrom.Name = "cmbAnniversaryFrom";
+			cmbAnniversaryFrom.Size = new Size(372, 28);
+			cmbAnniversaryFrom.TabIndex = 0;
+			cmbAnniversaryFrom.SelectedIndexChanged += cmbAnniversaryFrom_SelectedIndexChanged;
+			// 
+			// label5
+			// 
+			label5.AutoEllipsis = true;
+			label5.AutoSize = true;
+			label5.Location = new Point(3, 6);
+			label5.Name = "label5";
+			label5.Size = new Size(43, 20);
+			label5.TabIndex = 3;
+			label5.Text = "From";
+			// 
+			// btnAnniversaryGenerate
+			// 
+			btnAnniversaryGenerate.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			btnAnniversaryGenerate.Location = new Point(254, 136);
+			btnAnniversaryGenerate.Name = "btnAnniversaryGenerate";
+			btnAnniversaryGenerate.Size = new Size(121, 30);
+			btnAnniversaryGenerate.TabIndex = 2;
+			btnAnniversaryGenerate.Text = "Generate";
+			btnAnniversaryGenerate.UseVisualStyleBackColor = true;
+			btnAnniversaryGenerate.Click += btnAnniversaryGenerate_Click;
+			// 
+			// cmbAnniversaryTo
+			// 
+			cmbAnniversaryTo.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			cmbAnniversaryTo.FormattingEnabled = true;
+			cmbAnniversaryTo.Location = new Point(3, 83);
+			cmbAnniversaryTo.Name = "cmbAnniversaryTo";
+			cmbAnniversaryTo.Size = new Size(372, 28);
+			cmbAnniversaryTo.TabIndex = 1;
+			cmbAnniversaryTo.SelectedIndexChanged += cmbAnniversaryTo_SelectedIndexChanged;
+			// 
+			// label6
+			// 
+			label6.AutoEllipsis = true;
+			label6.AutoSize = true;
+			label6.Location = new Point(3, 60);
+			label6.Name = "label6";
+			label6.Size = new Size(25, 20);
+			label6.TabIndex = 4;
+			label6.Text = "To";
 			// 
 			// frmReports
 			// 
@@ -200,6 +316,10 @@
 			tableLayoutPanel1.ResumeLayout(false);
 			panel1.ResumeLayout(false);
 			panel1.PerformLayout();
+			tabPage2.ResumeLayout(false);
+			tableLayoutPanel2.ResumeLayout(false);
+			panel2.ResumeLayout(false);
+			panel2.PerformLayout();
 			ResumeLayout(false);
 		}
 
@@ -217,5 +337,14 @@
 		private Panel panel1;
 		private ComboBox cmbBirthdayOrderBy;
 		private Label label3;
+		private TableLayoutPanel tableLayoutPanel2;
+		private Panel panel2;
+		private Label label4;
+		private ComboBox cmbAnniversaryOrderBy;
+		private ComboBox cmbAnniversaryFrom;
+		private Label label5;
+		private Button btnAnniversaryGenerate;
+		private ComboBox cmbAnniversaryTo;
+		private Label label6;
 	}
 }
