@@ -1,0 +1,66 @@
+@page {
+	margin: 0.5in !important;
+}
+
+.content-row {
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 1rem;
+}
+
+.content-card {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	row-gap: 0.5rem;
+}
+
+.household-body {
+	display: contents;
+	font-size: 0.7rem;
+}
+
+.household-header {
+	font-weight: bold;
+}
+
+.household-contact {
+	display: flex;
+	flex-direction: row;
+	column-gap: 0.3rem;
+}
+
+.household-individuals {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 0.5rem 1rem;
+}
+
+.individual-column {
+	display: flex;
+	flex-direction: column;
+}
+
+.individual-header {
+	display: flex;
+	flex-direction: row;
+	column-gap: 0.3rem;
+}
+
+.individual-name {
+	text-decoration: underline;
+}
+
+.household-children {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	column-gap: 1rem;
+}
+
+.individual-row {
+	display: flex;
+	flex-direction: row;
+	column-gap: 0.3rem;
+}

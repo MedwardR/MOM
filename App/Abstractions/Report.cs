@@ -107,8 +107,6 @@ internal abstract class Report
 		builder.AppendLine(Indent + "<div class=\"line\"></div>");
 		foreach (string line in body) builder.AppendLine(Indent + line);
 
-		builder.AppendLine("<footer></footer>");
-
 		builder.AppendLine("</body>");
 		builder.AppendLine("</html>");
 		return builder.ToString();
