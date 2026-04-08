@@ -1,6 +1,7 @@
 ﻿using DataCommon.Models;
 using Microsoft.EntityFrameworkCore;
 using MOM.Abstractions;
+using MOM.Helpers;
 using System.Globalization;
 using System.Text;
 
@@ -13,6 +14,8 @@ internal class BirthdayReport(AppContext context, int startMonth, int endMonth) 
 
 	protected override string GetTitle() => "Birthday Report";
 
+	protected override string GetPageMargin() => "1in";
+
 	protected override async Task<string> GetBodyAsync()
 	{
 		var individuals = await context.Individuals
@@ -24,7 +27,7 @@ internal class BirthdayReport(AppContext context, int startMonth, int endMonth) 
 			.GroupBy(member => member.BirthDate!.Value.Month)
 			.OrderBy(g => g.Key);
 
-		var builder = new StringBuilder();
+		var builder = new CodeBuilder();
 		int min = Math.Clamp(startMonth, 1, 12);
 		int max = Math.Clamp(endMonth, 1, 12);
 
@@ -34,13 +37,13 @@ internal class BirthdayReport(AppContext context, int startMonth, int endMonth) 
 			{
 				string month = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(g.Key);
 
-				builder.AppendLine("<div class=\"month-content\">");
-				builder.AppendLine(Indent + "<div class=\"header-row\">");
-				builder.AppendLine(Indent + Indent + $"<div>{month}</div>");
-				builder.AppendLine(Indent + Indent + "<div>Day</div>");
-				builder.AppendLine(Indent + Indent + "<div>Year</div>");
-				builder.AppendLine(Indent + Indent + "<div>Age</div>");
-				builder.AppendLine(Indent + "</div>");
+				builder.AppendLine(0, "<div class=\"month-content\">");
+				builder.AppendLine(1, "<div class=\"header-row\">");
+				builder.AppendLine(2, $"<div>{month}</div>");
+				builder.AppendLine(2, "<div>Day</div>");
+				builder.AppendLine(2, "<div>Year</div>");
+				builder.AppendLine(2, "<div>Age</div>");
+				builder.AppendLine(1, "</div>");
 
 				IOrderedEnumerable<Individual> ordered;
 				if (_keySelector is not null)
@@ -60,14 +63,14 @@ internal class BirthdayReport(AppContext context, int startMonth, int endMonth) 
 					int year = member.BirthDate.GetValueOrDefault().Year;
 					int age = DateTime.Today.Year - year;
 
-					builder.AppendLine(Indent + "<div class=\"row\">");
-					builder.AppendLine(Indent + Indent + $"<div>{name}</div>");
-					builder.AppendLine(Indent + Indent + $"<div>{day}</div>");
-					builder.AppendLine(Indent + Indent + $"<div>{year}</div>");
-					builder.AppendLine(Indent + Indent + $"<div>{age}</div>");
-					builder.AppendLine(Indent + "</div>");
+					builder.AppendLine(1, "<div class=\"row\">");
+					builder.AppendLine(2, $"<div>{name}</div>");
+					builder.AppendLine(2, $"<div>{day}</div>");
+					builder.AppendLine(2, $"<div>{year}</div>");
+					builder.AppendLine(2, $"<div>{age}</div>");
+					builder.AppendLine(1, "</div>");
 				}
-				builder.AppendLine("</div>");
+				builder.AppendLine(0, "</div>");
 			}
 		}
 		return builder.ToString();

@@ -1,13 +1,13 @@
-﻿using System.Diagnostics;
+﻿using MOM.Helpers;
+using System.Diagnostics;
 using System.Text;
 
 namespace MOM.Abstractions;
 
 internal abstract class Report
 {
-	protected static string Indent => "    ";
-
 	protected abstract string GetTitle();
+	protected abstract string GetPageMargin();
 	protected abstract Task<string> GetBodyAsync();
 	protected abstract string GetStyle();
 
@@ -71,51 +71,56 @@ internal abstract class Report
 	private async Task<string> BuildDocumentAsync()
 	{
 		string title = GetTitle();
-		string organization = "Bowmansville Mennonite Church";
+		string margin = GetPageMargin();
+		const string organization = "Bowmansville Mennonite Church";
+
 		var global = EnumerateLines(GetGlobalStyle());
 		var style = EnumerateLines(GetStyle());
 		var body = EnumerateLines(await GetBodyAsync());
 
-		var builder = new StringBuilder();
-		builder.AppendLine("<!DOCTYPE html>");
-		builder.AppendLine("<html>");
-		builder.AppendLine("<head>");
+		var builder = new CodeBuilder();
+		builder.AppendLine(0, "<!DOCTYPE html>");
+		builder.AppendLine(0, "<html>");
+		builder.AppendLine(0, "<head>");
 
-		builder.AppendLine(Indent + "<title>");
-		builder.AppendLine(Indent + Indent + title);
-		builder.AppendLine(Indent + "</title>");
+		builder.AppendLine(1, "<title>");
+		builder.AppendLine(2, title);
+		builder.AppendLine(1, "</title>");
 
-		builder.AppendLine(Indent + "<style>");
-		foreach (string line in global) builder.AppendLine(Indent + Indent + line);
-		builder.AppendLine(Indent + "</style>");
+		builder.AppendLine(1, "<style>");
+		builder.AppendLine(2, "@page {");
+		builder.AppendLine(3, $"margin: {margin};");
+		builder.AppendLine(2, "}");
+		builder.AppendLine(1, "</style>");
 
-		builder.AppendLine(Indent + "<style>");
-		foreach (string line in style) builder.AppendLine(Indent + Indent + line);
-		builder.AppendLine(Indent + "</style>");
+		builder.AppendLine(1, "<style>");
+		foreach (string line in global) builder.AppendLine(2, line);
+		builder.AppendLine(1, "</style>");
 
-		builder.AppendLine("</head>");
-		builder.AppendLine("<body>");
+		builder.AppendLine(1, "<style>");
+		foreach (string line in style) builder.AppendLine(2, line);
+		builder.AppendLine(1, "</style>");
 
-		builder.AppendLine(Indent + "<div class=\"header\">");
-		builder.AppendLine(Indent + Indent + organization);
-		builder.AppendLine(Indent + "</div>");
+		builder.AppendLine(0, "</head>");
+		builder.AppendLine(0, "<body>");
 
-		builder.AppendLine(Indent + "<div class=\"header\">");
-		builder.AppendLine(Indent + Indent + title);
-		builder.AppendLine(Indent + "</div>");
+		builder.AppendLine(1, "<div class=\"header\">");
+		builder.AppendLine(2, organization);
+		builder.AppendLine(1, "</div>");
 
-		builder.AppendLine(Indent + "<div class=\"line\"></div>");
-		foreach (string line in body) builder.AppendLine(Indent + line);
+		builder.AppendLine(1, "<div class=\"header\">");
+		builder.AppendLine(2, title);
+		builder.AppendLine(1, "</div>");
 
-		builder.AppendLine("</body>");
-		builder.AppendLine("</html>");
+		builder.AppendLine(1, "<div class=\"line\"></div>");
+		foreach (string line in body) builder.AppendLine(1, line);
+
+		builder.AppendLine(0, "</body>");
+		builder.AppendLine(0, "</html>");
 		return builder.ToString();
 	}
 
 	private static string GetGlobalStyle() => @"
-		@page {
-			margin: 1in;
-		}
 		:root {
 			font-family: Calibri, sans-serif;
 		}
