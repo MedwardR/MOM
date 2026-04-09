@@ -14,7 +14,7 @@ internal class CodeBuilder
 	{
 		for (int index = 0; index < indent; index++)
 		{
-			_builder.AppendLine(INDENT);
+			_builder.Append(INDENT);
 		}
 		_builder.AppendLine(value);
 	}

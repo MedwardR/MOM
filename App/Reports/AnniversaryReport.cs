@@ -1,9 +1,8 @@
 ﻿using DataCommon.Models;
 using Microsoft.EntityFrameworkCore;
 using MOM.Abstractions;
-using MOM.Helpers;
+using MOM.Utilities;
 using System.Globalization;
-using System.Text;
 
 namespace MOM.Reports;
 
@@ -76,30 +75,39 @@ internal class AnniversaryReport(AppContext context, int startMonth, int endMont
 		return builder.ToString();
 	}
 
-	protected override string GetStyle() => @"
-		.month-content {
-			display: grid;
-			grid-template-columns: 40% 23% 17% 20%;
-			row-gap: 0.4rem;
-			margin-bottom: 1rem;
-			break-inside: avoid;
-		}
-		.header-row {
-			display: contents;
-			align-items: start;
-			font-weight: bold;
-		}
-		.row {
-			display: contents;
-			align-items: start;
-		}
-		.row > :first-child {
-			padding-left: 1rem;
-		}
-		.dim {
-			opacity: 0.2;
-		}
-	";
+	protected override string GetStyle()
+	{
+		var builder = new CodeBuilder();
+
+		builder.AppendLine(0, ".month-content {");
+		builder.AppendLine(1, "display: grid;");
+		builder.AppendLine(1, "grid-template-columns: 40% 23% 17% 20%;");
+		builder.AppendLine(1, "row-gap: 0.4rem;");
+		builder.AppendLine(1, "margin-bottom: 1rem;");
+		builder.AppendLine(1, "break-inside: avoid;");
+		builder.AppendLine(0, "}");
+
+		builder.AppendLine(0, ".header-row {");
+		builder.AppendLine(1, "display: contents;");
+		builder.AppendLine(1, "align-items: start;");
+		builder.AppendLine(1, "font-weight: bold;");
+		builder.AppendLine(0, "}");
+
+		builder.AppendLine(0, ".row {");
+		builder.AppendLine(1, "display: contents;");
+		builder.AppendLine(1, "align-items: start;");
+		builder.AppendLine(0, "}");
+
+		builder.AppendLine(0, ".row > :first-child {");
+		builder.AppendLine(1, "padding-left: 1rem;");
+		builder.AppendLine(0, "}");
+
+		builder.AppendLine(0, ".dim {");
+		builder.AppendLine(1, "opacity: 0.2;");
+		builder.AppendLine(0, "}");
+
+		return builder.ToString();
+	}
 
 	public void OrderBy<T>(Func<Household, T> keySelector) where T : notnull
 	{

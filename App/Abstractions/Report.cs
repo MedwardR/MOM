@@ -1,4 +1,4 @@
-﻿using MOM.Helpers;
+﻿using MOM.Utilities;
 using System.Diagnostics;
 using System.Text;
 
@@ -10,6 +10,7 @@ internal abstract class Report
 	protected abstract string GetPageMargin();
 	protected abstract Task<string> GetBodyAsync();
 	protected abstract string GetStyle();
+	public virtual IEnumerable<string> GetExtraHeaders() => [];
 
 	public async Task ShowAsync()
 	{
@@ -104,14 +105,16 @@ internal abstract class Report
 		builder.AppendLine(0, "</head>");
 		builder.AppendLine(0, "<body>");
 
-		builder.AppendLine(1, "<div class=\"header\">");
-		builder.AppendLine(2, organization);
-		builder.AppendLine(1, "</div>");
+		var headers = new List<string>() { organization, title };
+		var extra = GetExtraHeaders();
+		headers.AddRange(extra);
 
-		builder.AppendLine(1, "<div class=\"header\">");
-		builder.AppendLine(2, title);
-		builder.AppendLine(1, "</div>");
-
+		foreach (string value in headers)
+		{
+			builder.AppendLine(1, "<div class=\"header\">");
+			builder.AppendLine(2, value);
+			builder.AppendLine(1, "</div>");
+		}
 		builder.AppendLine(1, "<div class=\"line\"></div>");
 		foreach (string line in body) builder.AppendLine(1, line);
 
@@ -120,33 +123,38 @@ internal abstract class Report
 		return builder.ToString();
 	}
 
-	private static string GetGlobalStyle() => @"
-		:root {
-			font-family: Calibri, sans-serif;
-		}
-		html {
-			margin: 0;
-			padding: 0;
-		}
-		body {
-			margin: 1rem;
-			padding: 0;
-		}
-		.header {
-			text-align: center;
-			font-weight: bold;
-		}
-		.line {
-			height: 1px;
-			margin: 1rem 0 1rem 0;
-			background-color: #000;
-		}
-		@media print {
-			body {
-				margin: 0;
-			}
-		}
-	";
+	private static string GetGlobalStyle()
+	{
+		var builder = new CodeBuilder();
+
+		builder.AppendLine(0, ":root {");
+		builder.AppendLine(1, "font-family: Calibri, sans-serif;");
+		builder.AppendLine(0, "}");
+		builder.AppendLine(0, "html {");
+		builder.AppendLine(1, "margin: 0;");
+		builder.AppendLine(1, "padding: 0;");
+		builder.AppendLine(0, "}");
+		builder.AppendLine(0, "body {");
+		builder.AppendLine(1, "margin: 1rem;");
+		builder.AppendLine(1, "padding: 0;");
+		builder.AppendLine(0, "}");
+		builder.AppendLine(0, ".header {");
+		builder.AppendLine(1, "text-align: center;");
+		builder.AppendLine(1, "font-weight: bold;");
+		builder.AppendLine(0, "}");
+		builder.AppendLine(0, ".line {");
+		builder.AppendLine(1, "height: 1px;");
+		builder.AppendLine(1, "margin: 1rem 0 1rem 0;");
+		builder.AppendLine(1, "background-color: #000;");
+		builder.AppendLine(0, "}");
+		builder.AppendLine(0, "@media print {");
+		builder.AppendLine(1, "body {");
+		builder.AppendLine(2, "margin: 0;");
+		builder.AppendLine(1, "}");
+		builder.AppendLine(0, "}");
+
+		return builder.ToString();
+	}
 
 	private static string GetDocumentPath(string directory, IEnumerable<string> tokens)
 	{

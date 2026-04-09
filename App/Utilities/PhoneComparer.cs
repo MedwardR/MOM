@@ -10,7 +10,7 @@ internal class PhoneComparer : IEqualityComparer<string?>
 	public bool Equals(string? x, string? y)
 	{
 		string a = FormatHelper.FormatPhone(x, MASK);
-		string b = FormatHelper.FormatPhone(x, MASK);
+		string b = FormatHelper.FormatPhone(y, MASK);
 		return string.Equals(a, b);
 	}
 

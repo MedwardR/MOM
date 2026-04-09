@@ -50,6 +50,9 @@
 			btnAnniversaryGenerate = new Button();
 			cmbAnniversaryTo = new ComboBox();
 			label6 = new Label();
+			tabPage3 = new TabPage();
+			tableLayoutPanel3 = new TableLayoutPanel();
+			btnChurchDirectoryGenerate = new Button();
 			tabControl1.SuspendLayout();
 			tabPage1.SuspendLayout();
 			tableLayoutPanel1.SuspendLayout();
@@ -57,12 +60,15 @@
 			tabPage2.SuspendLayout();
 			tableLayoutPanel2.SuspendLayout();
 			panel2.SuspendLayout();
+			tabPage3.SuspendLayout();
+			tableLayoutPanel3.SuspendLayout();
 			SuspendLayout();
 			// 
 			// tabControl1
 			// 
 			tabControl1.Controls.Add(tabPage1);
 			tabControl1.Controls.Add(tabPage2);
+			tabControl1.Controls.Add(tabPage3);
 			tabControl1.Dock = DockStyle.Fill;
 			tabControl1.Location = new Point(6, 4);
 			tabControl1.Margin = new Padding(3, 4, 3, 4);
@@ -298,6 +304,45 @@
 			label6.TabIndex = 4;
 			label6.Text = "To";
 			// 
+			// tabPage3
+			// 
+			tabPage3.Controls.Add(tableLayoutPanel3);
+			tabPage3.Location = new Point(4, 29);
+			tabPage3.Name = "tabPage3";
+			tabPage3.Padding = new Padding(3);
+			tabPage3.Size = new Size(630, 251);
+			tabPage3.TabIndex = 2;
+			tabPage3.Text = "Church Directory";
+			tabPage3.UseVisualStyleBackColor = true;
+			// 
+			// tableLayoutPanel3
+			// 
+			tableLayoutPanel3.ColumnCount = 3;
+			tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+			tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle());
+			tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+			tableLayoutPanel3.Controls.Add(btnChurchDirectoryGenerate, 1, 1);
+			tableLayoutPanel3.Dock = DockStyle.Fill;
+			tableLayoutPanel3.Location = new Point(3, 3);
+			tableLayoutPanel3.Name = "tableLayoutPanel3";
+			tableLayoutPanel3.RowCount = 3;
+			tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+			tableLayoutPanel3.RowStyles.Add(new RowStyle());
+			tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+			tableLayoutPanel3.Size = new Size(624, 245);
+			tableLayoutPanel3.TabIndex = 6;
+			// 
+			// btnChurchDirectoryGenerate
+			// 
+			btnChurchDirectoryGenerate.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			btnChurchDirectoryGenerate.Location = new Point(255, 107);
+			btnChurchDirectoryGenerate.Name = "btnChurchDirectoryGenerate";
+			btnChurchDirectoryGenerate.Size = new Size(114, 30);
+			btnChurchDirectoryGenerate.TabIndex = 2;
+			btnChurchDirectoryGenerate.Text = "Generate";
+			btnChurchDirectoryGenerate.UseVisualStyleBackColor = true;
+			btnChurchDirectoryGenerate.Click += btnChurchDirectoryGenerate_Click;
+			// 
 			// frmReports
 			// 
 			AutoScaleDimensions = new SizeF(8F, 20F);
@@ -320,6 +365,8 @@
 			tableLayoutPanel2.ResumeLayout(false);
 			panel2.ResumeLayout(false);
 			panel2.PerformLayout();
+			tabPage3.ResumeLayout(false);
+			tableLayoutPanel3.ResumeLayout(false);
 			ResumeLayout(false);
 		}
 
@@ -346,5 +393,8 @@
 		private Button btnAnniversaryGenerate;
 		private ComboBox cmbAnniversaryTo;
 		private Label label6;
+		private TabPage tabPage3;
+		private TableLayoutPanel tableLayoutPanel3;
+		private Button btnChurchDirectoryGenerate;
 	}
 }

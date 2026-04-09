@@ -168,6 +168,7 @@ internal class ChurchDirectoryReport(AppContext context) : Report
 				builder.AppendLine(2, "</div>");
 			}
 			builder.AppendLine(1, "</div>");
+			builder.AppendLine();
 		}
 		builder.AppendLine(0, "</div>");
 
@@ -187,124 +188,129 @@ internal class ChurchDirectoryReport(AppContext context) : Report
 		return $"<a href=\"mailto:{trimmed}\">{trimmed}</a>";
 	}
 
-	protected override string GetStyle() => @"
-		.content {
-			display: grid;
-			grid-template-columns: 1fr 1fr;
-			font-size: 0.8rem;
-		}
+	protected override string GetStyle()
+	{
+		var builder = new CodeBuilder();
 
-		.content-card {
-			display: flex;
-			flex-direction: column;
-			row-gap: 0.5rem;
-		}
+		builder.AppendLine(0, ".content {");
+		builder.AppendLine(1, "display: grid;");
+		builder.AppendLine(1, "grid-template-columns: 1fr 1fr;");
+		builder.AppendLine(1, "font-size: 0.8rem;");
+		builder.AppendLine(0, "}");
+		
+		builder.AppendLine(0, ".content-card {");
+		builder.AppendLine(1, "display: flex;");
+		builder.AppendLine(1, "flex-direction: column;");
+		builder.AppendLine(1, "row-gap: 0.5rem;");
+		builder.AppendLine(0, "}");
+		
+		builder.AppendLine(0, ".household-header {");
+		builder.AppendLine(1, "font-weight: bold;");
+		builder.AppendLine(1, "font-size: 1rem;");
+		builder.AppendLine(0, "}");
+		
+		builder.AppendLine(0, ".household-contact {");
+		builder.AppendLine(1, "display: flex;");
+		builder.AppendLine(1, "flex-direction: row;");
+		builder.AppendLine(1, "flex-wrap: wrap;");
+		builder.AppendLine(1, "column-gap: 0.3rem;");
+		builder.AppendLine(0, "}");
+		
+		builder.AppendLine(0, ".household-individuals {");
+		builder.AppendLine(1, "display: flex;");
+		builder.AppendLine(1, "flex-direction: row;");
+		builder.AppendLine(1, "flex-wrap: wrap;");
+		builder.AppendLine(1, "gap: 0.5rem 1rem;");
+		builder.AppendLine(0, "}");
+		
+		builder.AppendLine(0, ".individual-column {");
+		builder.AppendLine(1, "display: flex;");
+		builder.AppendLine(1, "flex-direction: column;");
+		builder.AppendLine(0, "}");
+		
+		builder.AppendLine(0, ".individual-header {");
+		builder.AppendLine(1, "display: flex;");
+		builder.AppendLine(1, "flex-direction: row;");
+		builder.AppendLine(1, "flex-wrap: wrap;");
+		builder.AppendLine(1, "column-gap: 0.3rem;");
+		builder.AppendLine(0, "}");
+		
+		builder.AppendLine(0, ".individual-name {");
+		builder.AppendLine(1, "text-decoration: underline;");
+		builder.AppendLine(0, "}");
+		
+		builder.AppendLine(0, ".household-children {");
+		builder.AppendLine(1, "display: flex;");
+		builder.AppendLine(1, "flex-direction: row;");
+		builder.AppendLine(1, "flex-wrap: wrap;");
+		builder.AppendLine(1, "column-gap: 1rem;");
+		builder.AppendLine(0, "}");
+		
+		builder.AppendLine(0, ".individual-row {");
+		builder.AppendLine(1, "display: flex;");
+		builder.AppendLine(1, "flex-direction: row;");
+		builder.AppendLine(1, "column-gap: 0.3rem;");
+		builder.AppendLine(0, "}");
+		builder.AppendLine(0, ".content {");
+		builder.AppendLine(1, "display: grid;");
+		builder.AppendLine(1, "grid-template-columns: 1fr 1fr;");
+		builder.AppendLine(1, "font-size: 0.8rem;");
+		builder.AppendLine(0, "}");
+		
+		builder.AppendLine(0, ".content-card {");
+		builder.AppendLine(1, "display: flex;");
+		builder.AppendLine(1, "flex-direction: column;");
+		builder.AppendLine(1, "row-gap: 0.5rem;");
+		builder.AppendLine(0, "}");
 
-		.household-header {
-			font-weight: bold;
-			font-size: 1rem;
-		}
+		builder.AppendLine(0, ".household-header {");
+		builder.AppendLine(1, "font-weight: bold;");
+		builder.AppendLine(1, "font-size: 1rem;");
+		builder.AppendLine(0, "}");
+		
+		builder.AppendLine(0, ".household-contact {");
+		builder.AppendLine(1, "display: flex;");
+		builder.AppendLine(1, "flex-direction: row;");
+		builder.AppendLine(1, "flex-wrap: wrap;");
+		builder.AppendLine(1, "column-gap: 0.3rem;");
+		builder.AppendLine(0, "}");
+		
+		builder.AppendLine(0, ".household-individuals {");
+		builder.AppendLine(1, "display: flex;");
+		builder.AppendLine(1, "flex-direction: row;");
+		builder.AppendLine(1, "flex-wrap: wrap;");
+		builder.AppendLine(1, "gap: 0.5rem 1rem;");
+		builder.AppendLine(0, "}");
+		
+		builder.AppendLine(0, ".individual-column {");
+		builder.AppendLine(1, "display: flex;");
+		builder.AppendLine(1, "flex-direction: column;");
+		builder.AppendLine(0, "}");
+		
+		builder.AppendLine(0, ".individual-header {");
+		builder.AppendLine(1, "display: flex;");
+		builder.AppendLine(1, "flex-direction: row;");
+		builder.AppendLine(1, "flex-wrap: wrap;");
+		builder.AppendLine(1, "column-gap: 0.3rem;");
+		builder.AppendLine(0, "}");
+		
+		builder.AppendLine(0, ".individual-name {");
+		builder.AppendLine(1, "text-decoration: underline;");
+		builder.AppendLine(0, "}");
+		
+		builder.AppendLine(0, ".household-children {");
+		builder.AppendLine(1, "display: flex;");
+		builder.AppendLine(1, "flex-direction: row;");
+		builder.AppendLine(1, "flex-wrap: wrap;");
+		builder.AppendLine(1, "column-gap: 1rem;");
+		builder.AppendLine(0, "}");
+		
+		builder.AppendLine(0, ".individual-row {");
+		builder.AppendLine(1, "display: flex;");
+		builder.AppendLine(1, "flex-direction: row;");
+		builder.AppendLine(1, "column-gap: 0.3rem;");
+		builder.AppendLine(0, "}");
 
-		.household-contact {
-			display: flex;
-			flex-direction: row;
-			flex-wrap: wrap;
-			column-gap: 0.3rem;
-		}
-
-		.household-individuals {
-			display: flex;
-			flex-direction: row;
-			flex-wrap: wrap;
-			gap: 0.5rem 1rem;
-		}
-
-		.individual-column {
-			display: flex;
-			flex-direction: column;
-		}
-
-		.individual-header {
-			display: flex;
-			flex-direction: row;
-			flex-wrap: wrap;
-			column-gap: 0.3rem;
-		}
-
-		.individual-name {
-			text-decoration: underline;
-		}
-
-		.household-children {
-			display: flex;
-			flex-direction: row;
-			flex-wrap: wrap;
-			column-gap: 1rem;
-		}
-
-		.individual-row {
-			display: flex;
-			flex-direction: row;
-			column-gap: 0.3rem;
-		}
-		.content {
-			display: grid;
-			grid-template-columns: 1fr 1fr;
-			font-size: 0.8rem;
-		}
-
-		.content-card {
-			display: flex;
-			flex-direction: column;
-			row-gap: 0.5rem;
-		}
-
-		.household-header {
-			font-weight: bold;
-			font-size: 1rem;
-		}
-
-		.household-contact {
-			display: flex;
-			flex-direction: row;
-			flex-wrap: wrap;
-			column-gap: 0.3rem;
-		}
-
-		.household-individuals {
-			display: flex;
-			flex-direction: row;
-			flex-wrap: wrap;
-			gap: 0.5rem 1rem;
-		}
-
-		.individual-column {
-			display: flex;
-			flex-direction: column;
-		}
-
-		.individual-header {
-			display: flex;
-			flex-direction: row;
-			flex-wrap: wrap;
-			column-gap: 0.3rem;
-		}
-
-		.individual-name {
-			text-decoration: underline;
-		}
-
-		.household-children {
-			display: flex;
-			flex-direction: row;
-			flex-wrap: wrap;
-			column-gap: 1rem;
-		}
-
-		.individual-row {
-			display: flex;
-			flex-direction: row;
-			column-gap: 0.3rem;
-		}
-	";
+		return builder.ToString();
+	}
 }
