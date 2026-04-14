@@ -1,4 +1,5 @@
-﻿using DataCommon.Models;
+﻿using DataCommon.Enums;
+using DataCommon.Models;
 using Microsoft.EntityFrameworkCore;
 using MOM.Abstractions;
 using MOM.Utilities;
@@ -57,7 +58,7 @@ internal class BirthdayReport(AppContext context, int startMonth, int endMonth) 
 
 				foreach (var member in ordered)
 				{
-					string name = member.GetDisplayName(true);
+					string name = member.GetDisplayName(NameOptions.IncludeLastName | NameOptions.LastNameFirst);
 					string day = member.BirthDate.GetValueOrDefault().ToString("MMMM d");
 					int year = member.BirthDate.GetValueOrDefault().Year;
 					int age = DateTime.Today.Year - year;

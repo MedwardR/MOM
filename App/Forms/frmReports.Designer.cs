@@ -51,8 +51,11 @@
 			cmbAnniversaryTo = new ComboBox();
 			label6 = new Label();
 			tabPage3 = new TabPage();
+			tabPage4 = new TabPage();
 			tableLayoutPanel3 = new TableLayoutPanel();
 			btnChurchDirectoryGenerate = new Button();
+			tableLayoutPanel4 = new TableLayoutPanel();
+			btnMemberGenerate = new Button();
 			tabControl1.SuspendLayout();
 			tabPage1.SuspendLayout();
 			tableLayoutPanel1.SuspendLayout();
@@ -61,7 +64,9 @@
 			tableLayoutPanel2.SuspendLayout();
 			panel2.SuspendLayout();
 			tabPage3.SuspendLayout();
+			tabPage4.SuspendLayout();
 			tableLayoutPanel3.SuspendLayout();
+			tableLayoutPanel4.SuspendLayout();
 			SuspendLayout();
 			// 
 			// tabControl1
@@ -69,6 +74,7 @@
 			tabControl1.Controls.Add(tabPage1);
 			tabControl1.Controls.Add(tabPage2);
 			tabControl1.Controls.Add(tabPage3);
+			tabControl1.Controls.Add(tabPage4);
 			tabControl1.Dock = DockStyle.Fill;
 			tabControl1.Location = new Point(6, 4);
 			tabControl1.Margin = new Padding(3, 4, 3, 4);
@@ -306,14 +312,25 @@
 			// 
 			// tabPage3
 			// 
-			tabPage3.Controls.Add(tableLayoutPanel3);
+			tabPage3.Controls.Add(tableLayoutPanel4);
 			tabPage3.Location = new Point(4, 29);
 			tabPage3.Name = "tabPage3";
 			tabPage3.Padding = new Padding(3);
 			tabPage3.Size = new Size(630, 251);
-			tabPage3.TabIndex = 2;
-			tabPage3.Text = "Church Directory";
+			tabPage3.TabIndex = 3;
+			tabPage3.Text = "Members";
 			tabPage3.UseVisualStyleBackColor = true;
+			// 
+			// tabPage4
+			// 
+			tabPage4.Controls.Add(tableLayoutPanel3);
+			tabPage4.Location = new Point(4, 29);
+			tabPage4.Name = "tabPage4";
+			tabPage4.Padding = new Padding(3);
+			tabPage4.Size = new Size(630, 251);
+			tabPage4.TabIndex = 2;
+			tabPage4.Text = "Church Directory";
+			tabPage4.UseVisualStyleBackColor = true;
 			// 
 			// tableLayoutPanel3
 			// 
@@ -343,6 +360,34 @@
 			btnChurchDirectoryGenerate.UseVisualStyleBackColor = true;
 			btnChurchDirectoryGenerate.Click += btnChurchDirectoryGenerate_Click;
 			// 
+			// tableLayoutPanel4
+			// 
+			tableLayoutPanel4.ColumnCount = 3;
+			tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+			tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle());
+			tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+			tableLayoutPanel4.Controls.Add(btnMemberGenerate, 1, 1);
+			tableLayoutPanel4.Dock = DockStyle.Fill;
+			tableLayoutPanel4.Location = new Point(3, 3);
+			tableLayoutPanel4.Name = "tableLayoutPanel4";
+			tableLayoutPanel4.RowCount = 3;
+			tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+			tableLayoutPanel4.RowStyles.Add(new RowStyle());
+			tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+			tableLayoutPanel4.Size = new Size(624, 245);
+			tableLayoutPanel4.TabIndex = 7;
+			// 
+			// btnMemberGenerate
+			// 
+			btnMemberGenerate.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			btnMemberGenerate.Location = new Point(255, 107);
+			btnMemberGenerate.Name = "btnMemberGenerate";
+			btnMemberGenerate.Size = new Size(114, 30);
+			btnMemberGenerate.TabIndex = 2;
+			btnMemberGenerate.Text = "Generate";
+			btnMemberGenerate.UseVisualStyleBackColor = true;
+			btnMemberGenerate.Click += btnMemberGenerate_Click;
+			// 
 			// frmReports
 			// 
 			AutoScaleDimensions = new SizeF(8F, 20F);
@@ -366,7 +411,9 @@
 			panel2.ResumeLayout(false);
 			panel2.PerformLayout();
 			tabPage3.ResumeLayout(false);
+			tabPage4.ResumeLayout(false);
 			tableLayoutPanel3.ResumeLayout(false);
+			tableLayoutPanel4.ResumeLayout(false);
 			ResumeLayout(false);
 		}
 
@@ -393,8 +440,11 @@
 		private Button btnAnniversaryGenerate;
 		private ComboBox cmbAnniversaryTo;
 		private Label label6;
-		private TabPage tabPage3;
+		private TabPage tabPage4;
 		private TableLayoutPanel tableLayoutPanel3;
 		private Button btnChurchDirectoryGenerate;
+		private TabPage tabPage3;
+		private TableLayoutPanel tableLayoutPanel4;
+		private Button btnMemberGenerate;
 	}
 }

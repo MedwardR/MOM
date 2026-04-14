@@ -97,7 +97,7 @@ internal class ChurchDirectoryReport(AppContext context) : Report
 
 				foreach (var adult in adults)
 				{
-					string name = adult.GetDisplayName(false);
+					string name = adult.GetDisplayName();
 
 					builder.AppendLine(4, "<div class=\"individual-column\">");
 					builder.AppendLine(5, "<div class=\"individual-header\">");
@@ -165,7 +165,7 @@ internal class ChurchDirectoryReport(AppContext context) : Report
 
 					foreach (var child in children)
 					{
-						string name = child.GetDisplayName(false);
+						string name = child.GetDisplayName();
 
 						builder.AppendLine(4, "<div class=\"individual-row\">");
 						builder.AppendLine(4, $"<div class=\"individual-name\">{name}</div>");

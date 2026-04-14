@@ -155,6 +155,12 @@ public partial class frmReports : Form
 		await RunReportAsync(report);
 	}
 
+	private async void btnMemberGenerate_Click(object sender, EventArgs e)
+	{
+		var report = new MembershipReport(_context);
+		await RunReportAsync(report);
+	}
+
 	private async Task RunReportAsync(Report report)
 	{
 		try

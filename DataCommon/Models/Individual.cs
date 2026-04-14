@@ -1,4 +1,5 @@
-﻿using DataCommon.Helpers;
+﻿using DataCommon.Enums;
+using DataCommon.Helpers;
 using DataCommon.Models.Abstractions;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -69,10 +70,13 @@ namespace DataCommon.Models
 			};
 		}
 
-		public string GetDisplayName(bool includeLastName)
+		public string GetDisplayName(NameOptions options = default)
 		{
+			bool includeLastName = options.HasFlag(NameOptions.IncludeLastName);
+			bool lastNameFirst = options.HasFlag(NameOptions.LastNameFirst);
+
 			var parts = new List<string>();
-			
+
 			if (!string.IsNullOrWhiteSpace(PreferredName))
 			{
 				parts.Add(PreferredName);
@@ -81,7 +85,11 @@ namespace DataCommon.Models
 
 			if (includeLastName && !string.IsNullOrWhiteSpace(LastName))
 			{
-				parts.Add(LastName);
+				if (lastNameFirst)
+				{
+					parts.Insert(0, LastName + ",");
+				}
+				else parts.Add(LastName);
 			}
 			return string.Join(" ", parts);
 		}
