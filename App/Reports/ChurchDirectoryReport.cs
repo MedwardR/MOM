@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DataCommon.Helpers;
+using Microsoft.EntityFrameworkCore;
 using MOM.Abstractions;
 using MOM.Helpers;
 using MOM.Utilities;
@@ -13,11 +14,21 @@ internal class ChurchDirectoryReport(AppContext context) : Report
 
 	protected override string GetPageMargin() => "0.5in";
 
+	public override IEnumerable<string> GetHeaders()
+	{
+		var defaults = base.GetHeaders();
+		foreach (string value in defaults) yield return value;
+
+		yield return "129 Pleasant Valley Road";
+		yield return "East Earl, PA 17519";
+	}
+
 	protected override async Task<string> GetBodyAsync()
 	{
 		var households = await context.Households
 			.Include(household => household.Individuals)
 			.Where(household => household.IncludeInDirectory && household.Active)
+			.OrderBy(household => household.Name)
 			.ToListAsync();
 
 		var builder = new CodeBuilder();
@@ -72,10 +83,13 @@ internal class ChurchDirectoryReport(AppContext context) : Report
 				}
 				builder.AppendLine(3, "</div>");
 			}
-			var adults = h.Individuals
+			builder.AppendLine(2, "</div>");
+			builder.AppendLine(2, "<div>");
+
+			var adults = SortHelper.SortMembers(h.Individuals
 				.Where(member => member.Active)
 				.Where(member => !member.Child)
-				.ToArray();
+			);
 
 			if (adults.Length > 0)
 			{
@@ -88,7 +102,7 @@ internal class ChurchDirectoryReport(AppContext context) : Report
 					builder.AppendLine(4, "<div class=\"individual-column\">");
 					builder.AppendLine(5, "<div class=\"individual-header\">");
 					builder.AppendLine(6, $"<div class=\"individual-name\">{name}</div>");
-					
+
 					if (adult.BirthDate.HasValue)
 					{
 						builder.AppendLine(6, $"<div>{SEPARATOR}</div>");
@@ -132,10 +146,10 @@ internal class ChurchDirectoryReport(AppContext context) : Report
 				.Distinct()
 				.OrderByDescending(value => value!.Value)
 				.FirstOrDefault();
-			var children = h.Individuals
+			var children = SortHelper.SortMembers(h.Individuals
 				.Where(member => member.Active)
 				.Where(member => member.Child)
-				.ToArray();
+			);
 
 			if (anniversary is not null || children.Length > 0)
 			{
@@ -193,118 +207,61 @@ internal class ChurchDirectoryReport(AppContext context) : Report
 		var builder = new CodeBuilder();
 
 		builder.AppendLine(0, ".content {");
-		builder.AppendLine(1, "display: grid;");
-		builder.AppendLine(1, "grid-template-columns: 1fr 1fr;");
-		builder.AppendLine(1, "font-size: 0.8rem;");
-		builder.AppendLine(0, "}");
-		
-		builder.AppendLine(0, ".content-card {");
-		builder.AppendLine(1, "display: flex;");
-		builder.AppendLine(1, "flex-direction: column;");
-		builder.AppendLine(1, "row-gap: 0.5rem;");
-		builder.AppendLine(0, "}");
-		
-		builder.AppendLine(0, ".household-header {");
-		builder.AppendLine(1, "font-weight: bold;");
-		builder.AppendLine(1, "font-size: 1rem;");
-		builder.AppendLine(0, "}");
-		
-		builder.AppendLine(0, ".household-contact {");
-		builder.AppendLine(1, "display: flex;");
-		builder.AppendLine(1, "flex-direction: row;");
-		builder.AppendLine(1, "flex-wrap: wrap;");
-		builder.AppendLine(1, "column-gap: 0.3rem;");
-		builder.AppendLine(0, "}");
-		
-		builder.AppendLine(0, ".household-individuals {");
-		builder.AppendLine(1, "display: flex;");
-		builder.AppendLine(1, "flex-direction: row;");
-		builder.AppendLine(1, "flex-wrap: wrap;");
-		builder.AppendLine(1, "gap: 0.5rem 1rem;");
-		builder.AppendLine(0, "}");
-		
-		builder.AppendLine(0, ".individual-column {");
-		builder.AppendLine(1, "display: flex;");
-		builder.AppendLine(1, "flex-direction: column;");
-		builder.AppendLine(0, "}");
-		
-		builder.AppendLine(0, ".individual-header {");
-		builder.AppendLine(1, "display: flex;");
-		builder.AppendLine(1, "flex-direction: row;");
-		builder.AppendLine(1, "flex-wrap: wrap;");
-		builder.AppendLine(1, "column-gap: 0.3rem;");
-		builder.AppendLine(0, "}");
-		
-		builder.AppendLine(0, ".individual-name {");
-		builder.AppendLine(1, "text-decoration: underline;");
-		builder.AppendLine(0, "}");
-		
-		builder.AppendLine(0, ".household-children {");
-		builder.AppendLine(1, "display: flex;");
-		builder.AppendLine(1, "flex-direction: row;");
-		builder.AppendLine(1, "flex-wrap: wrap;");
+		builder.AppendLine(1, "column-count: 2;");
 		builder.AppendLine(1, "column-gap: 1rem;");
-		builder.AppendLine(0, "}");
-		
-		builder.AppendLine(0, ".individual-row {");
-		builder.AppendLine(1, "display: flex;");
-		builder.AppendLine(1, "flex-direction: row;");
-		builder.AppendLine(1, "column-gap: 0.3rem;");
-		builder.AppendLine(0, "}");
-		builder.AppendLine(0, ".content {");
-		builder.AppendLine(1, "display: grid;");
-		builder.AppendLine(1, "grid-template-columns: 1fr 1fr;");
 		builder.AppendLine(1, "font-size: 0.8rem;");
 		builder.AppendLine(0, "}");
-		
+
 		builder.AppendLine(0, ".content-card {");
 		builder.AppendLine(1, "display: flex;");
 		builder.AppendLine(1, "flex-direction: column;");
 		builder.AppendLine(1, "row-gap: 0.5rem;");
+		builder.AppendLine(1, "margin-bottom: 1rem;");
+		builder.AppendLine(1, "break-inside: avoid;");
 		builder.AppendLine(0, "}");
 
 		builder.AppendLine(0, ".household-header {");
 		builder.AppendLine(1, "font-weight: bold;");
 		builder.AppendLine(1, "font-size: 1rem;");
 		builder.AppendLine(0, "}");
-		
+
 		builder.AppendLine(0, ".household-contact {");
 		builder.AppendLine(1, "display: flex;");
 		builder.AppendLine(1, "flex-direction: row;");
 		builder.AppendLine(1, "flex-wrap: wrap;");
 		builder.AppendLine(1, "column-gap: 0.3rem;");
 		builder.AppendLine(0, "}");
-		
+
 		builder.AppendLine(0, ".household-individuals {");
 		builder.AppendLine(1, "display: flex;");
 		builder.AppendLine(1, "flex-direction: row;");
 		builder.AppendLine(1, "flex-wrap: wrap;");
 		builder.AppendLine(1, "gap: 0.5rem 1rem;");
 		builder.AppendLine(0, "}");
-		
+
 		builder.AppendLine(0, ".individual-column {");
 		builder.AppendLine(1, "display: flex;");
 		builder.AppendLine(1, "flex-direction: column;");
 		builder.AppendLine(0, "}");
-		
+
 		builder.AppendLine(0, ".individual-header {");
 		builder.AppendLine(1, "display: flex;");
 		builder.AppendLine(1, "flex-direction: row;");
 		builder.AppendLine(1, "flex-wrap: wrap;");
 		builder.AppendLine(1, "column-gap: 0.3rem;");
 		builder.AppendLine(0, "}");
-		
+
 		builder.AppendLine(0, ".individual-name {");
 		builder.AppendLine(1, "text-decoration: underline;");
 		builder.AppendLine(0, "}");
-		
+
 		builder.AppendLine(0, ".household-children {");
 		builder.AppendLine(1, "display: flex;");
 		builder.AppendLine(1, "flex-direction: row;");
 		builder.AppendLine(1, "flex-wrap: wrap;");
 		builder.AppendLine(1, "column-gap: 1rem;");
 		builder.AppendLine(0, "}");
-		
+
 		builder.AppendLine(0, ".individual-row {");
 		builder.AppendLine(1, "display: flex;");
 		builder.AppendLine(1, "flex-direction: row;");

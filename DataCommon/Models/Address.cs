@@ -33,8 +33,6 @@ public class Address : ICloneable<Address>
 		{
 			tokens.Add(Street);
 		}
-		else tokens.Add("? (street)");
-
 		if (!string.IsNullOrWhiteSpace(Apartment))
 		{
 			tokens.Add(Apartment);
@@ -43,16 +41,12 @@ public class Address : ICloneable<Address>
 		{
 			tokens.Add(City);
 		}
-		else tokens.Add("? (city)");
-
 		var stateZipTokens = new List<string>();
 
 		if (!string.IsNullOrWhiteSpace(State))
 		{
 			stateZipTokens.Add(State);
 		}
-		else stateZipTokens.Add("? (state)");
-
 		if (!string.IsNullOrWhiteSpace(Zip))
 		{
 			stateZipTokens.Add(Zip);

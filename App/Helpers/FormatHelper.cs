@@ -11,8 +11,12 @@ internal static class FormatHelper
 	{
 		if (!string.IsNullOrWhiteSpace(input))
 		{
+			char[] digits = [.. input.Where(char.IsDigit)];
+			string normalized = new(digits);
+
 			var provider = new MaskedTextProvider(mask);
-			provider.Set(input);
+			provider.Set(normalized);
+
 			return provider.ToDisplayString();
 		}
 		else return string.Empty;

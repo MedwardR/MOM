@@ -10,7 +10,11 @@ internal abstract class Report
 	protected abstract string GetPageMargin();
 	protected abstract Task<string> GetBodyAsync();
 	protected abstract string GetStyle();
-	public virtual IEnumerable<string> GetExtraHeaders() => [];
+	public virtual IEnumerable<string> GetHeaders()
+	{
+		yield return GetTitle();
+		yield return "Bowmansville Mennonite Church";
+	}
 
 	public async Task ShowAsync()
 	{
@@ -105,10 +109,7 @@ internal abstract class Report
 		builder.AppendLine(0, "</head>");
 		builder.AppendLine(0, "<body>");
 
-		var headers = new List<string>() { organization, title };
-		var extra = GetExtraHeaders();
-		headers.AddRange(extra);
-
+		var headers = GetHeaders();
 		foreach (string value in headers)
 		{
 			builder.AppendLine(1, "<div class=\"header\">");
