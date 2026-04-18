@@ -51,11 +51,20 @@
 			cmbAnniversaryTo = new ComboBox();
 			label6 = new Label();
 			tabPage3 = new TabPage();
+			tableLayoutPanel4 = new TableLayoutPanel();
+			panel3 = new Panel();
+			llMemberSchoolAge = new LinkLabel();
+			label8 = new Label();
+			tableLayoutPanel5 = new TableLayoutPanel();
+			tbMemberAgeTo = new MOM.Controls.DateTimeTextBox();
+			label9 = new Label();
+			tbMemberAgeFrom = new MOM.Controls.DateTimeTextBox();
+			label7 = new Label();
+			cmbMemberOrderBy = new ComboBox();
+			btnMemberGenerate = new Button();
 			tabPage4 = new TabPage();
 			tableLayoutPanel3 = new TableLayoutPanel();
 			btnChurchDirectoryGenerate = new Button();
-			tableLayoutPanel4 = new TableLayoutPanel();
-			btnMemberGenerate = new Button();
 			tabControl1.SuspendLayout();
 			tabPage1.SuspendLayout();
 			tableLayoutPanel1.SuspendLayout();
@@ -64,9 +73,11 @@
 			tableLayoutPanel2.SuspendLayout();
 			panel2.SuspendLayout();
 			tabPage3.SuspendLayout();
+			tableLayoutPanel4.SuspendLayout();
+			panel3.SuspendLayout();
+			tableLayoutPanel5.SuspendLayout();
 			tabPage4.SuspendLayout();
 			tableLayoutPanel3.SuspendLayout();
-			tableLayoutPanel4.SuspendLayout();
 			SuspendLayout();
 			// 
 			// tabControl1
@@ -199,10 +210,10 @@
 			// tabPage2
 			// 
 			tabPage2.Controls.Add(tableLayoutPanel2);
-			tabPage2.Location = new Point(4, 29);
+			tabPage2.Location = new Point(4, 24);
 			tabPage2.Margin = new Padding(3, 4, 3, 4);
 			tabPage2.Name = "tabPage2";
-			tabPage2.Size = new Size(630, 251);
+			tabPage2.Size = new Size(630, 256);
 			tabPage2.TabIndex = 1;
 			tabPage2.Text = "Anniversaries";
 			tabPage2.UseVisualStyleBackColor = true;
@@ -221,7 +232,7 @@
 			tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
 			tableLayoutPanel2.RowStyles.Add(new RowStyle());
 			tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-			tableLayoutPanel2.Size = new Size(630, 251);
+			tableLayoutPanel2.Size = new Size(630, 256);
 			tableLayoutPanel2.TabIndex = 6;
 			// 
 			// panel2
@@ -234,7 +245,7 @@
 			panel2.Controls.Add(btnAnniversaryGenerate);
 			panel2.Controls.Add(cmbAnniversaryTo);
 			panel2.Controls.Add(label6);
-			panel2.Location = new Point(126, 40);
+			panel2.Location = new Point(126, 43);
 			panel2.Name = "panel2";
 			panel2.Size = new Size(378, 170);
 			panel2.TabIndex = 5;
@@ -321,13 +332,150 @@
 			tabPage3.Text = "Members";
 			tabPage3.UseVisualStyleBackColor = true;
 			// 
+			// tableLayoutPanel4
+			// 
+			tableLayoutPanel4.ColumnCount = 3;
+			tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+			tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle());
+			tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+			tableLayoutPanel4.Controls.Add(panel3, 1, 1);
+			tableLayoutPanel4.Dock = DockStyle.Fill;
+			tableLayoutPanel4.Location = new Point(3, 3);
+			tableLayoutPanel4.Name = "tableLayoutPanel4";
+			tableLayoutPanel4.RowCount = 3;
+			tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+			tableLayoutPanel4.RowStyles.Add(new RowStyle());
+			tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+			tableLayoutPanel4.Size = new Size(624, 245);
+			tableLayoutPanel4.TabIndex = 6;
+			// 
+			// panel3
+			// 
+			panel3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			panel3.Controls.Add(llMemberSchoolAge);
+			panel3.Controls.Add(label8);
+			panel3.Controls.Add(tableLayoutPanel5);
+			panel3.Controls.Add(label7);
+			panel3.Controls.Add(cmbMemberOrderBy);
+			panel3.Controls.Add(btnMemberGenerate);
+			panel3.Location = new Point(123, 66);
+			panel3.Name = "panel3";
+			panel3.Size = new Size(378, 113);
+			panel3.TabIndex = 5;
+			// 
+			// llMemberSchoolAge
+			// 
+			llMemberSchoolAge.AutoSize = true;
+			llMemberSchoolAge.Location = new Point(45, 6);
+			llMemberSchoolAge.Name = "llMemberSchoolAge";
+			llMemberSchoolAge.Size = new Size(91, 20);
+			llMemberSchoolAge.TabIndex = 9;
+			llMemberSchoolAge.TabStop = true;
+			llMemberSchoolAge.Text = "(school age)";
+			llMemberSchoolAge.LinkClicked += llMemberSchoolAge_LinkClicked;
+			// 
+			// label8
+			// 
+			label8.AutoEllipsis = true;
+			label8.AutoSize = true;
+			label8.Location = new Point(3, 6);
+			label8.Name = "label8";
+			label8.Size = new Size(36, 20);
+			label8.TabIndex = 8;
+			label8.Text = "Age";
+			// 
+			// tableLayoutPanel5
+			// 
+			tableLayoutPanel5.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tableLayoutPanel5.ColumnCount = 3;
+			tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+			tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle());
+			tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+			tableLayoutPanel5.Controls.Add(tbMemberAgeTo, 2, 0);
+			tableLayoutPanel5.Controls.Add(label9, 1, 0);
+			tableLayoutPanel5.Controls.Add(tbMemberAgeFrom, 0, 0);
+			tableLayoutPanel5.Location = new Point(3, 29);
+			tableLayoutPanel5.Name = "tableLayoutPanel5";
+			tableLayoutPanel5.RowCount = 1;
+			tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+			tableLayoutPanel5.Size = new Size(372, 27);
+			tableLayoutPanel5.TabIndex = 7;
+			// 
+			// tbMemberAgeTo
+			// 
+			tbMemberAgeTo.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+			tbMemberAgeTo.Location = new Point(200, 0);
+			tbMemberAgeTo.Margin = new Padding(0);
+			tbMemberAgeTo.Mask = "90/90/9900";
+			tbMemberAgeTo.Name = "tbMemberAgeTo";
+			tbMemberAgeTo.Size = new Size(172, 27);
+			tbMemberAgeTo.TabIndex = 11;
+			tbMemberAgeTo.ValidatingType = typeof(DateTime);
+			tbMemberAgeTo.Value = null;
+			tbMemberAgeTo.Validated += tbMemberAgeTo_Validated;
+			// 
+			// label9
+			// 
+			label9.Anchor = AnchorStyles.Left;
+			label9.AutoEllipsis = true;
+			label9.AutoSize = true;
+			label9.Location = new Point(174, 3);
+			label9.Name = "label9";
+			label9.Size = new Size(23, 20);
+			label9.TabIndex = 9;
+			label9.Text = "to";
+			// 
+			// tbMemberAgeFrom
+			// 
+			tbMemberAgeFrom.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+			tbMemberAgeFrom.Location = new Point(0, 0);
+			tbMemberAgeFrom.Margin = new Padding(0);
+			tbMemberAgeFrom.Mask = "90/90/9900";
+			tbMemberAgeFrom.Name = "tbMemberAgeFrom";
+			tbMemberAgeFrom.Size = new Size(171, 27);
+			tbMemberAgeFrom.TabIndex = 10;
+			tbMemberAgeFrom.ValidatingType = typeof(DateTime);
+			tbMemberAgeFrom.Value = null;
+			tbMemberAgeFrom.Validated += tbMemberAgeFrom_Validated;
+			// 
+			// label7
+			// 
+			label7.AutoEllipsis = true;
+			label7.AutoSize = true;
+			label7.Location = new Point(3, 59);
+			label7.Name = "label7";
+			label7.Size = new Size(67, 20);
+			label7.TabIndex = 6;
+			label7.Text = "Order by";
+			// 
+			// cmbMemberOrderBy
+			// 
+			cmbMemberOrderBy.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			cmbMemberOrderBy.FormattingEnabled = true;
+			cmbMemberOrderBy.Location = new Point(3, 82);
+			cmbMemberOrderBy.MaxDropDownItems = 12;
+			cmbMemberOrderBy.Name = "cmbMemberOrderBy";
+			cmbMemberOrderBy.Size = new Size(245, 28);
+			cmbMemberOrderBy.TabIndex = 5;
+			// 
+			// btnMemberGenerate
+			// 
+			btnMemberGenerate.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			btnMemberGenerate.Location = new Point(254, 81);
+			btnMemberGenerate.Name = "btnMemberGenerate";
+			btnMemberGenerate.Size = new Size(121, 30);
+			btnMemberGenerate.TabIndex = 2;
+			btnMemberGenerate.Text = "Generate";
+			btnMemberGenerate.UseVisualStyleBackColor = true;
+			btnMemberGenerate.Click += btnMemberGenerate_Click;
+			// 
 			// tabPage4
 			// 
 			tabPage4.Controls.Add(tableLayoutPanel3);
-			tabPage4.Location = new Point(4, 29);
+			tabPage4.Location = new Point(4, 24);
 			tabPage4.Name = "tabPage4";
 			tabPage4.Padding = new Padding(3);
-			tabPage4.Size = new Size(630, 251);
+			tabPage4.Size = new Size(630, 256);
 			tabPage4.TabIndex = 2;
 			tabPage4.Text = "Church Directory";
 			tabPage4.UseVisualStyleBackColor = true;
@@ -346,47 +494,19 @@
 			tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
 			tableLayoutPanel3.RowStyles.Add(new RowStyle());
 			tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-			tableLayoutPanel3.Size = new Size(624, 245);
+			tableLayoutPanel3.Size = new Size(624, 250);
 			tableLayoutPanel3.TabIndex = 6;
 			// 
 			// btnChurchDirectoryGenerate
 			// 
 			btnChurchDirectoryGenerate.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-			btnChurchDirectoryGenerate.Location = new Point(255, 107);
+			btnChurchDirectoryGenerate.Location = new Point(255, 110);
 			btnChurchDirectoryGenerate.Name = "btnChurchDirectoryGenerate";
 			btnChurchDirectoryGenerate.Size = new Size(114, 30);
 			btnChurchDirectoryGenerate.TabIndex = 2;
 			btnChurchDirectoryGenerate.Text = "Generate";
 			btnChurchDirectoryGenerate.UseVisualStyleBackColor = true;
 			btnChurchDirectoryGenerate.Click += btnChurchDirectoryGenerate_Click;
-			// 
-			// tableLayoutPanel4
-			// 
-			tableLayoutPanel4.ColumnCount = 3;
-			tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-			tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle());
-			tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-			tableLayoutPanel4.Controls.Add(btnMemberGenerate, 1, 1);
-			tableLayoutPanel4.Dock = DockStyle.Fill;
-			tableLayoutPanel4.Location = new Point(3, 3);
-			tableLayoutPanel4.Name = "tableLayoutPanel4";
-			tableLayoutPanel4.RowCount = 3;
-			tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-			tableLayoutPanel4.RowStyles.Add(new RowStyle());
-			tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-			tableLayoutPanel4.Size = new Size(624, 245);
-			tableLayoutPanel4.TabIndex = 7;
-			// 
-			// btnMemberGenerate
-			// 
-			btnMemberGenerate.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-			btnMemberGenerate.Location = new Point(255, 107);
-			btnMemberGenerate.Name = "btnMemberGenerate";
-			btnMemberGenerate.Size = new Size(114, 30);
-			btnMemberGenerate.TabIndex = 2;
-			btnMemberGenerate.Text = "Generate";
-			btnMemberGenerate.UseVisualStyleBackColor = true;
-			btnMemberGenerate.Click += btnMemberGenerate_Click;
 			// 
 			// frmReports
 			// 
@@ -411,9 +531,13 @@
 			panel2.ResumeLayout(false);
 			panel2.PerformLayout();
 			tabPage3.ResumeLayout(false);
+			tableLayoutPanel4.ResumeLayout(false);
+			panel3.ResumeLayout(false);
+			panel3.PerformLayout();
+			tableLayoutPanel5.ResumeLayout(false);
+			tableLayoutPanel5.PerformLayout();
 			tabPage4.ResumeLayout(false);
 			tableLayoutPanel3.ResumeLayout(false);
-			tableLayoutPanel4.ResumeLayout(false);
 			ResumeLayout(false);
 		}
 
@@ -445,6 +569,15 @@
 		private Button btnChurchDirectoryGenerate;
 		private TabPage tabPage3;
 		private TableLayoutPanel tableLayoutPanel4;
+		private Panel panel3;
+		private Label label7;
+		private ComboBox cmbMemberOrderBy;
 		private Button btnMemberGenerate;
+		private TableLayoutPanel tableLayoutPanel5;
+		private Label label8;
+		private Label label9;
+		private Controls.DateTimeTextBox tbMemberAgeTo;
+		private Controls.DateTimeTextBox tbMemberAgeFrom;
+		private LinkLabel llMemberSchoolAge;
 	}
 }
