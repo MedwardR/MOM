@@ -107,7 +107,7 @@ public partial class frmBackup : Form
 			{
 				Log.Error(ex, "Error occurred during backup");
 				var message = new StringBuilder();
-				message.AppendLine("Warning: backup not created due to the following error:");
+				message.AppendLine("Warning! Backup not created due to the following error:");
 				message.AppendLine();
 				message.Append(ex.Message);
 				MessageBox.Show(message.ToString(), "Backup Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);

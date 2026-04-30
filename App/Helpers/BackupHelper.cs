@@ -45,7 +45,7 @@ internal class BackupHelper
 				string stdout = await process.StandardOutput.ReadToEndAsync(cancellationToken);
 				string stderr = await process.StandardError.ReadToEndAsync(cancellationToken);
 				var innerException = new Exception($"stdout: {stdout}{Environment.NewLine}stderr: {stderr}");
-				throw new Exception("Backup process failed", innerException);
+				throw new Exception("Backup process did not exit successfully", innerException);
 			}
 			else Log.Information("Backup successful!");
 		}

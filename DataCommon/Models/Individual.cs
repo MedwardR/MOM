@@ -94,6 +94,17 @@ namespace DataCommon.Models
 			return string.Join(" ", parts);
 		}
 
+		public int? Age() => AgeAsOf(DateTime.Now);
+
+		public int? AgeAsOf(DateTime timestamp)
+		{
+			if (BirthDate.HasValue)
+			{
+				return TimestampHelper.YearsBetween(timestamp, BirthDate.Value);
+			}
+			else return null;
+		}
+
 		public bool Equals(Individual? other)
 		{
 			if (other is not null)

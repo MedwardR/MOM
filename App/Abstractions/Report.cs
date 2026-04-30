@@ -10,7 +10,7 @@ internal abstract class Report
 	protected abstract string GetPageMargin();
 	protected abstract Task<string> GetBodyAsync();
 	protected abstract string GetStyle();
-	public virtual IEnumerable<string> GetHeaders()
+	protected virtual IEnumerable<string> GetHeaders()
 	{
 		yield return GetTitle();
 		yield return "Bowmansville Mennonite Church";

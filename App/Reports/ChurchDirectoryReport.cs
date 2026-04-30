@@ -14,7 +14,7 @@ internal class ChurchDirectoryReport(AppContext context) : Report
 
 	protected override string GetPageMargin() => "0.5in";
 
-	public override IEnumerable<string> GetHeaders()
+	protected override IEnumerable<string> GetHeaders()
 	{
 		var defaults = base.GetHeaders();
 		foreach (string value in defaults) yield return value;
