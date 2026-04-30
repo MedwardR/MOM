@@ -35,11 +35,12 @@ namespace MOM.Forms
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmHouseholds));
 			splitContainer1 = new SplitContainer();
 			tableLayoutPanel1 = new TableLayoutPanel();
-			tbSearch = new TextBox();
 			label1 = new Label();
 			dgvHouseholds = new DataGridView();
 			nameDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
 			bsHouseholds = new BindingSource(components);
+			tbSearch = new TextBox();
+			cbAll = new CheckBox();
 			tableLayoutPanel3 = new TableLayoutPanel();
 			gbHousehold = new GroupBox();
 			flowLayoutPanel2 = new FlowLayoutPanel();
@@ -109,33 +110,24 @@ namespace MOM.Forms
 			// 
 			// tableLayoutPanel1
 			// 
-			tableLayoutPanel1.ColumnCount = 2;
+			tableLayoutPanel1.ColumnCount = 3;
 			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
 			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-			tableLayoutPanel1.Controls.Add(tbSearch, 1, 0);
+			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
 			tableLayoutPanel1.Controls.Add(label1, 0, 0);
-			tableLayoutPanel1.Controls.Add(dgvHouseholds, 0, 1);
+			tableLayoutPanel1.Controls.Add(dgvHouseholds, 0, 2);
+			tableLayoutPanel1.Controls.Add(tbSearch, 1, 0);
+			tableLayoutPanel1.Controls.Add(cbAll, 2, 0);
 			tableLayoutPanel1.Dock = DockStyle.Fill;
 			tableLayoutPanel1.Font = new Font("Segoe UI", 11F);
 			tableLayoutPanel1.Location = new Point(3, 3);
 			tableLayoutPanel1.Name = "tableLayoutPanel1";
-			tableLayoutPanel1.RowCount = 2;
+			tableLayoutPanel1.RowCount = 3;
+			tableLayoutPanel1.RowStyles.Add(new RowStyle());
 			tableLayoutPanel1.RowStyles.Add(new RowStyle());
 			tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-			tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
 			tableLayoutPanel1.Size = new Size(333, 509);
 			tableLayoutPanel1.TabIndex = 0;
-			// 
-			// tbSearch
-			// 
-			tbSearch.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-			tbSearch.Font = new Font("Segoe UI", 11F);
-			tbSearch.Location = new Point(62, 3);
-			tbSearch.Margin = new Padding(3, 3, 0, 3);
-			tbSearch.Name = "tbSearch";
-			tbSearch.Size = new Size(271, 27);
-			tbSearch.TabIndex = 10;
-			tbSearch.TextChanged += tbSearch_TextChanged;
 			// 
 			// label1
 			// 
@@ -155,7 +147,7 @@ namespace MOM.Forms
 			dgvHouseholds.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			dgvHouseholds.ColumnHeadersVisible = false;
 			dgvHouseholds.Columns.AddRange(new DataGridViewColumn[] { nameDataGridViewTextBoxColumn });
-			tableLayoutPanel1.SetColumnSpan(dgvHouseholds, 2);
+			tableLayoutPanel1.SetColumnSpan(dgvHouseholds, 3);
 			dgvHouseholds.DataSource = bsHouseholds;
 			dgvHouseholds.Dock = DockStyle.Fill;
 			dgvHouseholds.Location = new Point(3, 36);
@@ -180,6 +172,30 @@ namespace MOM.Forms
 			// 
 			bsHouseholds.AllowNew = false;
 			bsHouseholds.DataSource = typeof(Household);
+			// 
+			// tbSearch
+			// 
+			tbSearch.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+			tbSearch.Font = new Font("Segoe UI", 11F);
+			tbSearch.Location = new Point(62, 3);
+			tbSearch.Margin = new Padding(3, 3, 0, 3);
+			tbSearch.Name = "tbSearch";
+			tbSearch.Size = new Size(219, 27);
+			tbSearch.TabIndex = 10;
+			tbSearch.TextChanged += tbSearch_TextChanged;
+			// 
+			// cbAll
+			// 
+			cbAll.Anchor = AnchorStyles.Left;
+			cbAll.AutoSize = true;
+			cbAll.Location = new Point(287, 6);
+			cbAll.Margin = new Padding(6, 6, 0, 3);
+			cbAll.Name = "cbAll";
+			cbAll.Size = new Size(46, 24);
+			cbAll.TabIndex = 12;
+			cbAll.Text = "All";
+			cbAll.UseVisualStyleBackColor = true;
+			cbAll.CheckedChanged += cbAll_CheckedChanged;
 			// 
 			// tableLayoutPanel3
 			// 
@@ -647,5 +663,6 @@ namespace MOM.Forms
 		private ToolTip toolTip1;
 		private LinkLabel llReports;
 		private CheckBox cbIncludeInDirectory;
+		private CheckBox cbAll;
 	}
 }

@@ -63,6 +63,7 @@ public partial class frmHouseholds : Form
 				if (!string.IsNullOrWhiteSpace(search))
 				{
 					string trimmed = search.Trim();
+
 					query = context.Households.Where(h =>
 						h.Active && (
 						EF.Functions.ILike(h.Name, $"%{trimmed}%") ||
@@ -79,19 +80,24 @@ public partial class frmHouseholds : Form
 				var materialized = await query.OrderBy(h => h.Name).ToListAsync(cancellationToken);
 				cancellationToken.ThrowIfCancellationRequested();
 
+				var filtered = materialized.Where(h => h.IncludeInDirectory || cbAll.Checked).ToArray();
+				cancellationToken.ThrowIfCancellationRequested();
+
 				var oldIds = _collection.Select(h => h.Id).ToHashSet();
-				var newIds = materialized.Select(h => h.Id).ToHashSet();
+				var newIds = filtered.Select(h => h.Id).ToHashSet();
+
 				if (!oldIds.SetEquals(newIds))
 				{
 					_collection.Clear();
-					foreach (var h in materialized)
+
+					foreach (var h in filtered)
 					{
 						cancellationToken.ThrowIfCancellationRequested();
 						_collection.Add(h);
 					}
 				}
-
 				var first = _collection.FirstOrDefault();
+
 				if (first is not null)
 				{
 					await ChangeCurrentAsync(first);
@@ -322,6 +328,26 @@ public partial class frmHouseholds : Form
 		return frm.DialogResult;
 	}
 
+	private async Task SearchAsync()
+	{
+		_cts?.Cancel();
+		_cts?.Dispose();
+		_cts = new();
+		try
+		{
+			var cancellationToken = _cts.Token;
+			await LoadHouseholdsAsync(tbSearch.Text, cancellationToken);
+		}
+		catch (OperationCanceledException)
+		{
+			// Ignore
+		}
+		finally
+		{
+			_cts = null;
+		}
+	}
+
 	private static UnsavedChangesDialogResult ConfirmBeforeDiscardingChanges()
 	{
 		const string text = "The current household has unsaved changes. Save?";
@@ -357,22 +383,12 @@ public partial class frmHouseholds : Form
 
 	private async void tbSearch_TextChanged(object sender, EventArgs e)
 	{
-		_cts?.Cancel();
-		_cts?.Dispose();
-		_cts = new();
-		try
-		{
-			var cancellationToken = _cts.Token;
-			await LoadHouseholdsAsync(tbSearch.Text, cancellationToken);
-		}
-		catch (OperationCanceledException)
-		{
-			// Ignore
-		}
-		finally
-		{
-			_cts = null;
-		}
+		await SearchAsync();
+	}
+
+	private async void cbAll_CheckedChanged(object sender, EventArgs e)
+	{
+		await SearchAsync();
 	}
 
 	private async void btnNewHousehold_Click(object sender, EventArgs e)
