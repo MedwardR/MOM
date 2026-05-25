@@ -6,7 +6,11 @@ $exitCode = 0
 # Adjust 'App' if your application folder has a different name
 $appDirectory = "App" 
 
-Write-Host "Releasing .NET application..." -ForegroundColor Green
+# Define the publish profile name (without extension)
+# Common names: PublishProfiles\FolderProfile.pubxml, PublishProfiles\Release.pubxml
+$publishProfile = "FolderProfile"
+
+Write-Host "Releasing .NET application with publish profile..." -ForegroundColor Green
 
 # Save current directory
 $currentDir = Get-Location
@@ -14,14 +18,15 @@ $currentDir = Get-Location
 # Change to the application directory
 Set-Location $appDirectory
 
-dotnet build -c Release
+# Build and publish using the specified publish profile
+dotnet publish -c Release -p:PublishProfile=$publishProfile
 
 if ($LASTEXITCODE -ne 0) {
-    Write-Host "Failed to release .NET application. Exit code: $LASTEXITCODE" -ForegroundColor Red
+    Write-Host "Failed to publish .NET application. Exit code: $LASTEXITCODE" -ForegroundColor Red
     $exitCode = $LASTEXITCODE
 }
 else {
-    Write-Host "Release completed successfully!" -ForegroundColor Green
+    Write-Host "Publish completed successfully!" -ForegroundColor Green
 
     # Change back to the script's original directory before running Inno Setup
     Set-Location $currentDir

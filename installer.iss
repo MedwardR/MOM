@@ -1,7 +1,7 @@
 [Setup]
 ; General information about the installation.
 AppName=MOM Application
-AppVersion=1.2.0
+AppVersion=1.2.1
 ArchitecturesInstallIn64BitMode=x64
 DefaultDirName={autopf}\MOM
 DefaultGroupName=MOM
@@ -21,7 +21,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
 ; Files to be included in the installation.
-Source: ".\\App\\bin\\Release\\net8.0-windows7.0\\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: ".\\App\\bin\\Publish\\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
 ; Creating the application icons.

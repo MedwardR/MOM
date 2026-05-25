@@ -1,3 +1,4 @@
+using DataCommon.Enums;
 using DataCommon.Helpers;
 using DataCommon.Models;
 using Microsoft.EntityFrameworkCore;
@@ -145,6 +146,8 @@ public partial class frmHouseholds : Form
 
 			context.Attach(_current);
 			context.Entry(_current).State = _current.Id == 0 ? EntityState.Added : EntityState.Modified;
+			context.Entry(_current.Address).State = _current.Id == 0 ? EntityState.Added : EntityState.Modified;
+
 			foreach (var member in _current.Individuals)
 			{
 				context.Entry(member).State = member.Id == 0 ? EntityState.Added : EntityState.Modified;
@@ -157,6 +160,7 @@ public partial class frmHouseholds : Form
 
 	private async Task RevertHouseholdsAsync()
 	{
+		Log.Information("Reverting changes...");
 		SuspendLayout();
 		await LoadHouseholdsAsync(string.Empty);
 		ResumeLayout();
@@ -164,6 +168,7 @@ public partial class frmHouseholds : Form
 
 	private async Task ChangeCurrentAsync(Household household)
 	{
+		Log.Information($"Selected household: '{household.Name}'");
 		_current = household;
 
 		FocusCurrent();
@@ -320,8 +325,11 @@ public partial class frmHouseholds : Form
 
 	private async Task<DialogResult> EditIndividualAsync(Individual member)
 	{
+		Log.Information($"Opening editor for individual: {member.GetDisplayName(NameOptions.IncludeLastName)}");
+
 		using var context = _factory.CreateDbContext();
 		using var frm = new frmIndividual(member);
+
 		await frm.LoadAutoCompleteAsync(context.Individuals);
 		frm.ShowDialog();
 

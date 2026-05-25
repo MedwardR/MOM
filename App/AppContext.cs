@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using MOM.Helpers;
 using Npgsql;
+using Serilog;
 using System.Security.Authentication;
 
 namespace MOM
@@ -27,12 +28,14 @@ namespace MOM
 
 		public override int SaveChanges(bool acceptAllChangesOnSuccess)
 		{
+			Log.Information("Saving changes...");
 			SetAuditFields();
 			return base.SaveChanges(acceptAllChangesOnSuccess);
 		}
 
 		public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
 		{
+			Log.Information("Saving changes...");
 			SetAuditFields();
 			return await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
 		}
