@@ -16,8 +16,7 @@ internal class MembershipReport(AppContext context) : Report
 		var builder = new CodeBuilder();
 
 		var individuals = await context.Individuals
-			.Include(member => member.Household)
-			.Where(member => member.Household.IncludeInDirectory && member.Active)
+			.Where(member => member.IsMember && member.Active)
 			.ToListAsync();
 		var ordered = individuals
 			.OrderBy(member => member.GetDisplayName(NameOptions.IncludeLastName | NameOptions.LastNameFirst));

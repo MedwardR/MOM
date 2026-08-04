@@ -1,6 +1,8 @@
 <Solution>
   <Folder Name="/Solution Items/">
     <File Path=".editorconfig" />
+    <File Path="build-release.ps1" />
+    <File Path="installer.iss" />
   </Folder>
   <Project Path="App/MOM.csproj" />
   <Project Path="DataCommon/DataCommon.csproj" />
