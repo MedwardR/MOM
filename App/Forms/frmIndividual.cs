@@ -73,6 +73,7 @@ public partial class frmIndividual : Form
 		tbMarriageDate.Value = _individual.MarriedDate;
 
 		tbMemberStatus.Text = _individual.MemberStatus;
+		cbHasMembership.Checked = _individual.IsMember;
 
 		cbChild.Checked = _individual.Child;
 		cbActive.Checked = _individual.Active;
@@ -106,6 +107,7 @@ public partial class frmIndividual : Form
 		_individual.MarriedDate = tbMarriageDate.Value;
 
 		_individual.MemberStatus = tbMemberStatus.Text;
+		_individual.IsMember = cbHasMembership.Checked;
 
 		_individual.Child = cbChild.Checked;
 		_individual.Active = cbActive.Checked;

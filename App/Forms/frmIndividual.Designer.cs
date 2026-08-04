@@ -60,8 +60,9 @@ namespace MOM.Forms
 			tableLayoutPanel3 = new TableLayoutPanel();
 			groupBox1 = new GroupBox();
 			tableLayoutPanel6 = new TableLayoutPanel();
-			tbMemberStatus = new AutoCompleteTextBox();
 			label20 = new Label();
+			tbMemberStatus = new AutoCompleteTextBox();
+			cbHasMembership = new CheckBox();
 			gbLife = new GroupBox();
 			tableLayoutPanel5 = new TableLayoutPanel();
 			tbMarriageDate = new DateTimeTextBox();
@@ -420,7 +421,7 @@ namespace MOM.Forms
 			groupBox1.Controls.Add(tableLayoutPanel6);
 			groupBox1.Location = new Point(460, 281);
 			groupBox1.Name = "groupBox1";
-			groupBox1.Size = new Size(451, 80);
+			groupBox1.Size = new Size(451, 110);
 			groupBox1.TabIndex = 51;
 			groupBox1.TabStop = false;
 			groupBox1.Text = "Membership";
@@ -429,20 +430,28 @@ namespace MOM.Forms
 			// 
 			tableLayoutPanel6.ColumnCount = 1;
 			tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-			tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-			tableLayoutPanel6.Controls.Add(tbMemberStatus, 0, 1);
 			tableLayoutPanel6.Controls.Add(label20, 0, 0);
+			tableLayoutPanel6.Controls.Add(tbMemberStatus, 0, 1);
+			tableLayoutPanel6.Controls.Add(cbHasMembership, 0, 2);
 			tableLayoutPanel6.Dock = DockStyle.Fill;
 			tableLayoutPanel6.Location = new Point(3, 23);
 			tableLayoutPanel6.Name = "tableLayoutPanel6";
-			tableLayoutPanel6.RowCount = 3;
+			tableLayoutPanel6.RowCount = 4;
+			tableLayoutPanel6.RowStyles.Add(new RowStyle());
 			tableLayoutPanel6.RowStyles.Add(new RowStyle());
 			tableLayoutPanel6.RowStyles.Add(new RowStyle());
 			tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-			tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-			tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-			tableLayoutPanel6.Size = new Size(445, 54);
+			tableLayoutPanel6.Size = new Size(445, 84);
 			tableLayoutPanel6.TabIndex = 0;
+			// 
+			// label20
+			// 
+			label20.AutoSize = true;
+			label20.Location = new Point(3, 0);
+			label20.Name = "label20";
+			label20.Size = new Size(49, 20);
+			label20.TabIndex = 2;
+			label20.Text = "Status";
 			// 
 			// tbMemberStatus
 			// 
@@ -453,14 +462,16 @@ namespace MOM.Forms
 			tbMemberStatus.Size = new Size(439, 27);
 			tbMemberStatus.TabIndex = 10;
 			// 
-			// label20
+			// cbHasMembership
 			// 
-			label20.AutoSize = true;
-			label20.Location = new Point(3, 0);
-			label20.Name = "label20";
-			label20.Size = new Size(107, 20);
-			label20.TabIndex = 2;
-			label20.Text = "Member status";
+			cbHasMembership.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+			cbHasMembership.AutoSize = true;
+			cbHasMembership.Location = new Point(302, 56);
+			cbHasMembership.Name = "cbHasMembership";
+			cbHasMembership.Size = new Size(140, 24);
+			cbHasMembership.TabIndex = 11;
+			cbHasMembership.Text = "Has membership";
+			cbHasMembership.UseVisualStyleBackColor = true;
 			// 
 			// gbLife
 			// 
@@ -862,5 +873,6 @@ namespace MOM.Forms
 		private TableLayoutPanel tableLayoutPanel6;
 		private AutoCompleteTextBox tbMemberStatus;
 		private Label label20;
+		private CheckBox cbHasMembership;
 	}
 }
