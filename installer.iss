@@ -1,7 +1,7 @@
 [Setup]
 ; General information about the installation.
 AppName=MOM Application
-AppVersion=1.3.1
+AppVersion=1.3.2
 ArchitecturesInstallIn64BitMode=x64
 DefaultDirName={autopf}\MOM
 DefaultGroupName=MOM

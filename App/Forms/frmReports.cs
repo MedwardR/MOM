@@ -1,5 +1,6 @@
 ﻿using DataCommon.Helpers;
 using MOM.Abstractions;
+using MOM.Exports;
 using MOM.Reports;
 using System.Globalization;
 
@@ -173,6 +174,26 @@ public partial class frmReports : Form
 		await RunReportAsync(report);
 	}
 
+	private async void llMemberExport_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+	{
+		using var dialog = new SaveFileDialog
+		{
+			Title = "Export CSV",
+			Filter = "CSV files|*.csv|All files|*.*",
+			DefaultExt = "csv",
+			AddExtension = true,
+			FileName = "bmc_members.csv",
+			OverwritePrompt = true,
+		};
+		if (dialog.ShowDialog() == DialogResult.OK)
+		{
+			string path = dialog.FileName;
+			var export = new HouseholdsExport(_context, path);
+
+			await RunExportAsync(export);
+		}
+	}
+
 	private void tbMembersByAgeFrom_Validated(object sender, EventArgs e)
 	{
 		if (tbMembersByAgeFrom.Value is DateTime from && tbMembersByAgeTo.Value is DateTime to)
@@ -239,6 +260,19 @@ public partial class frmReports : Form
 		{
 			tabControl1.Enabled = false;
 			await report.ShowAsync();
+		}
+		finally
+		{
+			tabControl1.Enabled = true;
+		}
+	}
+
+	private async Task RunExportAsync(IExport export)
+	{
+		try
+		{
+			tabControl1.Enabled = false;
+			await export.ExportAsync();
 		}
 		finally
 		{

@@ -400,3 +400,4 @@ FodyWeavers.xsd
 # Icon
 Icon/*
 App/elephant.ico
+Installer/*

@@ -77,7 +77,6 @@ internal abstract class Report
 	{
 		string title = GetTitle();
 		string margin = GetPageMargin();
-		const string organization = "Bowmansville Mennonite Church";
 
 		var global = EnumerateLines(GetGlobalStyle());
 		var style = EnumerateLines(GetStyle());
